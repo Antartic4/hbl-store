@@ -11,6 +11,11 @@ export default function Home() {
       </Head>
 
       <h1 className="text-3xl font-bold"> Buenas? </h1>
+      <h2 classname="text-xl font-thin">Hola</h2>
+      <h2 classname="text-xl font-thin">me</h2>
+      <h2 classname="text-xl font-thin">llamo</h2>
+      <h2 classname="text-xl font-thin">roberto</h2>
+      <h2 classname="text-xl font-thin">hehe</h2>
     </div>
   );
 }
