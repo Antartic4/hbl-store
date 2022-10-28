@@ -6,6 +6,7 @@ import Layout from '../components/Layout';
 import { getError } from '../utils/error';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
+import axios from 'axios';
 
 export default function LoginScreen() {
   const { data: session } = useSession();
@@ -22,10 +23,16 @@ export default function LoginScreen() {
   const {
     handleSubmit,
     register,
+    getValues,
     formState: { errors },
   } = useForm();
-  const submitHandler = async ({ email, password }) => {
+  const submitHandler = async ({ name, email, password }) => {
     try {
+      await axios.post('/api/auth/signup', {
+        name,
+        email,
+        password,
+      });
       const result = await signIn('credentials', {
         redirect: false,
         email,
@@ -39,12 +46,28 @@ export default function LoginScreen() {
     }
   };
   return (
-    <Layout title="Login">
+    <Layout title="Crear cuenta">
       <form
         className="max-w-screen-md mx-auto"
         onSubmit={handleSubmit(submitHandler)}
       >
-        <h1 className="mb-4 text-xl">Login</h1>
+        <h1 className="mb-4 text-xl">Crear cuenta</h1>
+        <div className="mb-4">
+          <label htmlFor="name">Nombre</label>
+          <input
+            type="text"
+            className="w-full"
+            id="name"
+            autoFocus
+            {...register('name', {
+              required: 'Porfavor introduzca su nombre',
+            })}
+          />
+          {errors.name && (
+            <div className="text-red-500">{errors.name.message}</div>
+          )}
+        </div>
+
         <div className="mb-4">
           <label htmlFor="email">Email</label>
           <input
@@ -72,16 +95,44 @@ export default function LoginScreen() {
               required: 'Introduzca clave',
               minLength: {
                 value: 6,
-                message: 'password is more than 5 chars',
+                message: 'Confirmar que la clave tenga mas de 5 caracteres.',
               },
             })}
             className="w-full"
             id="password"
             autoFocus
-          ></input>
+          />
+          {errors.confirmPassword && (
+            <div className="text-red-500">{errors.confirmPassword.message}</div>
+          )}
         </div>
+
         <div className="mb-4">
-          <button className="primary-button">Login</button>
+          <label htmlFor="confirmPassword">Confirmar clave</label>
+          <input
+            className="w-full"
+            type="password"
+            id="confirmPassword"
+            {...register('confirmPassword', {
+              required: 'Porfavor introduzca la clave nuevamente',
+              validate: (value) => value === getValues('password'),
+              minLength: {
+                value: 6,
+                message: 'Confirmar que la clave tenga mas de 5 caracteres.',
+              },
+            })}
+          />
+          {errors.confirmPassword && (
+            <div className="text-red-500">{errors.confirmPassword.message}</div>
+          )}
+          {errors.confirmPassword &&
+            errors.confirmPassword.type === 'validate' && (
+              <div className="text-red-500"> Las claves no concuerdan</div>
+            )}
+        </div>
+
+        <div className="mb-4">
+          <button className="primary-button">Crear cuenta</button>
         </div>
         <div className="mb-4">
           Don&apos;t have an account? &nbsp;
