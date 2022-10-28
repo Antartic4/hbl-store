@@ -38,7 +38,7 @@ export default function PaymentScreen() {
   return (
     <Layout title="Metodo de Pago">
       <CheckoutWizard activeStep={2} />
-      <form className="mx-auto max-w-screen-md" onSubmit={submitHandler}>
+      <form className="max-w-screen-md mx-auto" onSubmit={submitHandler}>
         {['PayPal', 'Stripe', 'CashOnDelivery'].map((payment) => (
           <div key={payment} className="mb-4">
             <input
@@ -54,7 +54,7 @@ export default function PaymentScreen() {
             </label>
           </div>
         ))}
-        <div className="mb-4 flex justify-between">
+        <div className="flex justify-between mb-4">
           <button
             onClick={() => router.push('/shipping')}
             type="button"
@@ -68,3 +68,5 @@ export default function PaymentScreen() {
     </Layout>
   );
 }
+
+PaymentScreen.auth = true;

@@ -27,7 +27,7 @@ a {
 }
 
 .default-button {
-  @apply px-4 py-2 text-black rounded shadow outline-none bg-gray-100 hover:bg-amber-400 active:bg-gray-200;
+  @apply px-4 py-2 text-black bg-gray-100 rounded shadow outline-none hover:bg-amber-400 active:bg-gray-200;
 }
 
 input,

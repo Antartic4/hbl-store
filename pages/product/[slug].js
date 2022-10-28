@@ -1,28 +1,31 @@
 import Image from 'next/image';
+import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useContext, useEffect } from 'react';
 import Layout from '../../components/Layout';
-import data from '../../utils/data';
+import Product from '../../models/Product';
+import db from '../../utils/db';
 import { Store } from '../../utils/Store';
 
-export default function ProductScreen() {
+export default function ProductScreen(props) {
+  const { product } = props;
   const { state, dispatch } = useContext(Store);
   const router = useRouter();
-  const { query } = useRouter();
-  const { slug } = query;
-  const product = data.products.find((x) => x.slug === slug);
   if (!product) {
-    return <div>Producto no encontrado.</div>;
+    return (
+      <Layout title="Producto no encontrado.">Producto no encontrado.</Layout>
+    );
   }
 
-  const addToCartHandler = () => {
+  const addToCartHandler = async () => {
     const existItem = state.cart.cartItems.find((x) => x.slug === product.slug);
     const quantity = existItem ? existItem.quantity + 1 : 1;
 
-    if (product.countInStock < quantity) {
-      alert('Disculpa. El producto se agotó.');
-      return;
+    const { data } = await axios.get(`/api/products/${product._id}`);
+
+    if (data.countInStock < quantity) {
+      return toast.error('Disculpa. El producto se agotó.');
     }
 
     dispatch({ type: 'CART_ADD_ITEM', payload: { ...product, quantity } });
@@ -49,7 +52,7 @@ export default function ProductScreen() {
         <div>
           <ul>
             <li>
-              <h1 className="text-l font-bold">{product.name}</h1>
+              <h1 className="font-bold text-l">{product.name}</h1>
             </li>
             <li>Categoria: {product.category}</li>
             <li>Marca: {product.brand}</li>
@@ -59,22 +62,36 @@ export default function ProductScreen() {
             <li>Descripcion: {product.description}</li>
           </ul>
         </div>
-        <div className="card p-5">
-          <div className="mb-2 flex justify-between">
+        <div className="p-5 card">
+          <div className="flex justify-between mb-2">
             <div>Precio</div>
             <div>DOP ${product.price}</div>
           </div>
-          <div className="mb-2 flex justify-between">
+          <div className="flex justify-between mb-2">
             <div>Status</div>
             <div>
               {product.countInStock > 0 ? 'Disponible' : 'No disponible'}
             </div>
           </div>
-          <button className="primary-button w-full" onClick={addToCartHandler}>
+          <button className="w-full primary-button" onClick={addToCartHandler}>
             Agregar al Carrito
           </button>
         </div>
       </div>
     </Layout>
   );
+}
+
+export async function getServerSideProps(context) {
+  const { params } = context;
+  const { slug } = params;
+
+  await db.connect();
+  const product = await Product.findOne({ slug }).lean();
+  await db.disconnect();
+  return {
+    props: {
+      product: product ? db.convertDocToObj(product) : null,
+    },
+  };
 }
