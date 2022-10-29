@@ -1,10 +1,10 @@
-import Cookies from 'js-cookie';
-import Router, { useRouter } from 'next/router';
 import React, { useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import Cookies from 'js-cookie';
 import CheckoutWizard from '../components/CheckoutWizard';
 import Layout from '../components/Layout';
 import { Store } from '../utils/Store';
+import { useRouter } from 'next/router';
 
 export default function ShippingScreen() {
   const {
@@ -17,7 +17,7 @@ export default function ShippingScreen() {
   const { state, dispatch } = useContext(Store);
   const { cart } = state;
   const { shippingAddress } = cart;
-  const router = useRouter;
+  const router = useRouter();
 
   useEffect(() => {
     setValue('fullName', shippingAddress.fullName);
@@ -45,8 +45,10 @@ export default function ShippingScreen() {
         },
       })
     );
-    Router.push('/payment');
+
+    router.push('/payment');
   };
+
   return (
     <Layout title="Shipping Address">
       <CheckoutWizard activeStep={1} />
@@ -55,7 +57,7 @@ export default function ShippingScreen() {
         onSubmit={handleSubmit(submitHandler)}
       >
         <h1 className="mb-4 text-xl">Shipping Address</h1>
-        <div>
+        <div className="mb-4">
           <label htmlFor="fullName">Full Name</label>
           <input
             className="w-full"

@@ -1,17 +1,20 @@
-import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import Cookies from 'js-cookie';
 import CheckoutWizard from '../components/CheckoutWizard';
 import Layout from '../components/Layout';
 import { Store } from '../utils/Store';
 
 export default function PaymentScreen() {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
-  const router = useRouter();
+
   const { state, dispatch } = useContext(Store);
   const { cart } = state;
   const { shippingAddress, paymentMethod } = cart;
+
+  const router = useRouter();
+
   const submitHandler = (e) => {
     e.preventDefault();
     if (!selectedPaymentMethod) {
@@ -25,9 +28,9 @@ export default function PaymentScreen() {
         paymentMethod: selectedPaymentMethod,
       })
     );
+
     router.push('/placeorder');
   };
-
   useEffect(() => {
     if (!shippingAddress.address) {
       return router.push('/shipping');
@@ -36,9 +39,10 @@ export default function PaymentScreen() {
   }, [paymentMethod, router, shippingAddress.address]);
 
   return (
-    <Layout title="Metodo de Pago">
+    <Layout title="Payment Method">
       <CheckoutWizard activeStep={2} />
-      <form className="max-w-screen-md mx-auto" onSubmit={submitHandler}>
+      <form className="mx-auto max-w-screen-md" onSubmit={submitHandler}>
+        <h1 className="mb-4 text-xl">Payment Method</h1>
         {['PayPal', 'Stripe', 'CashOnDelivery'].map((payment) => (
           <div key={payment} className="mb-4">
             <input
@@ -49,12 +53,13 @@ export default function PaymentScreen() {
               checked={selectedPaymentMethod === payment}
               onChange={() => setSelectedPaymentMethod(payment)}
             />
+
             <label className="p-2" htmlFor={payment}>
               {payment}
             </label>
           </div>
         ))}
-        <div className="flex justify-between mb-4">
+        <div className="mb-4 flex justify-between">
           <button
             onClick={() => router.push('/shipping')}
             type="button"
