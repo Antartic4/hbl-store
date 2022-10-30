@@ -97,51 +97,58 @@ export default function Layout({ title, children }) {
                 {status === 'loading' ? (
                   'Cargando...'
                 ) : session?.user ? (
-                  <Menu as="div" className="relative inline-block text-xl ">
-                    <Menu.Button className="text-black ">
-                      {session.user.name}
-                    </Menu.Button>
-                    <Menu.Items className="absolute right-0 w-56 pt-5 text-xl origin-top-right bg-white shadow-lg rounded-b-xl ">
-                      <Menu.Item>
-                        <DropdownLink className="dropdown-link" href="/profile">
-                          Perfil
-                        </DropdownLink>
-                      </Menu.Item>
-                      <Menu.Item>
-                        <DropdownLink
-                          className="dropdown-link rounded-2xl"
-                          href="/order-history"
-                        >
-                          Historial de Ordenes
-                        </DropdownLink>
-                      </Menu.Item>
-                      {session.user.isAdmin && (
+                  <div className="p-1.5 bg-black rounded-lg">
+                    <Menu as="div" className="relative inline-block text-xl ">
+                      <Menu.Button className="text-white ">
+                        {session.user.name}
+                      </Menu.Button>
+                      <Menu.Items className="absolute right-0 w-56 pt-5 text-xl origin-top-right bg-white shadow-lg rounded-b-xl ">
                         <Menu.Item>
                           <DropdownLink
                             className="dropdown-link"
-                            href="/admin/dashboard"
+                            href="/profile"
                           >
-                            Portal Admin
+                            Perfil
                           </DropdownLink>
                         </Menu.Item>
-                      )}
-                      <Menu.Item>
-                        <a
-                          className="dropdown-link"
-                          href="#"
-                          onClick={logoutClickHandler}
-                        >
-                          Logout
-                        </a>
-                      </Menu.Item>
-                    </Menu.Items>
-                  </Menu>
+                        <Menu.Item>
+                          <DropdownLink
+                            className="dropdown-link "
+                            href="/order-history"
+                          >
+                            Historial de Ordenes
+                          </DropdownLink>
+                        </Menu.Item>
+                        {session.user.isAdmin && (
+                          <Menu.Item>
+                            <DropdownLink
+                              className="dropdown-link"
+                              href="/admin/dashboard"
+                            >
+                              Portal Admin
+                            </DropdownLink>
+                          </Menu.Item>
+                        )}
+                        <Menu.Item>
+                          <a
+                            className="dropdown-link"
+                            href="#"
+                            onClick={logoutClickHandler}
+                          >
+                            Logout
+                          </a>
+                        </Menu.Item>
+                      </Menu.Items>
+                    </Menu>
+                  </div>
                 ) : (
-                  <Link legacyBehavior href="/login">
-                    <a className="p-2 text-2xl text-black hover:text-gray-800">
-                      Acceder
-                    </a>
-                  </Link>
+                  <div className="p-1.5 bg-black rounded">
+                    <Link legacyBehavior href="/login">
+                      <a className="p-2 text-2xl text-white hover:text-gray-200">
+                        Acceder
+                      </a>
+                    </Link>
+                  </div>
                 )}
               </div>
             </div>
