@@ -10,6 +10,8 @@ export default function ProductItem({ product, addToCartHandler }) {
           <img
             src={product.image}
             alt={product.name}
+            height={800}
+            width={700}
             className="rounded shadow"
           />
         </a>
@@ -27,7 +29,9 @@ export default function ProductItem({ product, addToCartHandler }) {
           type="button"
           onClick={() => addToCartHandler(product)}
         >
-          Agregar al carrito
+          <h1 className="font-medium hover:font-bold text-l">
+            Agregar al Carrito
+          </h1>
         </button>
       </div>
     </div>

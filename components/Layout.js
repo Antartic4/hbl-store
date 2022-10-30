@@ -37,9 +37,9 @@ export default function Layout({ title, children }) {
 
       <ToastContainer position="bottom-center" limit={1} />
 
-      <div className="flex flex-col justify-between min-h-screen">
+      <div className="flex flex-col justify-between min-h-screen ">
         <header>
-          <nav className="flex items-center justify-between px-4 shadow-md h-30">
+          <nav className="flex items-center justify-between px-2 py-2 shadow-md h-30">
             <div className="flex items-center px-auto ">
               <a className="px-4">
                 <Link legacyBehavior href="/">
@@ -68,14 +68,14 @@ export default function Layout({ title, children }) {
             <div className="flex items-center justify-between px-4">
               <div>
                 <Link legacyBehavior href="/cart">
-                  <div className="flex justify-between pr-5">
+                  <div className="flex items-center justify-between pr-5">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke-width="1.5"
-                      stroke="currentColor"
-                      class="w-10 h-10 hover:text-gray-700"
+                      stroke="black"
+                      class="w-8 h-8 hover:text-gray-700"
                     >
                       <path
                         stroke-linecap="round"
@@ -85,8 +85,8 @@ export default function Layout({ title, children }) {
                     </svg>
                     {cartItemsCount > 0 && (
                       <Link legacyBehavior href="/cart">
-                        <span className="px-4 py-2 ml-2 font-semibold text-white bg-red-600 rounded-full shrink-0 text-l">
-                          {cartItemsCount}
+                        <span className="p-0.5 px-1 py-1 font-medium text-white bg-black rounded-full">
+                          <p className="text-sm">{cartItemsCount}</p>
                         </span>
                       </Link>
                     )}
@@ -138,7 +138,9 @@ export default function Layout({ title, children }) {
                   </Menu>
                 ) : (
                   <Link legacyBehavior href="/login">
-                    <a className="p-2">Login</a>
+                    <a className="p-2 text-2xl text-black hover:text-gray-800">
+                      Acceder
+                    </a>
                   </Link>
                 )}
               </div>

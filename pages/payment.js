@@ -41,9 +41,9 @@ export default function PaymentScreen() {
   return (
     <Layout title="Payment Method">
       <CheckoutWizard activeStep={2} />
-      <form className="mx-auto max-w-screen-md" onSubmit={submitHandler}>
+      <form className="max-w-screen-md mx-auto" onSubmit={submitHandler}>
         <h1 className="mb-4 text-xl">Payment Method</h1>
-        {['PayPal', 'Stripe', 'CashOnDelivery'].map((payment) => (
+        {['PayPal', 'Deposito', 'Efectivo en entrega'].map((payment) => (
           <div key={payment} className="mb-4">
             <input
               name="paymentMethod"
@@ -53,13 +53,12 @@ export default function PaymentScreen() {
               checked={selectedPaymentMethod === payment}
               onChange={() => setSelectedPaymentMethod(payment)}
             />
-
             <label className="p-2" htmlFor={payment}>
               {payment}
             </label>
           </div>
         ))}
-        <div className="mb-4 flex justify-between">
+        <div className="flex justify-between mb-4">
           <button
             onClick={() => router.push('/shipping')}
             type="button"

@@ -10,7 +10,7 @@ body {
 }
 
 a {
-  @apply text-blue-600 hover:text-blue-800;
+  @apply text-black hover:text-gray-800;
 }
 
 * {
@@ -22,7 +22,7 @@ a {
 }
 
 .primary-button {
-  @apply px-4 py-2 rounded shadow outline-none bg-amber-300 hover:bg-amber-400 active:bg-amber-500;
+  @apply px-4 py-2 rounded shadow outline-none bg-gray-200 hover:bg-gray-300 active:bg-amber-500;
 }
 
 .default-button {
