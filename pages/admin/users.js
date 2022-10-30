@@ -1,6 +1,5 @@
 import axios from 'axios';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import React, { useEffect, useReducer } from 'react';
 import { toast } from 'react-toastify';
 import Layout from '../../components/Layout';
@@ -11,15 +10,10 @@ function reducer(state, action) {
     case 'FETCH_REQUEST':
       return { ...state, loading: true, error: '' };
     case 'FETCH_SUCCESS':
-      return { ...state, loading: false, products: action.payload, error: '' };
+      return { ...state, loading: false, users: action.payload, error: '' };
     case 'FETCH_FAIL':
       return { ...state, loading: false, error: action.payload };
-    case 'CREATE_REQUEST':
-      return { ...state, loadingCreate: true };
-    case 'CREATE_SUCCESS':
-      return { ...state, loadingCreate: false };
-    case 'CREATE_FAIL':
-      return { ...state, loadingCreate: false };
+
     case 'DELETE_REQUEST':
       return { ...state, loadingDelete: true };
     case 'DELETE_SUCCESS':
@@ -29,42 +23,22 @@ function reducer(state, action) {
     case 'DELETE_RESET':
       return { ...state, loadingDelete: false, successDelete: false };
     default:
-      state;
+      return state;
   }
 }
-
-export default function AdminProductsScreen() {
-  const router = useRouter();
-  const [
-    { loading, error, products, loadingCreate, successDelete, loadingDelete },
-    dispatch,
-  ] = useReducer(reducer, {
-    loading: true,
-    products: [],
-    error: '',
-  });
-
-  const createHandler = async () => {
-    if (!window.confirm('Estas segur@?')) {
-      return;
-    }
-    try {
-      dispatch({ type: 'CREATE_REQUEST' });
-      const { data } = await axios.post(`/api/admin/products`);
-      dispatch({ type: 'CREATE_SUCCESS' });
-      toast.success('Producto creado exitosamente');
-      router.push(`/admin/product/${data.product._id}`);
-    } catch (err) {
-      dispatch({ type: 'CREATE_FAIL' });
-      toast.error(getError(err));
-    }
-  };
+function AdminUsersScreen() {
+  const [{ loading, error, users, successDelete, loadingDelete }, dispatch] =
+    useReducer(reducer, {
+      loading: true,
+      users: [],
+      error: '',
+    });
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
-        const { data } = await axios.get(`/api/admin/products`);
+        const { data } = await axios.get(`/api/admin/users`);
         dispatch({ type: 'FETCH_SUCCESS', payload: data });
       } catch (err) {
         dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
@@ -76,22 +50,24 @@ export default function AdminProductsScreen() {
       fetchData();
     }
   }, [successDelete]);
-  const deleteHandler = async (productId) => {
-    if (!window.confirm('Esta segur@?')) {
+
+  const deleteHandler = async (userId) => {
+    if (!window.confirm('Are you sure?')) {
       return;
     }
     try {
       dispatch({ type: 'DELETE_REQUEST' });
-      await axios.delete(`/api/admin/products/${productId}`);
+      await axios.delete(`/api/admin/users/${userId}`);
       dispatch({ type: 'DELETE_SUCCESS' });
-      toast.success('Producto eliminado exitosamente');
+      toast.success('User deleted successfully');
     } catch (err) {
       dispatch({ type: 'DELETE_FAIL' });
       toast.error(getError(err));
     }
   };
+
   return (
-    <Layout title="Productos">
+    <Layout title="Users">
       <div className="grid md:grid-cols-4 md:gap-5">
         <div>
           <ul>
@@ -107,28 +83,19 @@ export default function AdminProductsScreen() {
             </li>
             <li>
               <Link legacyBehavior href="/admin/products">
-                <a className="font-bold">Productos</a>
+                Productos
               </Link>
             </li>
             <li>
               <Link legacyBehavior href="/admin/users">
-                Usuarios
+                <a className="font-bold">Usuarios</a>
               </Link>
             </li>
           </ul>
         </div>
         <div className="overflow-x-auto md:col-span-3">
-          <div className="flex justify-between">
-            <h1 className="mb-4 text-xl">Productos</h1>
-            {loadingDelete && <div>Eliminando articulo...</div>}
-            <button
-              disabled={loadingCreate}
-              onClick={createHandler}
-              className="primary-button"
-            >
-              {loadingCreate ? 'Cargando...' : 'Crear'}
-            </button>
-          </div>
+          <h1 className="mb-4 text-xl">Usuarios</h1>
+          {loadingDelete && <div>Eliminando...</div>}
           {loading ? (
             <div>Cargando...</div>
           ) : error ? (
@@ -140,26 +107,22 @@ export default function AdminProductsScreen() {
                   <tr>
                     <th className="px-5 text-left">ID</th>
                     <th className="p-5 text-left">NOMBRE</th>
-                    <th className="p-5 text-left">PRECIO</th>
-                    <th className="p-5 text-left">CATEGORIA</th>
-                    <th className="p-5 text-left">CANTIDAD</th>
-                    <th className="p-5 text-left">RATING</th>
+                    <th className="p-5 text-left">EMAIL</th>
+                    <th className="p-5 text-left">ADMIN</th>
                     <th className="p-5 text-left">ACCION</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {products.map((product) => (
-                    <tr key={product._id} className="border-b">
-                      <td className="p-5">{product._id.substring(20, 24)}</td>
-                      <td className="p-5">{product.name}</td>
-                      <td className="p-5">${product.price}</td>
-                      <td className="p-5">{product.category}</td>
-                      <td className="p-5">{product.countInStock}</td>
-                      <td className="p-5">{product.rating}</td>
-                      <td className="p-5">
+                  {users.map((user) => (
+                    <tr key={user._id} className="border-b">
+                      <td className="p-5 ">{user._id.substring(20, 24)}</td>
+                      <td className="p-5 ">{user.name}</td>
+                      <td className="p-5 ">{user.email}</td>
+                      <td className="p-5 ">{user.isAdmin ? 'SI' : 'NO'}</td>
+                      <td className="p-5 ">
                         <Link
                           legacyBehavior
-                          href={`/admin/product/${product._id}`}
+                          href={`/admin/user/${user._id}`}
                           passHref
                         >
                           <a type="button" className="default-button">
@@ -168,9 +131,9 @@ export default function AdminProductsScreen() {
                         </Link>
                         &nbsp;
                         <button
-                          onClick={() => deleteHandler(product._id)}
-                          className="default-button"
                           type="button"
+                          className="default-button"
+                          onClick={() => deleteHandler(user._id)}
                         >
                           Eliminar
                         </button>
@@ -186,5 +149,5 @@ export default function AdminProductsScreen() {
     </Layout>
   );
 }
-
-AdminProductsScreen.auth = { adminOnly: true };
+AdminUsersScreen.auth = { adminOnly: true };
+export default AdminUsersScreen;

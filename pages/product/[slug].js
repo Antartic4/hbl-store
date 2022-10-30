@@ -62,20 +62,25 @@ export default function ProductScreen(props) {
             <li>Descripcion: {product.description}</li>
           </ul>
         </div>
-        <div className="p-5 card">
-          <div className="flex justify-between mb-2">
-            <div>Precio</div>
-            <div>DOP ${product.price}</div>
-          </div>
-          <div className="flex justify-between mb-2">
-            <div>Status</div>
-            <div>
-              {product.countInStock > 0 ? 'Disponible' : 'No disponible'}
+        <div>
+          <div className="p-5 card">
+            <div className="flex justify-between mb-2">
+              <div>Precio</div>
+              <div>USD ${product.price}</div>
             </div>
+            <div className="flex justify-between mb-2">
+              <div>Status</div>
+              <div>
+                {product.countInStock > 0 ? 'Disponible' : 'No disponible'}
+              </div>
+            </div>
+            <button
+              className="w-full primary-button"
+              onClick={addToCartHandler}
+            >
+              Agregar al Carrito
+            </button>
           </div>
-          <button className="w-full primary-button" onClick={addToCartHandler}>
-            Agregar al Carrito
-          </button>
         </div>
       </div>
     </Layout>

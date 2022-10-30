@@ -13,6 +13,8 @@ const handler = async (req, res) => {
     return getHandler(req, res, user);
   } else if (req.method === 'PUT') {
     return putHandler(req, res, user);
+  } else if (req.method === 'DELETE') {
+    return deleteHandler(req, res, user);
   } else {
     return res.status(400).send({ message: 'Metodo no permitido' });
   }
@@ -40,6 +42,18 @@ const putHandler = async (req, res) => {
     await product.save();
     await db.disconnect();
     res.send({ message: 'Producto actualizado exitosamente' });
+  } else {
+    await db.disconnect();
+    res.status(404).send({ message: 'Producto no encontrado' });
+  }
+};
+const deleteHandler = async (req, res) => {
+  await db.connect();
+  const product = await Product.findById(req.query.id);
+  if (product) {
+    await product.remove();
+    await db.disconnect();
+    res.send({ message: 'Producto eliminado satisfactoriamente' });
   } else {
     await db.disconnect();
     res.status(404).send({ message: 'Producto no encontrado' });
