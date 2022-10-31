@@ -10,9 +10,9 @@ export default function ProductItem({ product, addToCartHandler }) {
           <img
             src={product.image}
             alt={product.name}
-            width={100}
-            height={100}
-            className="rounded shadow object-fill h-4/6 w-full"
+            height={500}
+            width={500}
+            className="rounded-xl shadow"
           />
         </a>
       </Link>

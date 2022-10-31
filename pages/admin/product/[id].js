@@ -77,7 +77,7 @@ export default function AdminProductEditScreen() {
   const router = useRouter();
 
   const uploadHandler = async (e, imageField = 'image') => {
-    const url = `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/upload`;
+    const url = `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/upload/c_fill,h_300,w_250/`;
     try {
       dispatch({ type: 'UPLOAD_REQUEST' });
       const {
@@ -85,6 +85,7 @@ export default function AdminProductEditScreen() {
       } = await axios('/api/admin/cloudinary-sign');
 
       const file = e.target.files[0];
+
       const formData = new FormData();
       formData.append('file', file);
       formData.append('signature', signature);
@@ -93,6 +94,7 @@ export default function AdminProductEditScreen() {
       const { data } = await axios.post(url, formData);
 
       dispatch({ type: 'UPLOAD_SUCCESS' });
+
       setValue(imageField, data.secure_url);
       toast.success('Archivo fue agregado exitosamente');
     } catch (err) {

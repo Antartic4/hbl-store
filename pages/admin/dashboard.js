@@ -78,8 +78,8 @@ function AdminDashboardScreen() {
 
   return (
     <Layout title="Admin Dashboard">
-      <div className="grid md:grid-cols-4 md:gap-5">
-        <div>
+      <div className=" grid md:grid-cols-4 md:gap-5">
+        <div className="bg-">
           <ul>
             <li>
               <Link legacyBehavior href="/admin/dashboard">
@@ -88,17 +88,17 @@ function AdminDashboardScreen() {
             </li>
             <li>
               <Link legacyBehavior href="/admin/orders">
-                Ordenes
+                <a className="text-blue-700 hover:text-blue-500">Ordenes</a>
               </Link>
             </li>
             <li>
               <Link legacyBehavior href="/admin/products">
-                Productos
+                <a className="text-blue-700 hover:text-blue-500">Productos</a>
               </Link>
             </li>
-            <li>
+            <li className="pb-5">
               <Link legacyBehavior href="/admin/users">
-                Usuarios
+                <a className="text-blue-700 hover:text-blue-500">Usuarios</a>
               </Link>
             </li>
           </ul>
@@ -116,28 +116,36 @@ function AdminDashboardScreen() {
                   <p className="text-3xl">${summary.ordersPrice}</p>
                   <p>Ventas</p>
                   <Link legacyBehavior href="/admin/orders">
-                    Ver Ventas
+                    <a className="text-blue-700 hover:text-blue-500">
+                      Ver Ventas
+                    </a>
                   </Link>
                 </div>
                 <div className="p-5 m-5 card">
                   <p className="text-3xl">{summary.ordersCount}</p>
                   <p>Ordenes</p>
                   <Link legacyBehavior href="/admin/orders">
-                    Ver Ordenes
+                    <a className="text-blue-700 hover:text-blue-500">
+                      Ver Ordenes
+                    </a>
                   </Link>
                 </div>
                 <div className="p-5 m-5 card">
                   <p className="text-3xl">{summary.productsCount}</p>
                   <p>Productos</p>
                   <Link legacyBehavior href="/admin/products">
-                    Ver Productos
+                    <a className="text-blue-700 hover:text-blue-500">
+                      Ver Productos
+                    </a>
                   </Link>
                 </div>
                 <div className="p-5 m-5 card">
                   <p className="text-3xl">{summary.usersCount}</p>
                   <p>Usuarios</p>
                   <Link legacyBehavior href="/admin/users">
-                    Ver Usuarios
+                    <a className="text-blue-700 hover:text-blue-500">
+                      Ver Usuarios
+                    </a>
                   </Link>
                 </div>
               </div>
