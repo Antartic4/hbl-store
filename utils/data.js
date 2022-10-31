@@ -3,15 +3,15 @@ import bcrypt from 'bcryptjs';
 const data = {
   users: [
     {
-      name: 'Roberto José',
-      email: 'roberto@hotmail.com',
-      password: bcrypt.hashSync('robertoadmin'),
+      name: 'Roberto',
+      email: 'robjose1996@hotmail.com',
+      password: bcrypt.hashSync('123456'),
       isAdmin: true,
     },
     {
-      name: 'Mariel',
+      name: 'Mariel_admin',
       email: 'marieladmin@hotmail.com',
-      password: bcrypt.hashSync('marieladmin'),
+      password: bcrypt.hashSync('123456'),
       isAdmin: true,
     },
     {
@@ -23,7 +23,7 @@ const data = {
   ],
   products: [
     {
-      name: 'PHOEBE Choker X.001',
+      name: 'Choker 1',
       slug: 'choker-1',
       category: 'Chokers',
       image: '/images/choker1.jpeg',
@@ -35,7 +35,7 @@ const data = {
       description: 'Un choker muy bonito',
     },
     {
-      name: 'PHOEBE Choker X.002',
+      name: 'Choker 2',
       slug: 'choker-2',
       category: 'Chokers',
       image: '/images/choker2.jpeg',
