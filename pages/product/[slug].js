@@ -41,12 +41,16 @@ export default function ProductScreen(props) {
       </div>
       <div className="grid md:grid-cols-4 md:gap-3">
         <div className="md:col-span-2">
+          <div>
+            <h1 className="text-center text-2xl">{product.name}</h1>
+          </div>
           <Image
             src={product.image}
             alt={product.name}
-            width={640}
-            height={640}
+            width={300}
+            height={400}
             layout="responsive"
+            className="rounded shadow object-fill h-4/6 w-full"
           ></Image>
         </div>
         <div>
@@ -71,7 +75,11 @@ export default function ProductScreen(props) {
             <div className="flex justify-between mb-2">
               <div>Status</div>
               <div>
-                {product.countInStock > 0 ? 'Disponible' : 'No disponible'}
+                {product.countInStock > 0 ? (
+                  <div className="text-green-600">Disponible</div>
+                ) : (
+                  <div className="text-red-500">No disponible</div>
+                )}
               </div>
             </div>
             <button
