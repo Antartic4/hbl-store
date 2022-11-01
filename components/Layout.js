@@ -2,15 +2,68 @@ import { signOut, useSession } from 'next-auth/react';
 import Head from 'next/head';
 import React, { useContext, useEffect, useState } from 'react';
 import Link from 'next/link';
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import { Menu } from '@headlessui/react';
 import 'react-toastify/dist/ReactToastify.css';
+import useStyles from '../utils/styles';
 import { Store } from '../utils/Store';
 import DropdownLink from './DropdownLink';
+import { getError } from '../utils/error';
+import MenuIcon from '@material-ui/icons/Menu';
+import CancelIcon from '@material-ui/icons/Cancel';
+import SearchIcon from '@material-ui/icons/Search';
+import NextLink from 'next/link';
 import Cookies from 'js-cookie';
 import Image from 'next/image';
+import {
+  Box,
+  Divider,
+  Drawer,
+  IconButton,
+  InputBase,
+  List,
+  ListItem,
+  ListItemText,
+  Typography,
+} from '@material-ui/core';
+import axios from 'axios';
 
 export default function Layout({ title, children }) {
+  const classes = useStyles();
+
+  const [sidebarVisible, setSidebarVisible] = useState(false);
+
+  const sidebarOpenHandler = () => {
+    setSidebarVisible(true);
+  };
+
+  const sidebarCloseHandler = () => {
+    setSidebarVisible(false);
+  };
+
+  const [categories, setCategories] = useState([]);
+  const fetchCategories = async () => {
+    try {
+      const { data } = await axios.get(`/api/products/categories`);
+      setCategories(data);
+    } catch (err) {
+      toast(getError(err), { variant: 'error' });
+    }
+  };
+
+  const [query, setQuery] = useState('');
+  const queryChangeHandler = (e) => {
+    setQuery(e.target.value);
+  };
+  const submitHandler = (e) => {
+    e.preventDefault();
+    router.push(`/search?query=${query}`);
+  };
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
   const { status, data: session } = useSession();
 
   const { state, dispatch } = useContext(Store);
@@ -41,6 +94,56 @@ export default function Layout({ title, children }) {
         <header>
           <nav className="flex items-center justify-between px-2 py-2 shadow-md h-30">
             <div className="flex items-center px-auto ">
+              <Box display="flex" alignItems="center">
+                <IconButton
+                  aria-label="open drawer"
+                  onClick={sidebarOpenHandler}
+                  className={classes.menubutton}
+                >
+                  <MenuIcon className={classes.navbar}></MenuIcon>
+                </IconButton>
+              </Box>
+              <Drawer
+                anchor="left"
+                open={sidebarVisible}
+                onClose={sidebarCloseHandler}
+              >
+                <List>
+                  <ListItem>
+                    <Box
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="space-between"
+                    >
+                      <div className="text-gray-700 text-2xl flex items-center">
+                        <Typography>Ver por Categorias</Typography>
+                        <IconButton
+                          aria-label="close"
+                          onClick={sidebarCloseHandler}
+                        >
+                          <CancelIcon></CancelIcon>
+                        </IconButton>
+                      </div>
+                    </Box>
+                  </ListItem>
+                  <Divider light />
+                  {categories.map((category) => (
+                    <NextLink
+                      key={category}
+                      href={`/search?category=${category}`}
+                      passHref
+                    >
+                      <ListItem
+                        button
+                        component="a"
+                        onClick={sidebarCloseHandler}
+                      >
+                        <ListItemText primary={category}></ListItemText>
+                      </ListItem>
+                    </NextLink>
+                  ))}
+                </List>
+              </Drawer>
               <a className="px-4">
                 <Link legacyBehavior href="/">
                   <Image
@@ -74,13 +177,13 @@ export default function Layout({ title, children }) {
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
-                        stroke-width="1.5"
+                        strokeWidth="1.5"
                         stroke="black"
-                        class="w-8 h-8"
+                        className="w-8 h-8"
                       >
                         <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                           d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
                         />
                       </svg>
@@ -155,6 +258,27 @@ export default function Layout({ title, children }) {
               </div>
             </div>
           </nav>
+          <Divider light />
+          <div className="flex justify-center pt-2">
+            <div className={classes.searchSection}>
+              <Divider light />
+              <form onSubmit={submitHandler} className={classes.searchForm}>
+                <InputBase
+                  name="query"
+                  className={classes.searchInput}
+                  placeholder="Buscar Productos"
+                  onChange={queryChangeHandler}
+                />
+                <IconButton
+                  type="submit"
+                  className={classes.iconButton}
+                  aria-label="search"
+                >
+                  <SearchIcon />
+                </IconButton>
+              </form>
+            </div>
+          </div>
         </header>
         <main className="container px-4 m-auto mt-4">{children}</main>
         <footer className="flex items-center justify-center h-10 shadow-inner">
