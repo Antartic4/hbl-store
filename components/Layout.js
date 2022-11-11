@@ -174,8 +174,10 @@ export default function Layout({ title, children }) {
                 <div className="">
                   <Link href="/">
                     <buttton className="text-3xl shrink font-bold">
-                      <h4 className="shrink flex text-left">M A R I E L</h4>
-                      <h4 className="shrink flex text-left">F R I A S</h4>
+                      <div className="md:flex">
+                        <h4 className="shrink text-left">M A R I E L</h4>
+                        <h4 className="shrink text-left md:pl-5">F R I A S</h4>
+                      </div>
                     </buttton>
                   </Link>
                 </div>

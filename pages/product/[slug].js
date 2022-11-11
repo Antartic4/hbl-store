@@ -78,7 +78,7 @@ export default function ProductScreen(props) {
             <figure className="mx-auto relative max-w-sm object-cover transition-all duration-300 cursor-pointer filter grayscale-0 hover:grayscale">
               <a>
                 <Image
-                  className="rounded-lg"
+                  className="rounded-lg pb-3"
                   src={product.image}
                   alt="image description"
                   width={300}
