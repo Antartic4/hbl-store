@@ -69,26 +69,26 @@ function AdminUsersScreen() {
   return (
     <Layout title="Users">
       <div className="grid md:grid-cols-4 md:gap-5">
-        <div>
+        <div className="card text-center pt-5 ">
           <ul>
             <li>
               <Link legacyBehavior href="/admin/dashboard">
-                Dashboard
+                <a className="text-blue-500 hover:text-blue-700">Dashboard</a>
               </Link>
             </li>
             <li>
               <Link legacyBehavior href="/admin/orders">
-                Ordenes
+                <a className="text-blue-500 hover:text-blue-700">Ordenes</a>
               </Link>
             </li>
             <li>
               <Link legacyBehavior href="/admin/products">
-                Productos
+                <a className="text-blue-500 hover:text-blue-700">Productos</a>
               </Link>
             </li>
-            <li>
+            <li className="pb-5">
               <Link legacyBehavior href="/admin/users">
-                <a className="font-bold">Usuarios</a>
+                <a className="font-bold text-xl">Usuarios</a>
               </Link>
             </li>
           </ul>

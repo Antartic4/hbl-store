@@ -40,26 +40,26 @@ export default function AdminOrderSreen() {
   return (
     <Layout title="Admin Dashboard">
       <div className="grid md:grid-cols-4 md:gap-5">
-        <div>
+        <div className="card text-center pt-5 ">
           <ul>
             <li>
               <Link legacyBehavior href="/admin/dashboard">
-                Dashboard
+                <a className="text-blue-500 hover:text-blue-700">Dashboard</a>
               </Link>
             </li>
             <li>
               <Link legacyBehavior href="/admin/orders">
-                <a className="font-bold">Ordenes</a>
+                <a className="font-bold text-xl">Ordenes</a>
               </Link>
             </li>
             <li>
               <Link legacyBehavior href="/admin/products">
-                Productos
+                <a className="text-blue-500 hover:text-blue-700">Productos</a>
               </Link>
             </li>
-            <li>
+            <li className="pb-5">
               <Link legacyBehavior href="/admin/users">
-                Usuarios
+                <a className="text-blue-500 hover:text-blue-700">Usuarios</a>
               </Link>
             </li>
           </ul>

@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-page-custom-font */
 import { signOut, useSession } from 'next-auth/react';
 import Head from 'next/head';
 import React, { useContext, useEffect, useState } from 'react';
@@ -9,7 +10,6 @@ import useStyles from '../utils/styles';
 import { Store } from '../utils/Store';
 import DropdownLink from './DropdownLink';
 import { getError } from '../utils/error';
-import MenuIcon from '@material-ui/icons/Menu';
 import CancelIcon from '@material-ui/icons/Cancel';
 import SearchIcon from '@material-ui/icons/Search';
 import NextLink from 'next/link';
@@ -27,10 +27,12 @@ import {
   Typography,
 } from '@material-ui/core';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 export default function Layout({ title, children }) {
   const classes = useStyles();
 
+  const router = useRouter();
   const [sidebarVisible, setSidebarVisible] = useState(false);
 
   const sidebarOpenHandler = () => {
@@ -99,9 +101,21 @@ export default function Layout({ title, children }) {
                   aria-label="open drawer"
                   onClick={sidebarOpenHandler}
                   className={classes.menubutton}
-                >
-                  <MenuIcon className={classes.navbar}></MenuIcon>
-                </IconButton>
+                ></IconButton>
+                <button onClick={sidebarOpenHandler} className="mr-5">
+                  <a className="px-4">
+                    <Link legacyBehavior href="/">
+                      <Image
+                        src="https://i.ibb.co/nRPJC8J/improved-l-1.png"
+                        className="shrink-0 flex"
+                        alt="improved-l-1"
+                        border="0"
+                        width={50}
+                        height={75}
+                      />
+                    </Link>
+                  </a>
+                </button>
               </Box>
               <Drawer
                 anchor="left"
@@ -116,7 +130,9 @@ export default function Layout({ title, children }) {
                       justifyContent="space-between"
                     >
                       <div className="text-gray-700 text-2xl flex items-center">
-                        <Typography>Ver por Categorias</Typography>
+                        <h1 className="text-black">
+                          <Typography>Ver por Categorias</Typography>
+                        </h1>
                         <IconButton
                           aria-label="close"
                           onClick={sidebarCloseHandler}
@@ -144,18 +160,27 @@ export default function Layout({ title, children }) {
                   ))}
                 </List>
               </Drawer>
-              <a className="px-4">
-                <Link legacyBehavior href="/">
-                  <Image
-                    src="https://i.ibb.co/nRPJC8J/improved-l-1.png"
-                    alt="improved-l-1"
-                    border="0"
-                    width={70}
-                    height={100}
-                  />
-                </Link>
-              </a>
-              <a className="px-4">
+              <div className=" text-left">
+                <link rel="preconnect" href="https://fonts.googleapis.com" />
+                <link
+                  rel="preconnect"
+                  href="https://fonts.gstatic.com"
+                  crossOrigin="true"
+                />
+                <link
+                  href="https://fonts.googleapis.com/css2?family=PT+Sans+Narrow&display=swap"
+                  rel="stylesheet"
+                />
+                <div className="">
+                  <Link href="/">
+                    <buttton className="text-3xl shrink font-bold">
+                      <h4 className="shrink flex text-left">M A R I E L</h4>
+                      <h4 className="shrink flex text-left">F R I A S</h4>
+                    </buttton>
+                  </Link>
+                </div>
+              </div>
+              {/* <a className="px-4">
                 <Link legacyBehavior href="/">
                   <Image
                     src="https://i.ibb.co/zsrdwXs/improved-l-2.png"
@@ -165,7 +190,7 @@ export default function Layout({ title, children }) {
                     height={300}
                   />
                 </Link>
-              </a>
+              </a> */}
             </div>
 
             <div className="flex items-center justify-between px-4">
@@ -203,11 +228,11 @@ export default function Layout({ title, children }) {
                   'Cargando...'
                 ) : session?.user ? (
                   <div className="p-1.5 bg-black rounded-lg">
-                    <Menu as="div" className="relative inline-block text-xl ">
-                      <Menu.Button className="text-white ">
-                        {session.user.name}
+                    <Menu as="div" className="relative inline-block text-m ">
+                      <Menu.Button className="text-white">
+                        <h1 className="text-l">{session.user.name}</h1>
                       </Menu.Button>
-                      <Menu.Items className="absolute right-0 w-56 pt-5 text-xl origin-top-right bg-white shadow-lg rounded-b-xl ">
+                      <Menu.Items className="absolute right-0 w-56 pt-5 text-xl origin-top-right z-10 bg-white shadow-lg rounded-b-xl ">
                         <Menu.Item>
                           <DropdownLink
                             className="dropdown-link"
@@ -261,7 +286,6 @@ export default function Layout({ title, children }) {
           <Divider light />
           <div className="flex justify-center pt-2">
             <div className={classes.searchSection}>
-              <Divider light />
               <form onSubmit={submitHandler} className={classes.searchForm}>
                 <InputBase
                   name="query"

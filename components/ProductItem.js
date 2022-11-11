@@ -1,21 +1,27 @@
 /* eslint-disable @next/next/no-img-element */
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
 export default function ProductItem({ product, addToCartHandler }) {
   return (
     <div className="card">
-      <Link legacyBehavior href={`/product/${product.slug}`}>
-        <a>
-          <img
-            src={product.image}
-            alt={product.name}
-            height={500}
-            width={500}
-            className="rounded-xl shadow"
-          />
-        </a>
-      </Link>
+      <div className="flex object-cover">
+        <Link legacyBehavior href={`/product/${product.slug}`}>
+          <figure className="transition-all duration-300 cursor-pointer filter grayscale-0 hover:grayscale mx-auto relative max-w-sm">
+            <a className="bg-red-300">
+              <Image
+                className="rounded-lg"
+                src={product.image}
+                alt={product.slug}
+                width={300}
+                height={200}
+              />
+            </a>
+          </figure>
+        </Link>
+      </div>
+      {/* div abajo 2/2 */}
       <div className="flex flex-col items-center justify-center p-5">
         <Link legacyBehavior href={`/product/${product.slug}`}>
           <a>

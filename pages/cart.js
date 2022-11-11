@@ -35,7 +35,7 @@ function CartScreen() {
         <div>
           El carrito está vacio...{' '}
           <Link legacyBehavior href="/">
-            Ir de compras!
+            <a className="text-blue-600 hover:text-blue-700">Ir de compras!</a>
           </Link>
         </div>
       ) : (

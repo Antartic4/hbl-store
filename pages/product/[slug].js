@@ -1,12 +1,28 @@
 import Image from 'next/image';
 import axios from 'axios';
-import Link from 'next/link';
+
 import { useRouter } from 'next/router';
-import React, { useContext, useEffect } from 'react';
 import Layout from '../../components/Layout';
 import Product from '../../models/Product';
 import db from '../../utils/db';
+import React, { useContext, useEffect, useState } from 'react';
+import NextLink from 'next/link';
+import {
+  Grid,
+  Link,
+  List,
+  ListItem,
+  Typography,
+  Card,
+  Button,
+  TextField,
+  CircularProgress,
+} from '@material-ui/core';
+import Rating from '@material-ui/lab/Rating';
+import useStyles from '../../utils/styles';
 import { Store } from '../../utils/Store';
+import { getError } from '../../utils/error';
+import { toast } from 'react-toastify';
 
 export default function ProductScreen(props) {
   const { product } = props;
@@ -34,36 +50,64 @@ export default function ProductScreen(props) {
 
   return (
     <Layout title={product.name}>
-      <div className="py-2">
-        <Link legacyBehavior href="/">
-          back to products
-        </Link>
+      <div className="py-2 mb-5">
+        <NextLink legacyBehavior href="/">
+          <button class="text-black hover:bg-gray-200 font-montserrat flex items-center py-2 px-8 font-medium rounded-xl transition-all duration-300">
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 19l-7-7 7-7"
+              ></path>
+            </svg>
+            Volver a productos
+          </button>
+        </NextLink>
       </div>
       <div className="grid md:grid-cols-4 md:gap-3">
         <div className="md:col-span-2">
-          <div>
-            <h1 className="text-center text-2xl">{product.name}</h1>
+          <div className="">
+            <h1 className="text-3xl mb-5 text-center">{product.name}</h1>
+            <figure className="mx-auto relative max-w-sm object-cover transition-all duration-300 cursor-pointer filter grayscale-0 hover:grayscale">
+              <a>
+                <Image
+                  className="rounded-lg"
+                  src={product.image}
+                  alt="image description"
+                  width={300}
+                  height={400}
+                />
+              </a>
+            </figure>
           </div>
-          <Image
-            src={product.image}
-            alt={product.name}
-            width={300}
-            height={400}
-            layout="responsive"
-            className="rounded shadow object-fill h-4/6 w-full"
-          ></Image>
         </div>
-        <div>
+        <div className="p-5 card mr-5">
           <ul>
             <li>
-              <h1 className="font-bold text-l">{product.name}</h1>
+              <h1 className="font-bold text-xl mb-5">{product.name}</h1>
             </li>
-            <li>Categoria: {product.category}</li>
-            <li>Marca: {product.brand}</li>
-            <li>
-              {product.rating} of {product.numReviews} reviews
+            <li className="flex justify-between mb-3">
+              <h1 className="font-bold text-l"> Categoria:</h1>
+              {product.category}
             </li>
-            <li>Descripcion: {product.description}</li>
+            <li className="flex justify-between mb-3">
+              <h1 className="font-bold">Marca:</h1> {product.brand}
+            </li>
+            <li className="flex justify-between mb-3">
+              <h1 className="font-bold text-l">Reseñas:</h1>
+              {product.rating} de {product.numReviews}
+            </li>
+            <li className="flex justify-between mb-3">
+              <h1 className="font-bold text-l">Descripcion:</h1>{' '}
+              {product.description}
+            </li>
           </ul>
         </div>
         <div>

@@ -78,33 +78,33 @@ function AdminDashboardScreen() {
 
   return (
     <Layout title="Admin Dashboard">
-      <div className=" grid md:grid-cols-4 md:gap-5">
-        <div className="bg-">
+      <div className="grid md:grid-cols-4 md:gap-5">
+        <div className="card text-center pt-5">
           <ul>
             <li>
               <Link legacyBehavior href="/admin/dashboard">
-                <a className="font-bold">Dashboard</a>
+                <a className="font-bold text-xl">Dashboard</a>
               </Link>
             </li>
             <li>
               <Link legacyBehavior href="/admin/orders">
-                <a className="text-blue-700 hover:text-blue-500">Ordenes</a>
+                <a className="text-blue-500 hover:text-blue-700">Ordenes</a>
               </Link>
             </li>
             <li>
               <Link legacyBehavior href="/admin/products">
-                <a className="text-blue-700 hover:text-blue-500">Productos</a>
+                <a className="text-blue-500 hover:text-blue-700">Productos</a>
               </Link>
             </li>
             <li className="pb-5">
               <Link legacyBehavior href="/admin/users">
-                <a className="text-blue-700 hover:text-blue-500">Usuarios</a>
+                <a className="text-blue-500 hover:text-blue-700">Usuarios</a>
               </Link>
             </li>
           </ul>
         </div>
         <div className="md:col-span-3">
-          <h1 className="mb-4 text-xl">Portal de Admin</h1>
+          <h1 className="mb-4 text-2xl font-bold pt-5">Portal de Admin</h1>
           {loading ? (
             <div>Cargando...</div>
           ) : error ? (

@@ -7,6 +7,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: 'Poppins', sans-serif;
+  font-family: 'PT Sans Narrow', sans-serif;
 }
 
 a {
@@ -22,11 +23,11 @@ a {
 }
 
 .primary-button {
-  @apply px-4 py-2 rounded shadow outline-none bg-gray-200 hover:bg-gray-300 active:bg-amber-500;
+  @apply px-4 py-2 rounded shadow outline-none hover:text-black bg-gray-200 hover:bg-gray-300 active:bg-gray-500;
 }
 
 .default-button {
-  @apply px-4 py-2 text-black bg-gray-100 rounded shadow outline-none hover:bg-amber-400 active:bg-gray-200;
+  @apply px-4 py-2 text-black bg-gray-100 rounded shadow outline-none hover:bg-gray-400 active:bg-gray-200;
 }
 
 input,
@@ -45,4 +46,11 @@ textarea {
 
 .alert-success {
   @apply my-3 rounded-lg bg-green-100 p-3 text-green-700;
+}
+
+@media screen and (max-width: 850px) {
+  /* for screens smaller then 850px, set the font size smaller */
+  h4 {
+    font-size: 19px;
+  }
 }

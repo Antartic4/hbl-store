@@ -85,16 +85,20 @@ export default function PlaceOrderScreen() {
               </div>
               <div>
                 <Link legacyBehavior href="/shipping">
-                  Edit
+                  <button>
+                    <h1 className="text-blue-500">Edit</h1>
+                  </button>
                 </Link>
               </div>
             </div>
             <div className="p-5 card">
               <h2 className="mb-2 text-lg">Payment Method</h2>
-              <div>{paymentMethod}</div>
+              <div className="font-bold">{paymentMethod}</div>
               <div>
                 <Link legacyBehavior href="/payment">
-                  Edit
+                  <button>
+                    <h1 className="text-blue-500">Edit</h1>
+                  </button>
                 </Link>
               </div>
             </div>
