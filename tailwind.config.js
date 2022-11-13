@@ -8,5 +8,12 @@ module.exports = {
   theme: {
     extend: {},
   },
+  variants: {
+    extends: {
+      display: ['group-focus'],
+      opacity: ['group-focus'],
+      inset: ['group-focus'],
+    },
+  },
   plugins: [],
 };
