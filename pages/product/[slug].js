@@ -74,11 +74,11 @@ export default function ProductScreen(props) {
       <div className="grid md:grid-cols-4 md:gap-3">
         <div className="md:col-span-2">
           <div className="">
-            <h1 className="text-3xl mb-5 text-center">{product.name}</h1>
-            <figure className="mx-auto relative max-w-sm object-cover transition-all duration-300 cursor-pointer filter grayscale-0 hover:grayscale">
+            <h1 className="mb-5 text-3xl text-center">{product.name}</h1>
+            <figure className="relative object-cover max-w-sm mx-auto transition-all duration-300 cursor-pointer filter">
               <a>
                 <Image
-                  className="rounded-lg pb-3"
+                  className="pb-3 rounded-lg"
                   src={product.image}
                   alt="image description"
                   width={300}
@@ -88,10 +88,10 @@ export default function ProductScreen(props) {
             </figure>
           </div>
         </div>
-        <div className="p-5 card mr-5">
+        <div className="p-5 mr-5 card">
           <ul>
             <li>
-              <h1 className="font-bold text-xl mb-5">{product.name}</h1>
+              <h1 className="mb-5 text-xl font-bold">{product.name}</h1>
             </li>
             <li className="flex justify-between mb-3">
               <h1 className="font-bold text-l"> Categoria:</h1>

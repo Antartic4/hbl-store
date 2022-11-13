@@ -63,27 +63,19 @@ const useStyles = makeStyles((theme) => ({
   // search
   searchSection: {
     display: 'none',
-    border: '1px solid #000000',
-    borderRadius: 20,
     padding: '5px 5px 5px 5px',
     [theme.breakpoints.up('md')]: {
       display: 'flex',
     },
   },
-  searchForm: {
-    border: '3px solid #ffffff',
-    backgroundColor: '#ffffff',
-    borderRadius: 20,
-  },
+  searchForm: {},
   searchInput: {
-    paddingLeft: 5,
-    color: '#000000',
+    paddingLeft: 2,
     '& ::placeholder': {
-      color: '#606060',
+      color: '',
     },
   },
   iconButton: {
-    backgroundColor: '#a8a8a7',
     padding: 5,
     borderRadius: '0 5px 5px 0',
     '& span': {

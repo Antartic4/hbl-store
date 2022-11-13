@@ -107,7 +107,7 @@ export default function Layout({ title, children }) {
                     <Link legacyBehavior href="/">
                       <Image
                         src="https://i.ibb.co/nRPJC8J/improved-l-1.png"
-                        className="shrink-0 flex"
+                        className="flex shrink-0"
                         alt="improved-l-1"
                         border="0"
                         width={50}
@@ -129,7 +129,7 @@ export default function Layout({ title, children }) {
                       alignItems="center"
                       justifyContent="space-between"
                     >
-                      <div className="text-gray-700 text-2xl flex items-center">
+                      <div className="flex items-center text-2xl text-gray-700">
                         <h1 className="text-black">
                           <Typography>Ver por Categorias</Typography>
                         </h1>
@@ -160,7 +160,7 @@ export default function Layout({ title, children }) {
                   ))}
                 </List>
               </Drawer>
-              <div className=" text-left">
+              <div className="text-left ">
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link
                   rel="preconnect"
@@ -173,10 +173,10 @@ export default function Layout({ title, children }) {
                 />
                 <div className="">
                   <Link href="/">
-                    <buttton className="text-3xl shrink font-bold">
+                    <buttton className="text-3xl font-bold shrink">
                       <div className="md:flex">
-                        <h4 className="shrink text-left">M A R I E L</h4>
-                        <h4 className="shrink text-left md:pl-5">F R I A S</h4>
+                        <h4 className="text-left shrink">M A R I E L</h4>
+                        <h4 className="text-left shrink md:pl-5">F R I A S</h4>
                       </div>
                     </buttton>
                   </Link>
@@ -234,7 +234,7 @@ export default function Layout({ title, children }) {
                       <Menu.Button className="text-white">
                         <h1 className="text-l">{session.user.name}</h1>
                       </Menu.Button>
-                      <Menu.Items className="absolute right-0 w-56 pt-5 text-xl origin-top-right z-10 bg-white shadow-lg rounded-b-xl ">
+                      <Menu.Items className="absolute right-0 z-10 w-56 pt-5 text-xl origin-top-right bg-white shadow-lg rounded-b-xl ">
                         <Menu.Item>
                           <DropdownLink
                             className="dropdown-link"
@@ -286,7 +286,7 @@ export default function Layout({ title, children }) {
             </div>
           </nav>
           <Divider light />
-          <div className="flex justify-center pt-2">
+          <div className="flex justify-center">
             <div className={classes.searchSection}>
               <form onSubmit={submitHandler} className={classes.searchForm}>
                 <InputBase

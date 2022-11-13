@@ -63,6 +63,7 @@ export default function AdminProductEditScreen() {
         setValue('slug', data.slug);
         setValue('price', data.price);
         setValue('image', data.image);
+        setValue('image2', data.image2);
         setValue('category', data.category);
         setValue('brand', data.brand);
         setValue('countInStock', data.countInStock);
@@ -105,6 +106,35 @@ export default function AdminProductEditScreen() {
     }
   };
 
+  const uploadHandler2 = async (e, imageField2 = 'image2') => {
+    const url2 = `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/upload/`;
+    try {
+      dispatch({ type: 'UPLOAD_REQUEST' });
+      const {
+        data: { signature, timestamp },
+      } = await axios('/api/admin/cloudinary-sign');
+
+      const file2 = e.target.files[0];
+
+      //resize
+
+      const formData2 = new FormData();
+      formData2.append('file', file2);
+      formData2.append('signature', signature);
+      formData2.append('timestamp', timestamp);
+      formData2.append('api_key', process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY);
+      const { data } = await axios.post(url2, formData2);
+
+      dispatch({ type: 'UPLOAD_SUCCESS' });
+
+      setValue(imageField2, data.secure_url);
+      toast.success('Archivo fue agregado exitosamente');
+    } catch (err) {
+      dispatch({ type: 'UPLOAD_FAIL', payload: getError(err) });
+      toast.error(getError(err));
+    }
+  };
+
   const submitHandler = async ({
     name,
     slug,
@@ -114,6 +144,7 @@ export default function AdminProductEditScreen() {
     brand,
     countInStock,
     description,
+    image2,
   }) => {
     try {
       dispatch({ type: 'UPDATE_REQUEST' });
@@ -126,6 +157,7 @@ export default function AdminProductEditScreen() {
         brand,
         countInStock,
         description,
+        image2,
       });
       dispatch({ type: 'UPDATE_SUCCESS' });
       toast.success('Producto modificado correctamente');
@@ -224,6 +256,30 @@ export default function AdminProductEditScreen() {
                   className="w-full"
                   id="imageFile"
                   onChange={uploadHandler}
+                />
+                {loadingUpload && <div>Subiendo...</div>}
+              </div>
+              <div className="mb-4">
+                <label htmlFor="image">image2</label>
+                <input
+                  type="text"
+                  className="w-full"
+                  id="image"
+                  {...register('image2', {
+                    required: 'Porfavor introduzca imagen2',
+                  })}
+                />
+                {errors.image2 && (
+                  <div className="text-red-500">{errors.image2.message}</div>
+                )}
+              </div>
+              <div className="mb-4">
+                <label htmlFor="imageFile2">Subir imagen 2</label>
+                <input
+                  type="file"
+                  className="w-full"
+                  id="imageFile2"
+                  onChange={uploadHandler2}
                 />
                 {loadingUpload && <div>Subiendo...</div>}
               </div>
