@@ -44,6 +44,13 @@ export default function LoginScreen() {
     } catch (err) {
       toast.error(getError(err));
     }
+
+    let warn_name =
+      router.locale === 'en'
+        ? 'Please enter your name.'
+        : router.locale === 'es'
+        ? 'Porfavor introduzca su nombre.'
+        : '';
   };
   return (
     <Layout title="Crear cuenta">

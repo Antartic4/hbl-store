@@ -5,6 +5,10 @@ const nextConfig = {
   images: {
     domains: ['res.cloudinary.com', 'i.ibb.co'],
   },
+  i18n: {
+    locales: ['en', 'es', 'fr', 'pseudo'],
+    defaultLocale: 'en',
+  },
 };
 
 module.exports = nextConfig;

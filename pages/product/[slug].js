@@ -52,7 +52,7 @@ export default function ProductScreen(props) {
     <Layout title={product.name}>
       <div className="py-2 mb-5">
         <NextLink legacyBehavior href="/">
-          <button class="text-black hover:bg-gray-200 font-montserrat flex items-center py-2 px-8 font-medium rounded-xl transition-all duration-300">
+          <button className="text-black hover:bg-gray-200 font-montserrat flex items-center py-2 px-8 font-medium rounded-xl transition-all duration-300">
             <svg
               className="w-6 h-6"
               fill="none"
@@ -61,9 +61,9 @@ export default function ProductScreen(props) {
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 d="M15 19l-7-7 7-7"
               ></path>
             </svg>

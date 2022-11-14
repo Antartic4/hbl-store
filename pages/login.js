@@ -38,15 +38,53 @@ export default function LoginScreen() {
       toast.error(getError(err));
     }
   };
+
+  let login_login =
+    router.locale === 'en'
+      ? 'Login'
+      : router.locale === 'es'
+      ? 'Iniciar sesión'
+      : router.locale === 'fr'
+      ? 'Authentifier'
+      : '';
+
+  let login_email =
+    router.locale === 'en'
+      ? 'Email'
+      : router.locale === 'es'
+      ? 'Correo electronico'
+      : '';
+
+  let login_password =
+    router.locale === 'en'
+      ? 'Password'
+      : router.locale === 'es'
+      ? 'Contraseña'
+      : '';
+
+  let login_mensaje =
+    router.locale === 'en'
+      ? `Don't have an account?`
+      : router.locale === 'es'
+      ? 'No tienes cuenta?'
+      : '';
+
+  let login_mensaje2 =
+    router.locale === 'en'
+      ? ' Create an Account'
+      : router.locale === 'es'
+      ? ' Crear cuenta'
+      : '';
+
   return (
     <Layout title="Login">
       <form
         className="max-w-screen-md mx-auto"
         onSubmit={handleSubmit(submitHandler)}
       >
-        <h1 className="mb-4 text-xl">Login</h1>
+        <h1 className="mb-4 text-xl">{login_login}</h1>
         <div className="mb-4">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">{login_email}</label>
           <input
             type="email"
             {...register('email', {
@@ -65,7 +103,7 @@ export default function LoginScreen() {
           )}
         </div>
         <div className="mb-4">
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">{login_password}</label>
           <input
             type="password"
             {...register('password', {
@@ -81,15 +119,15 @@ export default function LoginScreen() {
           ></input>
         </div>
         <div className="mb-4">
-          <button className="primary-button">Login</button>
+          <button className="primary-button">{login_login}</button>
         </div>
         <div className="mb-4">
-          Don&apos;t have an account? &nbsp;
+          {login_mensaje}
           <Link
             className="text-blue-600"
             href={`/register?redirect=${redirect || '/'}`}
           >
-            Crear cuenta
+            {login_mensaje2}
           </Link>
         </div>
       </form>

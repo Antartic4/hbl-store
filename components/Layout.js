@@ -82,6 +82,96 @@ export default function Layout({ title, children }) {
     signOut({ callbackUrl: '/login' });
   };
 
+  let nav_home =
+    router.locale === 'en'
+      ? 'Home'
+      : router.locale === 'es'
+      ? 'Inicio'
+      : router.locale === 'fr'
+      ? 'Page Principale'
+      : '';
+
+  let nav_shop =
+    router.locale === 'en'
+      ? 'Shop'
+      : router.locale === 'es'
+      ? 'Tienda'
+      : router.locale === 'fr'
+      ? 'Boutique'
+      : '';
+
+  let nav_cart =
+    router.locale === 'en'
+      ? 'Cart'
+      : router.locale === 'es'
+      ? 'Carrito'
+      : router.locale === 'fr'
+      ? 'Chariot'
+      : '';
+
+  let nav_aboutus =
+    router.locale === 'en'
+      ? 'About Us'
+      : router.locale === 'es'
+      ? 'Sobre Nosotros'
+      : router.locale === 'fr'
+      ? 'À propos de nous'
+      : '';
+
+  let nav_search =
+    router.locale === 'en'
+      ? 'Search products'
+      : router.locale === 'es'
+      ? 'Buscar productos'
+      : router.locale === 'fr'
+      ? 'Recherche de produits'
+      : '';
+
+  let nav_profile =
+    router.locale === 'en'
+      ? 'Profile'
+      : router.locale === 'es'
+      ? 'Perfil'
+      : router.locale === 'fr'
+      ? 'Profil'
+      : '';
+
+  let nav_historyorders =
+    router.locale === 'en'
+      ? 'Order History'
+      : router.locale === 'es'
+      ? 'Historial Ordenes'
+      : router.locale === 'fr'
+      ? 'Historique des commandes'
+      : '';
+
+  let nav_adminportal =
+    router.locale === 'en'
+      ? 'Admin Portal'
+      : router.locale === 'es'
+      ? 'Portal de Admin'
+      : router.locale === 'fr'
+      ? `Portail d'administration`
+      : '';
+
+  let nav_logout =
+    router.locale === 'en'
+      ? 'Logout'
+      : router.locale === 'es'
+      ? 'Cerrar Session'
+      : router.locale === 'fr'
+      ? 'Se déconnecter'
+      : '';
+
+  let nav_login =
+    router.locale === 'en'
+      ? 'Login'
+      : router.locale === 'es'
+      ? 'Iniciar sesión'
+      : router.locale === 'fr'
+      ? 'Authentifier'
+      : '';
+
   return (
     <>
       <Head>
@@ -126,19 +216,21 @@ export default function Layout({ title, children }) {
                   </div>
                 </div>
                 <ul className="items-center hidden pr-10 text-base font-semibold cursor-pointer xl:flex">
-                  <li className="px-6 py-4 hover:bg-gray-200">Home</li>
-                  <li className="px-6 py-4 hover:bg-gray-200">Shop</li>
-                  <li className="px-6 py-4 hover:bg-gray-200">
+                  <li className="px-3 py-3 hover:bg-gray-200">{nav_home}</li>
+                  <li className="px-3 py-3 hover:bg-gray-200">{nav_shop}</li>
+                  <li className="px-3 py-3 hover:bg-gray-200">
                     <Link legacyBehavior href="/cart">
-                      <div className="flex items-center justify-between pr-5">
-                        Cart
+                      <div className="flex items-center justify-between">
+                        {nav_cart}
                       </div>
                     </Link>
                   </li>
-                  <li className="px-6 py-4 hover:bg-gray-200">About Us</li>
+                  <li className="px-3 py-3 text-center items-center hover:bg-gray-200">
+                    {nav_aboutus}
+                  </li>
                 </ul>
                 <ul className="items-center hidden text-base font-semibold cursor-pointer justify-evenly xl:flex">
-                  <li className="px-6 py-4">
+                  <li className="px-3 py-3">
                     <div className={classes.searchSection}>
                       <form
                         onSubmit={submitHandler}
@@ -147,7 +239,7 @@ export default function Layout({ title, children }) {
                         <InputBase
                           name="query"
                           className={classes.searchInput}
-                          placeholder="Buscar Productos"
+                          placeholder={nav_search}
                           onChange={queryChangeHandler}
                         />
                         <IconButton
@@ -198,13 +290,13 @@ export default function Layout({ title, children }) {
                           xmlns="http://www.w3.org/2000/svg"
                           fill="white"
                           viewBox="0 0 24 24"
-                          stroke-width="2"
+                          strokeWidth="2"
                           stroke="#666666"
                           className="text-red-400 w-7 h-7 hover:stroke-black"
                         >
                           <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                             d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 011.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.56.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.893.149c-.425.07-.765.383-.93.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 01-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.397.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 01-.12-1.45l.527-.737c.25-.35.273-.806.108-1.204-.165-.397-.505-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.107-1.204l-.527-.738a1.125 1.125 0 01.12-1.45l.773-.773a1.125 1.125 0 011.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894z"
                           />
                           <button onClick={sidebarOpenHandler} className="mr-5">
@@ -213,8 +305,8 @@ export default function Layout({ title, children }) {
                             </Link>
                           </button>
                           <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                             d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
                           />
                         </svg>
@@ -231,17 +323,24 @@ export default function Layout({ title, children }) {
                       <ul className="z-10 flex flex-col items-center w-full pt-10 text-base bg-white cursor-pointer">
                         <li className="w-full px-6 py-4 hover:bg-gray-200">
                           <Link legacyBehavior href="/">
-                            <a> Home</a>
+                            <a>{nav_home}</a>
                           </Link>
                         </li>
                         <li className="w-full px-6 py-4 hover:bg-gray-200">
-                          Shop
+                          <Link legacyBehavior href="/search">
+                            <a>{nav_shop}</a>
+                          </Link>
+                        </li>
+                        <li className="w-full px-6 py-4 hover:bg-gray-200">
+                          <Link legacyBehavior href="/">
+                            <a>{nav_home}</a>
+                          </Link>
                         </li>
                         <li className="w-full px-6 py-4 hover:bg-gray-200">
                           <div className="">
                             <Link legacyBehavior href="/cart">
                               <buttton className="text-md shrink">
-                                <div className="md:flex">Cart</div>
+                                <div className="md:flex">{nav_cart}</div>
                               </buttton>
                             </Link>
                           </div>
@@ -250,7 +349,9 @@ export default function Layout({ title, children }) {
                           <div className="">
                             <Link legacyBehavior href="/aboutus">
                               <buttton className="text-md shrink">
-                                <div className="md:flex">About Us</div>
+                                <div className="md:flex text-center">
+                                  {nav_aboutus}
+                                </div>
                               </buttton>
                             </Link>
                           </div>
@@ -276,7 +377,7 @@ export default function Layout({ title, children }) {
                                 className="dropdown-link"
                                 href="/profile"
                               >
-                                Perfil
+                                {nav_profile}
                               </DropdownLink>
                             </Menu.Item>
                             <Menu.Item>
@@ -284,7 +385,7 @@ export default function Layout({ title, children }) {
                                 className="dropdown-link "
                                 href="/order-history"
                               >
-                                Historial de Ordenes
+                                {nav_historyorders}
                               </DropdownLink>
                             </Menu.Item>
                             {session.user.isAdmin && (
@@ -293,7 +394,7 @@ export default function Layout({ title, children }) {
                                   className="dropdown-link"
                                   href="/admin/dashboard"
                                 >
-                                  Portal Admin
+                                  {nav_adminportal}
                                 </DropdownLink>
                               </Menu.Item>
                             )}
@@ -303,7 +404,7 @@ export default function Layout({ title, children }) {
                                 href="#"
                                 onClick={logoutClickHandler}
                               >
-                                Logout
+                                {nav_logout}
                               </a>
                             </Menu.Item>
                           </Menu.Items>
@@ -312,8 +413,8 @@ export default function Layout({ title, children }) {
                     ) : (
                       <div className="p-1.5 bg-black rounded">
                         <Link legacyBehavior href="/login">
-                          <a className="p-2 text-2xl text-white hover:text-gray-200">
-                            Login
+                          <a className="p-2 text-lg text-white hover:text-gray-200">
+                            {nav_login}
                           </a>
                         </Link>
                       </div>
@@ -325,8 +426,17 @@ export default function Layout({ title, children }) {
           </div>
         </header>
         <main className="container px-4 m-auto mt-4">{children}</main>
-        <footer className="flex items-center justify-center h-10 shadow-inner">
+        <footer className="text-center pt-3 items-center justify-center h-20 shadow-inner">
           <p>Copyright © 2022 Mariel Frias - Store</p>
+          <ul>
+            {router.locales.map((locale) => (
+              <li key={locale}>
+                <Link legacyBehavior href={router.asPath} locale={locale}>
+                  <a>{locale}</a>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </footer>
       </div>
     </>
