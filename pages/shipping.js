@@ -49,22 +49,59 @@ export default function ShippingScreen() {
     router.push('/payment');
   };
 
+  let shipping_title =
+    router.locale === 'en'
+      ? 'Shipping Address'
+      : router.locale === 'es'
+      ? 'Dirección de Envío'
+      : '';
+
+  let shipping_name =
+    router.locale === 'en'
+      ? 'Full Name'
+      : router.locale === 'es'
+      ? 'Nombre Completo'
+      : '';
+
+  let shipping_address =
+    router.locale === 'en'
+      ? 'Address'
+      : router.locale === 'es'
+      ? 'Direccion'
+      : '';
+
+  let shipping_city =
+    router.locale === 'en' ? 'City' : router.locale === 'es' ? 'Ciudad' : '';
+
+  let shipping_zip =
+    router.locale === 'en'
+      ? 'Zip Code'
+      : router.locale === 'es'
+      ? 'Codigo Postal'
+      : '';
+
+  let shipping_country =
+    router.locale === 'en' ? 'Country' : router.locale === 'es' ? 'Pais' : '';
+
   return (
-    <Layout title="Shipping Address">
+    <Layout title={shipping_title}>
       <CheckoutWizard activeStep={1} />
       <form
         className="max-w-screen-md mx-auto"
         onSubmit={handleSubmit(submitHandler)}
       >
-        <h1 className="mb-4 text-xl">Shipping Address</h1>
+        <h1 className="mb-4 text-xl">{shipping_title}</h1>
         <div className="mb-4">
-          <label htmlFor="fullName">Full Name</label>
+          <label htmlFor="fullName">{shipping_name}</label>
           <input
             className="w-full"
             id="fullName"
             autoFocus
             {...register('fullName', {
-              required: 'Please enter full name',
+              required:
+                router.locale === 'en'
+                  ? 'Please enter full name'
+                  : 'Favor introducir nombre completo',
             })}
           />
           {errors.fullName && (
@@ -72,13 +109,22 @@ export default function ShippingScreen() {
           )}
         </div>
         <div className="mb-4">
-          <label htmlFor="address">Address</label>
+          <label htmlFor="address">{shipping_address}</label>
           <input
             className="w-full"
             id="address"
             {...register('address', {
-              required: 'Please enter address',
-              minLength: { value: 3, message: 'Address is more than 2 chars' },
+              required:
+                router.locale === 'en'
+                  ? 'Please enter address'
+                  : 'Favor entrar una direccion',
+              minLength: {
+                value: 3,
+                message:
+                  router.locale === 'en'
+                    ? 'Address is more than 2 chars'
+                    : 'La direccion lleva más caracteres',
+              },
             })}
           />
           {errors.address && (
@@ -86,12 +132,15 @@ export default function ShippingScreen() {
           )}
         </div>
         <div className="mb-4">
-          <label htmlFor="city">City</label>
+          <label htmlFor="city">{shipping_city}</label>
           <input
             className="w-full"
             id="city"
             {...register('city', {
-              required: 'Please enter city',
+              required:
+                router.locale === 'en'
+                  ? 'Please enter city'
+                  : 'Favor entrar ciudad',
             })}
           />
           {errors.city && (
@@ -99,12 +148,15 @@ export default function ShippingScreen() {
           )}
         </div>
         <div className="mb-4">
-          <label htmlFor="postalCode">Postal Code</label>
+          <label htmlFor="postalCode">{shipping_zip}</label>
           <input
             className="w-full"
             id="postalCode"
             {...register('postalCode', {
-              required: 'Please enter postal code',
+              required:
+                router.locale === 'en'
+                  ? 'Please enter postal code'
+                  : 'Favor entrar codigo postal',
             })}
           />
           {errors.postalCode && (
@@ -112,12 +164,15 @@ export default function ShippingScreen() {
           )}
         </div>
         <div className="mb-4">
-          <label htmlFor="country">Country</label>
+          <label htmlFor="country">{shipping_country}</label>
           <input
             className="w-full"
             id="country"
             {...register('country', {
-              required: 'Please enter country',
+              required:
+                router.locale === 'en'
+                  ? 'Please enter country'
+                  : 'Favor entrar pais',
             })}
           />
           {errors.country && (
@@ -125,7 +180,9 @@ export default function ShippingScreen() {
           )}
         </div>
         <div className="flex justify-between mb-4">
-          <button className="primary-button">Next</button>
+          <button className="primary-button">
+            {router.locale === 'en' ? 'Next' : 'Continuar'}
+          </button>
         </div>
       </form>
     </Layout>
