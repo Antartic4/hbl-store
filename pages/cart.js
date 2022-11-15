@@ -28,14 +28,57 @@ function CartScreen() {
     dispatch({ type: 'CART_ADD_ITEM', payload: { ...item, quantity } });
     toast.success('Carrito actualizado!');
   };
+  let cart_cart =
+    router.locale === 'en'
+      ? 'Shopping Cart'
+      : router.locale === 'es'
+      ? 'Carrito de Compras'
+      : '';
+
+  let cart_empty =
+    router.locale === 'en'
+      ? 'The shopping cart is empty! '
+      : router.locale === 'es'
+      ? 'El carrito de compras esta vacio!'
+      : '';
+  let cart_link =
+    router.locale === 'en'
+      ? 'Go buy!'
+      : router.locale === 'es'
+      ? 'Ir a comprar!'
+      : '';
+
+  let cart_item =
+    router.locale === 'en' ? 'Item' : router.locale === 'es' ? 'Articulo' : '';
+
+  let cart_cant =
+    router.locale === 'en'
+      ? 'Quantity'
+      : router.locale === 'es'
+      ? 'Cantidad'
+      : '';
+
+  let cart_price =
+    router.locale === 'en' ? 'Price' : router.locale === 'es' ? 'Precio' : '';
+
+  let cart_action =
+    router.locale === 'en' ? 'Action' : router.locale === 'es' ? 'Accion' : '';
+
+  let cart_button =
+    router.locale === 'en'
+      ? 'Finalizar Compra'
+      : router.locale === 'es'
+      ? 'Check Out'
+      : '';
+
   return (
-    <Layout title="Shopping Cart">
-      <h1 className="mb-4 text-xl">Carrito de Compras</h1>
+    <Layout title={cart_cart}>
+      <h1 className="mb-4 text-xl">{cart_cart}</h1>
       {cartItems.length === 0 ? (
         <div>
-          El carrito está vacio...{' '}
+          {cart_empty}{' '}
           <Link legacyBehavior href="/">
-            <a className="text-blue-600 hover:text-blue-700">Ir de compras!</a>
+            <a className="text-blue-600 hover:text-blue-700">{cart_link}</a>
           </Link>
         </div>
       ) : (
@@ -44,10 +87,10 @@ function CartScreen() {
             <table className="min-w-full">
               <thead className="border-b">
                 <tr>
-                  <th className="px-5 text-left">Item</th>
-                  <th className="p-5 text-right">Cantidad</th>
-                  <th className="p-5 text-right">Precio</th>
-                  <th className="p-5">Acción</th>
+                  <th className="px-5 text-left">{cart_item}</th>
+                  <th className="p-5 text-right">{cart_cant}</th>
+                  <th className="p-5 text-right">{cart_price}</th>
+                  <th className="p-5">{cart_action}</th>
                 </tr>
               </thead>
               <tbody>
@@ -105,7 +148,7 @@ function CartScreen() {
                   onClick={() => router.push('login?redirect=/shipping')}
                   className="w-full primary-button"
                 >
-                  Check Out
+                  {cart_button}
                 </button>
               </li>
             </ul>

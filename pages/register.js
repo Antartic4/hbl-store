@@ -44,30 +44,100 @@ export default function LoginScreen() {
     } catch (err) {
       toast.error(getError(err));
     }
-
-    let warn_name =
-      router.locale === 'en'
-        ? 'Please enter your name.'
-        : router.locale === 'es'
-        ? 'Porfavor introduzca su nombre.'
-        : '';
   };
+
+  let register_title =
+    router.locale === 'en'
+      ? 'Create an account'
+      : router.locale === 'es'
+      ? 'Crear una cuenta'
+      : '';
+
+  let register_name =
+    router.locale === 'en' ? 'Name' : router.locale === 'es' ? 'Nombre' : '';
+
+  let warn_name =
+    router.locale === 'en'
+      ? 'Please enter your name.'
+      : router.locale === 'es'
+      ? 'Porfavor introduzca su nombre.'
+      : '';
+
+  let register_email =
+    router.locale === 'en'
+      ? 'Email'
+      : router.locale === 'es'
+      ? 'Correo electronico'
+      : '';
+
+  let warn_email =
+    router.locale === 'en'
+      ? 'Please enter your email.'
+      : router.locale === 'es'
+      ? 'Porfavor introduzca su correo electronico.'
+      : '';
+
+  let register_password =
+    router.locale === 'en'
+      ? 'Password'
+      : router.locale === 'es'
+      ? 'Contraseña'
+      : '';
+
+  let register_password2 =
+    router.locale === 'en'
+      ? 'Confirm password'
+      : router.locale === 'es'
+      ? 'Confirmar contraseña'
+      : '';
+
+  let register_validate =
+    router.locale === 'en'
+      ? `Passwords don't match`
+      : router.locale === 'es'
+      ? 'Las claves no concuerdan'
+      : '';
+
+  let register_message =
+    router.locale === 'en'
+      ? 'Already have an account?'
+      : router.locale === 'es'
+      ? 'Ya tienes una cuenta?'
+      : '';
+
+  let register_message2 =
+    router.locale === 'en'
+      ? 'Login!'
+      : router.locale === 'es'
+      ? 'Autenticarse!'
+      : '';
+
+  let register_button =
+    router.locale === 'en'
+      ? 'Register!'
+      : router.locale === 'es'
+      ? 'Registrarse!'
+      : '';
+
   return (
-    <Layout title="Crear cuenta">
+    <Layout title={register_title}>
       <form
         className="max-w-screen-md mx-auto"
         onSubmit={handleSubmit(submitHandler)}
       >
-        <h1 className="mb-4 text-xl">Crear cuenta</h1>
+        <h1 className="mb-4 text-xl">{register_title}</h1>
         <div className="mb-4">
-          <label htmlFor="name">Nombre</label>
+          <label htmlFor="name">{register_name}</label>
           <input
             type="text"
             className="w-full"
             id="name"
             autoFocus
             {...register('name', {
-              required: 'Porfavor introduzca su nombre',
+              required:
+                router.locale === 'es'
+                  ? 'Porfavor introduzca su nombre.'
+                  : 'Please enter your name.',
             })}
           />
           {errors.name && (
@@ -76,14 +146,24 @@ export default function LoginScreen() {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">{register_email}</label>
           <input
             type="email"
             {...register('email', {
-              required: 'Porfavor introduzca email.',
+              required:
+                router.locale === 'en'
+                  ? 'Please enter your email.'
+                  : router.locale === 'es'
+                  ? 'Porfavor introduzca su correo electronico.'
+                  : '',
               pattern: {
                 value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/i,
-                message: 'Porfavor introduzca email valido.',
+                message:
+                  router.locale === 'en'
+                    ? 'Please enter a valid email.'
+                    : router.locale === 'es'
+                    ? 'Porfavor introduzca email valido.'
+                    : '',
               },
             })}
             className="w-full"
@@ -95,14 +175,24 @@ export default function LoginScreen() {
           )}
         </div>
         <div className="mb-4">
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">{register_password}</label>
           <input
             type="password"
             {...register('password', {
-              required: 'Introduzca clave',
+              required:
+                router.locale === 'en'
+                  ? 'Please enter your password.'
+                  : router.locale === 'es'
+                  ? 'Porfavor introduzca su contraseña.'
+                  : '',
               minLength: {
                 value: 6,
-                message: 'Confirmar que la clave tenga mas de 5 caracteres.',
+                message:
+                  router.locale === 'en'
+                    ? 'Make sure the password has more than 5 characters.'
+                    : router.locale === 'es'
+                    ? 'Confirmar que la contraseña tenga mas de 5 caracteres.'
+                    : '',
               },
             })}
             className="w-full"
@@ -115,17 +205,27 @@ export default function LoginScreen() {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="confirmPassword">Confirmar clave</label>
+          <label htmlFor="confirmPassword">{register_password2}</label>
           <input
             className="w-full"
             type="password"
             id="confirmPassword"
             {...register('confirmPassword', {
-              required: 'Porfavor introduzca la clave nuevamente',
+              required:
+                router.locale === 'en'
+                  ? 'Please enter the password again.'
+                  : router.locale === 'es'
+                  ? 'Porfavor introduzca la clave nuevamente.'
+                  : '',
               validate: (value) => value === getValues('password'),
               minLength: {
                 value: 6,
-                message: 'Confirmar que la clave tenga mas de 5 caracteres.',
+                message:
+                  router.locale === 'en'
+                    ? 'Make sure the password has more than 5 characters.'
+                    : router.locale === 'es'
+                    ? 'Confirmar que la contraseña tenga mas de 5 caracteres.'
+                    : '',
               },
             })}
           />
@@ -134,17 +234,17 @@ export default function LoginScreen() {
           )}
           {errors.confirmPassword &&
             errors.confirmPassword.type === 'validate' && (
-              <div className="text-red-500"> Las claves no concuerdan</div>
+              <div className="text-red-500">{register_validate}</div>
             )}
         </div>
 
         <div className="mb-4">
-          <button className="primary-button">Crear cuenta</button>
+          <button className="primary-button">{register_button}</button>
         </div>
         <div className="mb-4">
-          Don&apos;t have an account? &nbsp;
-          <Link href={`/register?redirect=${redirect || '/'}`}>
-            Crear cuenta
+          {register_message}
+          <Link className="pl-3 text-blue-700" href={`/login`}>
+            {register_message2}
           </Link>
         </div>
       </form>

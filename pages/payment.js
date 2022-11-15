@@ -18,7 +18,11 @@ export default function PaymentScreen() {
   const submitHandler = (e) => {
     e.preventDefault();
     if (!selectedPaymentMethod) {
-      return toast.error('Payment method is required');
+      return toast.error(
+        router.locale === 'en'
+          ? 'Payment method is required'
+          : 'Metodo de pago es requerido'
+      );
     }
     dispatch({ type: 'SAVE_PAYMENT_METHOD', payload: selectedPaymentMethod });
     Cookies.set(
@@ -38,12 +42,19 @@ export default function PaymentScreen() {
     setSelectedPaymentMethod(paymentMethod || '');
   }, [paymentMethod, router, shippingAddress.address]);
 
+  let payment_title =
+    router.locale === 'en' ? 'Payment Method' : 'Metodo de Pago';
+
   return (
-    <Layout title="Payment Method">
+    <Layout title={payment_title}>
       <CheckoutWizard activeStep={2} />
       <form className="max-w-screen-md mx-auto" onSubmit={submitHandler}>
-        <h1 className="mb-4 text-xl">Payment Method</h1>
-        {['PayPal', 'Deposito', 'Efectivo en entrega'].map((payment) => (
+        <h1 className="mb-4 text-xl">{payment_title}</h1>
+        {[
+          'PayPal',
+          router.locale === 'en' ? 'Direct Deposit' : 'Deposito',
+          router.locale === 'en' ? 'Cash on delivery' : 'Efectivo en entrega',
+        ].map((payment) => (
           <div key={payment} className="mb-4">
             <input
               name="paymentMethod"

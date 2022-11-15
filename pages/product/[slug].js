@@ -7,30 +7,22 @@ import Product from '../../models/Product';
 import db from '../../utils/db';
 import React, { useContext, useEffect, useState } from 'react';
 import NextLink from 'next/link';
-import {
-  Grid,
-  Link,
-  List,
-  ListItem,
-  Typography,
-  Card,
-  Button,
-  TextField,
-  CircularProgress,
-} from '@material-ui/core';
-import Rating from '@material-ui/lab/Rating';
-import useStyles from '../../utils/styles';
 import { Store } from '../../utils/Store';
-import { getError } from '../../utils/error';
 import { toast } from 'react-toastify';
 
 export default function ProductScreen(props) {
   const { product } = props;
   const { state, dispatch } = useContext(Store);
   const router = useRouter();
+  let slug_product_exist =
+    router.locale === 'en'
+      ? 'Product not found.'
+      : router.locale === 'es'
+      ? 'Producto no encontrado.'
+      : '';
   if (!product) {
     return (
-      <Layout title="Producto no encontrado.">Producto no encontrado.</Layout>
+      <Layout title="Producto no encontrado.">{slug_product_exist}</Layout>
     );
   }
 
@@ -47,6 +39,50 @@ export default function ProductScreen(props) {
     dispatch({ type: 'CART_ADD_ITEM', payload: { ...product, quantity } });
     router.push('/cart');
   };
+
+  let slug_back =
+    router.locale === 'en'
+      ? 'Back to products'
+      : router.locale === 'es'
+      ? 'Volver a productos'
+      : '';
+
+  let slug_category =
+    router.locale === 'en'
+      ? 'Category'
+      : router.locale === 'es'
+      ? 'Categoria'
+      : '';
+
+  let slug_brand =
+    router.locale === 'en' ? 'Brand' : router.locale === 'es' ? 'Marca' : '';
+
+  let slug_rating =
+    router.locale === 'en'
+      ? 'Ratings'
+      : router.locale === 'es'
+      ? 'Reseñas'
+      : '';
+
+  let slug_description =
+    router.locale === 'en'
+      ? 'Description'
+      : router.locale === 'es'
+      ? 'Descripción'
+      : '';
+
+  let slug_button =
+    router.locale === 'en'
+      ? 'Add to Cart'
+      : router.locale === 'es'
+      ? 'Agregar al carrito'
+      : '';
+
+  let slug_price =
+    router.locale === 'en' ? 'Price' : router.locale === 'es' ? 'Precio' : '';
+
+  let slug_status =
+    router.locale === 'en' ? 'Status' : router.locale === 'es' ? 'Estatus' : '';
 
   return (
     <Layout title={product.name}>
@@ -67,7 +103,7 @@ export default function ProductScreen(props) {
                 d="M15 19l-7-7 7-7"
               ></path>
             </svg>
-            Volver a productos
+            {slug_back}
           </button>
         </NextLink>
       </div>
@@ -94,18 +130,24 @@ export default function ProductScreen(props) {
               <h1 className="mb-5 text-xl font-bold">{product.name}</h1>
             </li>
             <li className="flex justify-between mb-3">
-              <h1 className="font-bold text-l"> Categoria:</h1>
+              <h1 className="font-bold text-l">{slug_category}:</h1>
               {product.category}
             </li>
             <li className="flex justify-between mb-3">
-              <h1 className="font-bold">Marca:</h1> {product.brand}
+              <h1 className="font-bold">{slug_brand}:</h1> {product.brand}
             </li>
             <li className="flex justify-between mb-3">
-              <h1 className="font-bold text-l">Reseñas:</h1>
-              {product.rating} de {product.numReviews}
+              <h1 className="font-bold text-l">{slug_rating}:</h1>
+              {product.rating}{' '}
+              {router.locale === 'en'
+                ? 'of'
+                : router.locale === 'es'
+                ? 'de'
+                : ''}{' '}
+              {product.numReviews}
             </li>
             <li className="flex justify-between mb-3">
-              <h1 className="font-bold text-l">Descripcion:</h1>{' '}
+              <h1 className="font-bold text-l">{slug_description}:</h1>
               {product.description}
             </li>
           </ul>
@@ -113,16 +155,28 @@ export default function ProductScreen(props) {
         <div>
           <div className="p-5 card">
             <div className="flex justify-between mb-2">
-              <div>Precio</div>
+              <div>{slug_price}</div>
               <div>USD ${product.price}</div>
             </div>
             <div className="flex justify-between mb-2">
               <div>Status</div>
               <div>
                 {product.countInStock > 0 ? (
-                  <div className="text-green-600">Disponible</div>
+                  <div className="text-green-600">
+                    {router.locale === 'en'
+                      ? 'Available'
+                      : router.locale === 'es'
+                      ? 'Disponible'
+                      : ''}
+                  </div>
                 ) : (
-                  <div className="text-red-500">No disponible</div>
+                  <div className="text-red-500">
+                    {router.locale === 'en'
+                      ? 'Unavailable'
+                      : router.locale === 'es'
+                      ? 'No disponible'
+                      : ''}
+                  </div>
                 )}
               </div>
             </div>
@@ -130,7 +184,7 @@ export default function ProductScreen(props) {
               className="w-full primary-button"
               onClick={addToCartHandler}
             >
-              Agregar al Carrito
+              {slug_button}
             </button>
           </div>
         </div>

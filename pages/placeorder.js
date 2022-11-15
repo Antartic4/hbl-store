@@ -62,22 +62,34 @@ export default function PlaceOrderScreen() {
     }
   };
 
+  let po_title = router.locale === 'en' ? 'Place Order' : 'Colocar Orden';
+  let po_t1 =
+    router.locale === 'en' ? 'Shipping Address' : 'Direccion de Envio';
+  let po_t2 = router.locale === 'en' ? 'Payment Method' : 'Metodo de Pago';
+  let po_t3 = router.locale === 'en' ? 'Order Items' : 'Articulos en Orden';
+  let po_item = router.locale === 'en' ? 'Item' : 'Articulo';
+  let po_quantity = router.locale === 'en' ? 'Quantity' : 'Cantidad';
+  let po_price = router.locale === 'en' ? 'Price' : 'Precio';
+
+  let po_summary =
+    router.locale === 'en' ? 'Order Summary' : 'Resumen de Orden';
+
   return (
-    <Layout title="Place Order">
+    <Layout title={po_title}>
       <CheckoutWizard activeStep={3} />
-      <h1 className="mb-4 text-xl">Place Order</h1>
+      <h1 className="mb-4 text-xl">{po_title}</h1>
       {cartItems.length === 0 ? (
         <div>
-          Cart is empty.{' '}
+          {router.locale === 'en' ? 'Cart is empty.' : 'El carrito está vacio.'}
           <Link legacyBehavior href="/">
-            Go shopping
+            {router.locale === 'en' ? 'Go Shopping!' : 'Ir de compras!'}
           </Link>
         </div>
       ) : (
         <div className="grid md:grid-cols-4 md:gap-5">
           <div className="overflow-x-auto md:col-span-3">
             <div className="p-5 card">
-              <h2 className="mb-2 text-lg">Shipping Address</h2>
+              <h2 className="mb-2 text-lg">{po_t1}</h2>
               <div>
                 {shippingAddress.fullName}, {shippingAddress.address},{' '}
                 {shippingAddress.city}, {shippingAddress.postalCode},{' '}
@@ -86,30 +98,34 @@ export default function PlaceOrderScreen() {
               <div>
                 <Link legacyBehavior href="/shipping">
                   <button>
-                    <h1 className="text-blue-500">Edit</h1>
+                    <h1 className="text-blue-500 font-semibold hover:text-blue-900">
+                      {router.locale === 'en' ? 'Edit' : 'Editar'}
+                    </h1>
                   </button>
                 </Link>
               </div>
             </div>
             <div className="p-5 card">
-              <h2 className="mb-2 text-lg">Payment Method</h2>
-              <div className="font-bold">{paymentMethod}</div>
+              <h2 className="mb-2 text-lg">{po_t2}</h2>
+              <div className="font-semibold">{paymentMethod}</div>
               <div>
                 <Link legacyBehavior href="/payment">
                   <button>
-                    <h1 className="text-blue-500">Edit</h1>
+                    <h1 className="text-blue-500 hover:text-blue-900 font-semibold">
+                      {router.locale === 'en' ? 'Edit' : 'Editar'}
+                    </h1>
                   </button>
                 </Link>
               </div>
             </div>
             <div className="p-5 overflow-x-auto card">
-              <h2 className="mb-2 text-lg">Order Items</h2>
+              <h2 className="mb-2 text-lg">{po_t3}</h2>
               <table className="min-w-full">
                 <thead className="border-b">
                   <tr>
-                    <th className="px-5 text-left">Item</th>
-                    <th className="p-5 text-right ">Quantity</th>
-                    <th className="p-5 text-right ">Price</th>
+                    <th className="px-5 text-left">{po_item}</th>
+                    <th className="p-5 text-right ">{po_quantity}</th>
+                    <th className="p-5 text-right ">{po_price}</th>
                     <th className="p-5 text-right">Subtotal</th>
                   </tr>
                 </thead>
@@ -141,30 +157,32 @@ export default function PlaceOrderScreen() {
               </table>
               <div>
                 <Link legacyBehavior href="/cart">
-                  Edit
+                  <a className="text-blue-700 hover:text-blue-900 font-semibold">
+                    {router.locale === 'en' ? 'Edit' : 'Editar'}
+                  </a>
                 </Link>
               </div>
             </div>
           </div>
           <div>
             <div className="p-5 card">
-              <h2 className="mb-2 text-lg">Order Summary</h2>
+              <h2 className="mb-2 text-lg">{po_summary}</h2>
               <ul>
                 <li>
                   <div className="flex justify-between mb-2">
-                    <div>Items</div>
+                    <div>{router.locale === 'en' ? 'Items' : 'Articulos'}</div>
                     <div>${itemsPrice}</div>
                   </div>
                 </li>
                 <li>
                   <div className="flex justify-between mb-2">
-                    <div>Tax</div>
+                    <div>{router.locale === 'en' ? 'Taxes' : 'Impuestos'}</div>
                     <div>${taxPrice}</div>
                   </div>
                 </li>
                 <li>
                   <div className="flex justify-between mb-2">
-                    <div>Shipping</div>
+                    <div>{router.locale === 'en' ? 'Shipping' : 'Envio'}</div>
                     <div>${shippingPrice}</div>
                   </div>
                 </li>
@@ -180,7 +198,11 @@ export default function PlaceOrderScreen() {
                     onClick={placeOrderHandler}
                     className="w-full font-bold primary-button"
                   >
-                    {loading ? 'Cargando...' : 'Colocar Orden'}
+                    {loading
+                      ? 'Cargando...'
+                      : router.locale === 'en'
+                      ? 'Place Order'
+                      : 'Colocar Orden'}
                   </button>
                 </li>
               </ul>

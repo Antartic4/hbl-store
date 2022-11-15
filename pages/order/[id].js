@@ -49,6 +49,7 @@ function OrderScreen() {
   const { data: session } = useSession();
   const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
   const { query } = useRouter();
+  const router = useRouter();
   const orderId = query.id;
 
   const [
@@ -169,46 +170,69 @@ function OrderScreen() {
     }
   }
 
+  let id_title =
+    router.locale === 'en' ? `Order ${orderId}` : `Orden ${orderId}`;
+  let id_t1 =
+    router.locale === 'en' ? 'Shipping Address' : 'Direccion de Envio';
+  let id_t2 = router.locale === 'en' ? 'Payment Method' : 'Metodo de Pago';
+  let id_t3 = router.locale === 'en' ? 'Order Items' : 'Resumen Articulos';
+  let id_t4 = router.locale === 'en' ? 'Order Summary' : 'Resumen Orden';
+
   return (
-    <Layout title={`Order ${orderId}`}>
-      <h1 className="mb-4 text-xl">{`Order ${orderId}`}</h1>
+    <Layout title={id_title}>
+      <h1 className="mb-4 text-xl">{id_title}</h1>
       {loading ? (
-        <div>Cargando...</div>
+        <div>{router.locale === 'en' ? 'Loading...' : 'Cargando...'}</div>
       ) : error ? (
         <div className="alert-error">{error}</div>
       ) : (
         <div className="grid md:grid-cols-4 md:gap-5">
           <div className="overflow-x-auto md:col-span-3">
             <div className="p-5 card">
-              <h2 className="mb-2 text-lg">Shipping Address</h2>
+              <h2 className="mb-2 text-lg">{id_t1}</h2>
               <div>
                 {shippingAddress.fullName}, {shippingAddress.address},{' '}
                 {shippingAddress.city}, {shippingAddress.postalCode},{' '}
                 {shippingAddress.country}
               </div>
               {isDelivered ? (
-                <div className="alert-success">Delivered at {deliveredAt}</div>
+                <div className="alert-success">
+                  {router.locale === 'en' ? 'Delivered at ' : 'Entregado en '}
+                  {deliveredAt}
+                </div>
               ) : (
-                <div className="alert-error">Not delivered</div>
+                <div className="alert-error">
+                  {router.locale === 'en' ? 'Not delivered' : 'No entregado'}
+                </div>
               )}
             </div>
             <div className="p-5 card">
-              <h2 className="mb-2 text-lg">Payment Method</h2>
+              <h2 className="mb-2 text-lg">{id_t2}</h2>
               <div>{paymentMethod}</div>
               {isPaid ? (
-                <div className="alert-success">Paid at {paidAt}</div>
+                <div className="alert-success">
+                  {router.locale === 'en' ? 'Paid at' : 'Pago el'} {paidAt}
+                </div>
               ) : (
-                <div className="alert-error">Not paid</div>
+                <div className="alert-error">
+                  {router.locale === 'en' ? 'Not paid' : 'No pago'}
+                </div>
               )}
             </div>
             <div className="p-5 overflow-x-auto card">
-              <h2 className="mb-2 text-lg">Order Items</h2>
+              <h2 className="mb-2 text-lg">{id_t3}</h2>
               <table className="min-w-full">
                 <thead className="border-b">
                   <tr>
-                    <th className="px-5 text-left">Item</th>
-                    <th className="p-5 text-right">Quantity</th>
-                    <th className="p-5 text-right">Price</th>
+                    <th className="px-5 text-left">
+                      {router.locale === 'en' ? 'Item' : 'Articulo'}
+                    </th>
+                    <th className="p-5 text-right">
+                      {router.locale === 'en' ? 'Quantity' : 'Cantidad'}
+                    </th>
+                    <th className="p-5 text-right">
+                      {router.locale === 'en' ? 'Price' : 'Precio'}
+                    </th>
                     <th className="p-5 text-right">Subtotal</th>
                   </tr>
                 </thead>
@@ -242,23 +266,23 @@ function OrderScreen() {
           </div>
           <div>
             <div className="p-5 card">
-              <h2 className="mb-2 text-lg">Order Summary</h2>
+              <h2 className="mb-2 text-lg">{id_t4}</h2>
               <ul>
                 <li>
                   <div className="flex justify-between mb-2">
-                    <div>Items</div>
+                    <div>{router.locale === 'en' ? 'Items' : 'Articulos'}</div>
                     <div>${itemsPrice}</div>
                   </div>
                 </li>{' '}
                 <li>
                   <div className="flex justify-between mb-2">
-                    <div>Tax</div>
+                    <div>{router.locale === 'en' ? 'Taxes' : 'Impuestos'}</div>
                     <div>${taxPrice}</div>
                   </div>
                 </li>
                 <li>
                   <div className="flex justify-between mb-2">
-                    <div>Shipping</div>
+                    <div>{router.locale === 'en' ? 'Shipping' : 'Envio'}</div>
                     <div>${shippingPrice}</div>
                   </div>
                 </li>
@@ -271,7 +295,9 @@ function OrderScreen() {
                 {!isPaid && (
                   <li>
                     {isPending ? (
-                      <div>Loading...</div>
+                      <div>
+                        {router.locale === 'en' ? 'Loading...' : 'Cargando...'}
+                      </div>
                     ) : (
                       <div className="w-full">
                         <PayPalButtons
@@ -281,17 +307,27 @@ function OrderScreen() {
                         ></PayPalButtons>
                       </div>
                     )}
-                    {loadingPay && <div>Cargando...</div>}
+                    {loadingPay && (
+                      <div>
+                        {router.locale === 'en' ? 'Loading...' : 'Cargando...'}
+                      </div>
+                    )}
                   </li>
                 )}
                 {session.user.isAdmin && order.isPaid && !order.isDelivered && (
                   <li>
-                    {loadingDeliver && <div>Cargando...</div>}
+                    {loadingDeliver && (
+                      <div>
+                        {router.locale === 'en' ? 'Loading...' : 'Cargando...'}
+                      </div>
+                    )}
                     <button
                       className="w-full primary-button"
                       onClick={deliverOrderHandler}
                     >
-                      Entregar Orden
+                      {router.locale === 'en'
+                        ? 'Deliver Order'
+                        : 'Entregar Orden'}
                     </button>
                   </li>
                 )}
