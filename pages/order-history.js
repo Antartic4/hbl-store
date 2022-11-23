@@ -41,9 +41,11 @@ function OrderHistoryScreen() {
   }, []);
   return (
     <Layout title="Order History">
-      <h1 className="mb-4 text-xl font-bold">Order History</h1>
+      <h1 className="mb-4 text-xl font-bold">
+        {router.locale === 'en' ? 'Order History' : 'Historial de Ordenes'}
+      </h1>
       {loading ? (
-        <div>Cargando...</div>
+        <div>{'Cargando...'}</div>
       ) : error ? (
         <div className="alert-error">{error}</div>
       ) : (
