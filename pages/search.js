@@ -12,8 +12,9 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import React, { useContext } from 'react';
 import Layout from '../components/Layout';
-import ProductItem2 from '../components/ProductItem2';
+import ProductItem2 from '../components/ProductItem';
 import Product from '../models/Product';
+import { toast, ToastContainer } from 'react-toastify';
 import db from '../utils/db';
 import { Store } from '../utils/Store';
 import useStyles from '../utils/styles';
@@ -21,6 +22,21 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import { Pagination, Rating } from '@material-ui/lab';
 
 const PAGE_SIZE = 3;
+
+const prices_es = [
+  {
+    name: '$1 a $50',
+    value: '1-50',
+  },
+  {
+    name: '$51 a $200',
+    value: '51-200',
+  },
+  {
+    name: '$201 a $1000',
+    value: '201-1000',
+  },
+];
 
 const prices = [
   {
@@ -112,24 +128,36 @@ export default function Search(props) {
     const { data } = await axios.get(`/api/products/${product._id}`);
 
     if (data.countInStock < quantity) {
-      return toast.error('Disculpa. El producto se agotó.');
+      return toast.error(
+        router.locale === 'en'
+          ? 'Sorry. Out of Stock!'
+          : 'Disculpa. El producto se agotó.'
+      );
     }
 
     dispatch({ type: 'CART_ADD_ITEM', payload: { ...product, quantity } });
 
-    toast.success('Producto agregado!');
+    toast.success(
+      router.locale === 'en' ? 'Product Added!' : 'Producto agregado!'
+    );
   };
 
+  let search_title = router.locale === 'en' ? 'Search' : 'Buscar';
+
   return (
-    <Layout title="Buscar">
+    <Layout title={search_title}>
       <Grid className={classes.mt1} container spacing={1}>
         <Grid item md={3}>
           <List>
             <ListItem>
               <Box className={classes.fullWidth}>
-                <Typography>Categorias</Typography>
+                <Typography>
+                  {router.locale === 'en' ? 'Categories' : 'Categorias'}
+                </Typography>
                 <Select fullWidth value={category} onChange={categoryHandler}>
-                  <MenuItem value="all">Todos</MenuItem>
+                  <MenuItem value="all">
+                    {router.locale === 'en' ? 'All' : 'Todas'}
+                  </MenuItem>
                   {categories &&
                     categories.map((category) => (
                       <MenuItem key={category} value={category}>
@@ -141,9 +169,13 @@ export default function Search(props) {
             </ListItem>
             <ListItem>
               <Box className={classes.fullWidth}>
-                <Typography>Marcas</Typography>
+                <Typography>
+                  {router.locale === 'en' ? 'Brands' : 'Marcas'}
+                </Typography>
                 <Select value={brand} onChange={brandHandler} fullWidth>
-                  <MenuItem value="all">All</MenuItem>
+                  <MenuItem value="all">
+                    {router.locale === 'en' ? 'All' : 'Todas'}
+                  </MenuItem>
                   {brands &&
                     brands.map((brand) => (
                       <MenuItem key={brand} value={brand}>
@@ -155,26 +187,42 @@ export default function Search(props) {
             </ListItem>
             <ListItem>
               <Box className={classes.fullWidth}>
-                <Typography>Precios</Typography>
+                <Typography>
+                  {router.locale === 'en' ? 'Prices' : 'Precios'}
+                </Typography>
                 <Select value={price} onChange={priceHandler} fullWidth>
-                  <MenuItem value="all">All</MenuItem>
-                  {prices.map((price) => (
-                    <MenuItem key={price.value} value={price.value}>
-                      {price.name}
-                    </MenuItem>
-                  ))}
+                  <MenuItem value="all">
+                    {router.locale === 'en' ? 'All' : 'Todos'}
+                  </MenuItem>
+                  {router.locale === 'en'
+                    ? prices.map((price) => (
+                        <MenuItem key={price.value} value={price.value}>
+                          {price.name}
+                        </MenuItem>
+                      ))
+                    : prices_es.map((price) => (
+                        <MenuItem key={price.value} value={price.value}>
+                          {price.name}
+                        </MenuItem>
+                      ))}
                 </Select>
               </Box>
             </ListItem>
             <ListItem>
               <Box className={classes.fullWidth}>
-                <Typography>Ratings</Typography>
+                <Typography>
+                  {router.locale === 'en' ? 'Ratings' : 'Reseñas'}
+                </Typography>
                 <Select value={rating} onChange={ratingHandler} fullWidth>
-                  <MenuItem value="all">All</MenuItem>
+                  <MenuItem value="all">
+                    {router.locale === 'en' ? 'All' : 'Todas'}
+                  </MenuItem>
                   {ratings.map((rating) => (
                     <MenuItem dispaly="flex" key={rating} value={rating}>
                       <Rating value={rating} readOnly />
-                      <Typography component="span">&amp; Up</Typography>
+                      <Typography component="span">
+                        &amp; {router.locale === 'en' ? 'Up' : 'Más'}
+                      </Typography>
                     </MenuItem>
                   ))}
                 </Select>
@@ -185,7 +233,8 @@ export default function Search(props) {
         <Grid item md={9}>
           <Grid container justifyContent="space-between" alignItems="center">
             <Grid item>
-              {products.length === 0 ? 'No' : countProducts} Resultados
+              {products.length === 0 ? 'No' : countProducts}{' '}
+              {router.locale === 'en' ? 'Results' : 'Resultados'}
               {query !== 'all' && query !== '' && ' : ' + query}
               {category !== 'all' && ' : ' + category}
               {brand !== 'all' && ' : ' + brand}
@@ -203,14 +252,32 @@ export default function Search(props) {
             </Grid>
             <Grid item>
               <Typography component="span" className={classes.sort}>
-                Arreglar por
+                {router.locale === 'en' ? 'Order by' : 'Arreglar por'}
               </Typography>
               <Select value={sort} onChange={sortHandler}>
-                <MenuItem value="featured">Destacado</MenuItem>
-                <MenuItem value="lowest">Precio: Bajo a Alto</MenuItem>
-                <MenuItem value="highest">Precio: Alto a Bajo</MenuItem>
-                <MenuItem value="toprated">Calificado por Clientes</MenuItem>
-                <MenuItem value="newest">Recien llegados</MenuItem>
+                <MenuItem value="featured">
+                  {router.locale === 'en' ? 'Featured' : 'Destacado'}
+                </MenuItem>
+                <MenuItem value="lowest">
+                  {router.locale === 'en'
+                    ? 'Price: Low to High'
+                    : 'Precio: Bajo a Alto'}
+                </MenuItem>
+                <MenuItem value="highest">
+                  {router.locale === 'en'
+                    ? 'Price: High to Low'
+                    : 'Precio: Alto a Bajo'}
+                </MenuItem>
+                <MenuItem value="toprated">
+                  {router.locale === 'en'
+                    ? 'Picked by Clients'
+                    : 'Calificado por Clientes'}
+                </MenuItem>
+                <MenuItem value="newest">
+                  {router.locale === 'en'
+                    ? 'Recently Added'
+                    : 'Recien llegados'}
+                </MenuItem>
               </Select>
             </Grid>
           </Grid>

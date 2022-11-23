@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React, { useEffect, useReducer } from 'react';
 import Layout from '../components/Layout';
 import { getError } from '../utils/error';
@@ -23,6 +24,8 @@ function OrderHistoryScreen() {
     orders: [],
     error: '',
   });
+
+  const router = useRouter();
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -49,11 +52,19 @@ function OrderHistoryScreen() {
             <thead className="border-b">
               <tr>
                 <th className="px-5 text-left">ID</th>
-                <th className="p-5 text-left">DATE</th>
+                <th className="p-5 text-left">
+                  {router.locale === 'en' ? 'DATE' : 'FECHA'}
+                </th>
                 <th className="p-5 text-left">TOTAL</th>
-                <th className="p-5 text-left">PAID</th>
-                <th className="p-5 text-left">DELIVERED</th>
-                <th className="p-5 text-left">ACTION</th>
+                <th className="p-5 text-left">
+                  {router.locale === 'en' ? 'PAID' : 'PAGO'}
+                </th>
+                <th className="p-5 text-left">
+                  {router.locale === 'en' ? 'DELIVERED' : 'ENTREGADO'}
+                </th>
+                <th className="p-5 text-left">
+                  {router.locale === 'en' ? 'ACTION' : 'ACCION'}
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -65,16 +76,20 @@ function OrderHistoryScreen() {
                   <td className="p-5">
                     {order.isPaid
                       ? `${order.paidAt.substring(0, 10)}`
+                      : router.locale === 'en'
+                      ? 'not paid'
                       : 'no paga'}
                   </td>
                   <td className="p-5">
                     {order.isDelivered
                       ? `${order.deliveredAt.substring(0, 10)}`
+                      : router.locale === 'en'
+                      ? 'not deliviered'
                       : 'no entregado'}
                   </td>
                   <td className="p-5">
                     <Link legacyBehavior href={`/order/${order._id}`} passHref>
-                      <a>Details</a>
+                      <a>{router.locale === 'en' ? 'Details' : 'Detalles'}</a>
                     </Link>
                   </td>
                 </tr>

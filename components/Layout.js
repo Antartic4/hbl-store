@@ -26,8 +26,10 @@ import {
   ListItemText,
   Typography,
 } from '@material-ui/core';
+import MenuIcon from '@material-ui/icons/Menu';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import { US, ES } from 'country-flag-icons/react/3x2';
 
 export default function Layout({ title, children }) {
   const classes = useStyles();
@@ -82,95 +84,30 @@ export default function Layout({ title, children }) {
     signOut({ callbackUrl: '/login' });
   };
 
-  let nav_home =
-    router.locale === 'en'
-      ? 'Home'
-      : router.locale === 'es'
-      ? 'Inicio'
-      : router.locale === 'fr'
-      ? 'Page Principale'
-      : '';
+  let nav_home = router.locale === 'en' ? 'Home' : 'Inicio';
 
-  let nav_shop =
-    router.locale === 'en'
-      ? 'Shop'
-      : router.locale === 'es'
-      ? 'Tienda'
-      : router.locale === 'fr'
-      ? 'Boutique'
-      : '';
+  let nav_shop = router.locale === 'en' ? 'Shop' : 'Tienda';
 
-  let nav_cart =
-    router.locale === 'en'
-      ? 'Cart'
-      : router.locale === 'es'
-      ? 'Carrito'
-      : router.locale === 'fr'
-      ? 'Chariot'
-      : '';
+  let nav_cart = router.locale === 'en' ? 'Cart' : 'Carrito';
 
-  let nav_aboutus =
-    router.locale === 'en'
-      ? 'About Us'
-      : router.locale === 'es'
-      ? 'Sobre Nosotros'
-      : router.locale === 'fr'
-      ? 'À propos de nous'
-      : '';
+  let nav_aboutus = router.locale === 'en' ? 'About Us' : 'Sobre Nosotros';
 
   let nav_search =
-    router.locale === 'en'
-      ? 'Search products'
-      : router.locale === 'es'
-      ? 'Buscar productos'
-      : router.locale === 'fr'
-      ? 'Recherche de produits'
-      : '';
+    router.locale === 'en' ? 'Search Products' : 'Buscar Productos';
 
-  let nav_profile =
-    router.locale === 'en'
-      ? 'Profile'
-      : router.locale === 'es'
-      ? 'Perfil'
-      : router.locale === 'fr'
-      ? 'Profil'
-      : '';
+  let nav_profile = router.locale === 'en' ? 'Profile' : 'Perfil';
 
   let nav_historyorders =
-    router.locale === 'en'
-      ? 'Order History'
-      : router.locale === 'es'
-      ? 'Historial Ordenes'
-      : router.locale === 'fr'
-      ? 'Historique des commandes'
-      : '';
+    router.locale === 'en' ? 'Order History' : 'Historial Ordenes';
 
   let nav_adminportal =
-    router.locale === 'en'
-      ? 'Admin Portal'
-      : router.locale === 'es'
-      ? 'Portal de Admin'
-      : router.locale === 'fr'
-      ? `Portail d'administration`
-      : '';
+    router.locale === 'en' ? 'Admin Portal' : 'Portal de Admin';
 
-  let nav_logout =
-    router.locale === 'en'
-      ? 'Logout'
-      : router.locale === 'es'
-      ? 'Cerrar Session'
-      : router.locale === 'fr'
-      ? 'Se déconnecter'
-      : '';
+  let nav_logout = router.locale === 'en' ? 'Logout' : 'Cerrar Session';
 
-  let nav_login =
-    router.locale === 'en'
-      ? 'Login'
-      : router.locale === 'es'
-      ? 'Iniciar sesión'
-      : router.locale === 'fr'
-      ? 'Authentifier'
-      : '';
+  let nav_login = router.locale === 'en' ? 'Login' : 'Iniciar sesión';
+
+  let nav_myprofile = router.locale === 'en' ? 'My Profile' : 'Mi Perfil';
 
   return (
     <>
@@ -187,6 +124,92 @@ export default function Layout({ title, children }) {
           <div className="pt-32">
             <nav className="fixed top-0 left-0 w-full bg-white shadow">
               <div className="container flex items-center justify-between pl-5 m-auto text-gray-700">
+                {/* SideBar Button + Menu */}
+                <div className="block px-4 py-3 mx-2 xl:hidden focus:outline-none">
+                  <Box display="flex" alignItems="center">
+                    <IconButton
+                      edge="start"
+                      aria-label="open drawer"
+                      onClick={sidebarOpenHandler}
+                    >
+                      <MenuIcon className={classes.navbarButton} />
+                    </IconButton>
+                  </Box>
+                  <Drawer
+                    anchor="left"
+                    open={sidebarVisible}
+                    onClose={sidebarCloseHandler}
+                  >
+                    <List>
+                      <ListItem>
+                        <Box
+                          display="flex"
+                          alignItems="center"
+                          justifyContent="space-between"
+                          className="flex"
+                        >
+                          <Typography className="py-2 text-center">
+                            <h1 className="font-bold">
+                              {router.locale === 'en'
+                                ? 'Shopping by Category'
+                                : 'Comprando por Categoria'}
+                            </h1>
+                          </Typography>
+                          <IconButton
+                            aria-label="close"
+                            onClick={sidebarCloseHandler}
+                          >
+                            <CancelIcon />
+                          </IconButton>
+                        </Box>
+                      </ListItem>
+                      <Divider light />
+                      <Box>
+                        <div className="px-3 text-center py-3 font-bold hover:bg-gray-200">
+                          <Link href="/">{nav_home}</Link>
+                        </div>
+                        <div className="px-3 py-3 text-center font-bold hover:bg-gray-200">
+                          <Link href="/">{nav_shop}</Link>
+                        </div>
+                        <div className="px-3 py-3 text-center hover:bg-gray-200">
+                          <Link legacyBehavior href="/cart">
+                            <div className="item-center">
+                              <h1 className="font-bold text-center">
+                                {nav_cart}
+                              </h1>
+                            </div>
+                          </Link>
+                        </div>
+                        <Divider light />
+                        <div className="px-3 py-3 text-center font-bold hover:bg-gray-200">
+                          <Link href="/profile">{nav_myprofile}</Link>
+                        </div>
+                        <Divider light />
+                        <div className="px-3 py-3 text-center items-center font-bold hover:bg-gray-200">
+                          <Link href="/search">
+                            <h1 className="text-center items-center flex justify-center">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                                className="w-5 h-5"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+                                />
+                              </svg>
+                              {nav_search}
+                            </h1>
+                          </Link>
+                        </div>
+                      </Box>
+                    </List>
+                  </Drawer>
+                </div>
                 <div className="flex items-center">
                   <button onClick={sidebarOpenHandler} className="mr-5">
                     <a className="px-4">
@@ -283,82 +306,24 @@ export default function Layout({ title, children }) {
                       </Link>
                     </div>
                   </li>
-                  <li className="px-2 py-4">
-                    <div className="pl-3">
-                      <button className="">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="white"
-                          viewBox="0 0 24 24"
-                          strokeWidth="2"
-                          stroke="#666666"
-                          className="text-red-400 w-7 h-7 hover:stroke-black"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 011.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.56.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.893.149c-.425.07-.765.383-.93.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 01-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.397.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 01-.12-1.45l.527-.737c.25-.35.273-.806.108-1.204-.165-.397-.505-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.107-1.204l-.527-.738a1.125 1.125 0 01.12-1.45l.773-.773a1.125 1.125 0 011.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894z"
-                          />
-                          <button onClick={sidebarOpenHandler} className="mr-5">
-                            <Link legacyBehavior href="/">
-                              <a className="px-4"></a>
-                            </Link>
-                          </button>
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                          />
-                        </svg>
-                      </button>
-                    </div>
+                  <li className="pl-2">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="1.5"
+                      stroke="currentColor"
+                      className="w-8 h-8 hover:text-red-400 hover:fill-red-300"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+                      />
+                    </svg>
                   </li>
                 </ul>
                 <div className="flex items-center justify-center bg">
-                  <button className="block px-4 py-3 mx-2 rounded xl:hidden focus:outline-none hover:bg-gray-200 group">
-                    <div className="w-5 h-1 mb-1 bg-gray-600"></div>
-                    <div className="w-5 h-1 mb-1 bg-gray-600"></div>
-                    <div className="w-5 h-1 bg-gray-600"></div>
-                    <div className="absolute top-0 z-30 w-8/12 h-screen transition-all duration-300 bg-white border opacity-100 -right-full group-focus:right-0 group-focus:opacity-100">
-                      <ul className="z-10 flex flex-col items-center w-full pt-10 text-base bg-white cursor-pointer">
-                        <li className="w-full px-6 py-4 hover:bg-gray-200">
-                          <Link legacyBehavior href="/">
-                            <a>{nav_home}</a>
-                          </Link>
-                        </li>
-                        <li className="w-full px-6 py-4 hover:bg-gray-200">
-                          <Link legacyBehavior href="/search">
-                            <a>{nav_shop}</a>
-                          </Link>
-                        </li>
-                        <li className="w-full px-6 py-4 hover:bg-gray-200">
-                          <Link legacyBehavior href="/">
-                            <a>{nav_home}</a>
-                          </Link>
-                        </li>
-                        <li className="w-full px-6 py-4 hover:bg-gray-200">
-                          <div className="">
-                            <Link legacyBehavior href="/cart">
-                              <buttton className="text-md shrink">
-                                <div className="md:flex">{nav_cart}</div>
-                              </buttton>
-                            </Link>
-                          </div>
-                        </li>
-                        <li className="w-full px-6 py-4 hover:bg-gray-200">
-                          <div className="">
-                            <Link legacyBehavior href="/aboutus">
-                              <buttton className="text-md shrink">
-                                <div className="md:flex text-center">
-                                  {nav_aboutus}
-                                </div>
-                              </buttton>
-                            </Link>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                  </button>
                   <div className="pr-3">
                     {status === 'loading' ? (
                       'Cargando...'
@@ -427,16 +392,23 @@ export default function Layout({ title, children }) {
         </header>
         <main className="container px-4 m-auto mt-4">{children}</main>
         <footer className="text-center pt-3 items-center justify-center h-20 shadow-inner">
-          <p>Copyright © 2022 Mariel Frias - Store</p>
-          <ul>
-            {router.locales.map((locale) => (
-              <li key={locale}>
-                <Link legacyBehavior href={router.asPath} locale={locale}>
-                  <a>{locale}</a>
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <p className="">Copyright © 2022 Mariel Frias - Store</p>
+          <div className="flex justify-center">
+            <div>
+              <Link legacyBehavior href={router.asPath} locale="en">
+                <a>
+                  <US title="English" width={50} className="pr-1" />
+                </a>
+              </Link>
+            </div>
+            <div>
+              <Link legacyBehavior href={router.asPath} locale="es">
+                <a>
+                  <ES title="Español" width={50} className="pl-1" />
+                </a>
+              </Link>
+            </div>
+          </div>
         </footer>
       </div>
     </>
