@@ -13,6 +13,7 @@ import {
 import React, { useEffect, useReducer } from 'react';
 import Layout from '../../components/Layout';
 import { getError } from '../../utils/error';
+import { useRouter } from 'next/router';
 
 ChartJS.register(
   CategoryScale,
@@ -65,6 +66,8 @@ function AdminDashboardScreen() {
     fetchData();
   }, []);
 
+  const router = useRouter();
+
   const data = {
     labels: summary.salesData.map((x) => x._id),
     datasets: [
@@ -76,37 +79,46 @@ function AdminDashboardScreen() {
     ],
   };
 
+  let db_title = router.locale === 'en' ? 'Dashboard' : 'Portal';
+  let db_orders = router.locale === 'en' ? 'Orders' : 'Ordenes';
+  let db_products = router.locale === 'en' ? 'Products' : 'Productos';
+  let db_users = router.locale === 'en' ? 'Users' : 'Usuarios';
+  let db_title2 =
+    router.locale === 'en' ? 'Administrative Portal' : 'Portal de Admin';
+
   return (
-    <Layout title="Admin Dashboard">
+    <Layout title={db_title}>
       <div className="grid md:grid-cols-4 md:gap-5">
         <div className="card text-center pt-5">
           <ul>
             <li>
               <Link legacyBehavior href="/admin/dashboard">
-                <a className="font-bold text-xl">Dashboard</a>
+                <a className="font-bold text-xl">{db_title}</a>
               </Link>
             </li>
             <li>
               <Link legacyBehavior href="/admin/orders">
-                <a className="text-blue-500 hover:text-blue-700">Ordenes</a>
+                <a className="text-blue-500 hover:text-blue-700">{db_orders}</a>
               </Link>
             </li>
             <li>
               <Link legacyBehavior href="/admin/products">
-                <a className="text-blue-500 hover:text-blue-700">Productos</a>
+                <a className="text-blue-500 hover:text-blue-700">
+                  {db_products}
+                </a>
               </Link>
             </li>
             <li className="pb-5">
               <Link legacyBehavior href="/admin/users">
-                <a className="text-blue-500 hover:text-blue-700">Usuarios</a>
+                <a className="text-blue-500 hover:text-blue-700">{db_users}</a>
               </Link>
             </li>
           </ul>
         </div>
         <div className="md:col-span-3">
-          <h1 className="mb-4 text-2xl font-bold pt-5">Portal de Admin</h1>
+          <h1 className="mb-4 text-2xl font-bold pt-5">{db_title2}</h1>
           {loading ? (
-            <div>Cargando...</div>
+            <div>{router.locale === 'en' ? 'Loading...' : 'Cargando...'}</div>
           ) : error ? (
             <div className="alert-error">{error}</div>
           ) : (
@@ -114,42 +126,46 @@ function AdminDashboardScreen() {
               <div className="grid grid-cols-1 md:grid-cols-4">
                 <div className="p-5 m-5 card">
                   <p className="text-3xl">${summary.ordersPrice}</p>
-                  <p>Ventas</p>
+                  <p>{router.locale === 'en' ? 'Sales' : 'Ventas'}</p>
                   <Link legacyBehavior href="/admin/orders">
                     <a className="text-blue-700 hover:text-blue-500">
-                      Ver Ventas
+                      {router.locale === 'en' ? 'View Sales' : 'Ver Ventas'}
                     </a>
                   </Link>
                 </div>
                 <div className="p-5 m-5 card">
                   <p className="text-3xl">{summary.ordersCount}</p>
-                  <p>Ordenes</p>
+                  <p>{router.locale === 'en' ? 'Orders' : 'Ordenes'}</p>
                   <Link legacyBehavior href="/admin/orders">
                     <a className="text-blue-700 hover:text-blue-500">
-                      Ver Ordenes
+                      {router.locale === 'en' ? 'View Orders' : 'Ver Ordenes'}
                     </a>
                   </Link>
                 </div>
                 <div className="p-5 m-5 card">
                   <p className="text-3xl">{summary.productsCount}</p>
-                  <p>Productos</p>
+                  <p>{router.locale === 'en' ? 'Products' : 'Productos'}</p>
                   <Link legacyBehavior href="/admin/products">
                     <a className="text-blue-700 hover:text-blue-500">
-                      Ver Productos
+                      {router.locale === 'en'
+                        ? 'View Products'
+                        : 'Ver Productos'}
                     </a>
                   </Link>
                 </div>
                 <div className="p-5 m-5 card">
                   <p className="text-3xl">{summary.usersCount}</p>
-                  <p>Usuarios</p>
+                  <p>{router.locale === 'en' ? 'Users' : 'Usuarios'}</p>
                   <Link legacyBehavior href="/admin/users">
                     <a className="text-blue-700 hover:text-blue-500">
-                      Ver Usuarios
+                      {router.locale === 'en' ? 'View Users' : 'Ver Usuarios'}
                     </a>
                   </Link>
                 </div>
               </div>
-              <h2 className="text-xl">Reporte de Ventas</h2>
+              <h2 className="text-xl">
+                {router.locale === 'en' ? 'Sales Report' : 'Reporte de Ventas'}
+              </h2>
               <Bar
                 options={{
                   legend: { display: true, positions: 'right' },

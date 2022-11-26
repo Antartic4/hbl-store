@@ -6,10 +6,13 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import { Store } from '../utils/Store';
 import { useContext } from 'react';
+import { useRouter } from 'next/router';
 
 export default function Home({ products }) {
   const { state, dispatch } = useContext(Store);
   const { cart } = state;
+
+  const router = useRouter();
 
   const addToCartHandler = async (product) => {
     const existItem = state.cart.cartItems.find((x) => x.slug === product.slug);
@@ -18,16 +21,25 @@ export default function Home({ products }) {
     const { data } = await axios.get(`/api/products/${product._id}`);
 
     if (data.countInStock < quantity) {
-      return toast.error('Disculpa. El producto se agotó.');
+      return toast.error(
+        router.locale === 'en'
+          ? 'Sorry. Product '
+          : 'Disculpa. El producto se agotó.'
+      );
     }
 
     dispatch({ type: 'CART_ADD_ITEM', payload: { ...product, quantity } });
 
-    toast.success('Producto agregado!');
+    toast.success(
+      router.locale === 'en' ? 'Product Added!' : 'Producto agregado!'
+    );
   };
 
+  let titulo_variable =
+    router.locale === 'en' ? 'Home Page' : 'Pagina de Inicio';
+
   return (
-    <Layout title="Home Page">
+    <Layout title={titulo_variable}>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
         {products.map((product) => (
           <ProductItem

@@ -12,7 +12,6 @@ import DropdownLink from './DropdownLink';
 import { getError } from '../utils/error';
 import CancelIcon from '@material-ui/icons/Cancel';
 import SearchIcon from '@material-ui/icons/Search';
-import NextLink from 'next/link';
 import Cookies from 'js-cookie';
 import Image from 'next/image';
 import {
@@ -119,11 +118,11 @@ export default function Layout({ title, children }) {
 
       <ToastContainer position="bottom-center" limit={1} />
 
-      <div className="flex flex-col justify-between min-h-screen ">
+      <div className="flex flex-col justify-between min-h-screen">
         <header className="z-10">
-          <div className="pt-32">
+          <div className="pt-28">
             <nav className="fixed top-0 left-0 w-full bg-white shadow">
-              <div className="container flex items-center justify-between pl-5 m-auto text-gray-700">
+              <div className="container flex items-center justify-between m-auto text-gray-700">
                 {/* SideBar Button + Menu */}
                 <div className="block px-4 py-3 mx-2 xl:hidden focus:outline-none">
                   <Box display="flex" alignItems="center">
@@ -180,6 +179,9 @@ export default function Layout({ title, children }) {
                             </div>
                           </Link>
                         </div>
+                        <div className="px-3 py-3 text-center font-bold hover:bg-gray-200">
+                          <Link href="/aboutus">{nav_aboutus}</Link>
+                        </div>
                         <Divider light />
                         <div className="px-3 py-3 text-center font-bold hover:bg-gray-200">
                           <Link href="/profile">{nav_myprofile}</Link>
@@ -227,104 +229,117 @@ export default function Layout({ title, children }) {
                   </button>
                   <div className="">
                     <Link href="/">
-                      <buttton className="text-2xl font-bold shrink">
-                        <div className="md:flex">
-                          <h4 className="text-left shrink">M A R I E L</h4>
-                          <h4 className="text-left shrink md:pl-5">
-                            F R I A S
-                          </h4>
-                        </div>
+                      <buttton className="font-bold shrink">
+                        {router.locale === 'en' ? (
+                          <div className="md:flex text-2xl">
+                            <h4 className="text-left shrink">M A R I E L</h4>
+                            <h4 className="text-left shrink md:pl-5">
+                              F R I A S
+                            </h4>
+                          </div>
+                        ) : (
+                          <div className="md:flex text-xl">
+                            <h4 className="text-left shrink">M A R I E L</h4>
+                            <h4 className="text-left shrink md:pl-5">
+                              F R I A S
+                            </h4>
+                          </div>
+                        )}
                       </buttton>
                     </Link>
                   </div>
                 </div>
-                <ul className="items-center hidden pr-10 text-base font-semibold cursor-pointer xl:flex">
-                  <li className="px-3 py-3 hover:bg-gray-200">{nav_home}</li>
-                  <li className="px-3 py-3 hover:bg-gray-200">{nav_shop}</li>
-                  <li className="px-3 py-3 hover:bg-gray-200">
-                    <Link legacyBehavior href="/cart">
-                      <div className="flex items-center justify-between">
-                        {nav_cart}
-                      </div>
-                    </Link>
-                  </li>
-                  <li className="px-3 py-3 text-center items-center hover:bg-gray-200">
-                    {nav_aboutus}
-                  </li>
-                </ul>
-                <ul className="items-center hidden text-base font-semibold cursor-pointer justify-evenly xl:flex">
-                  <li className="px-3 py-3">
-                    <div className={classes.searchSection}>
-                      <form
-                        onSubmit={submitHandler}
-                        className={classes.searchForm}
-                      >
-                        <InputBase
-                          name="query"
-                          className={classes.searchInput}
-                          placeholder={nav_search}
-                          onChange={queryChangeHandler}
-                        />
-                        <IconButton
-                          type="submit"
-                          className={classes.iconButton}
-                          aria-label="search"
-                        >
-                          <SearchIcon />
-                        </IconButton>
-                      </form>
-                    </div>
-                  </li>
-                  <li className="px-2 py-4">
-                    <div>
+                <div className="flex items-center">
+                  <ul className="items-center hidden pr-10 text-base font-semibold cursor-pointer xl:flex">
+                    <li className="px-3 py-3 hover:bg-gray-200">{nav_home}</li>
+                    <li className="px-3 py-3 hover:bg-gray-200">{nav_shop}</li>
+                    <li className="px-3 py-3 hover:bg-gray-200">
                       <Link legacyBehavior href="/cart">
                         <div className="flex items-center justify-between">
-                          <a className="hover:text-red-700">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              strokeWidth="1.5"
-                              stroke="black"
-                              className="w-8 h-8"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-                              />
-                            </svg>
-                          </a>
-                          {cartItemsCount > 0 && (
-                            <Link legacyBehavior href="/cart">
-                              <span className="p-0.5 px-1 py-1 font-medium text-white bg-black rounded-full">
-                                <p className="text-sm">{cartItemsCount}</p>
-                              </span>
-                            </Link>
-                          )}
+                          {nav_cart}
                         </div>
                       </Link>
-                    </div>
-                  </li>
-                  <li className="pl-2">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth="1.5"
-                      stroke="currentColor"
-                      className="w-8 h-8 hover:text-red-400 hover:fill-red-300"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
-                      />
-                    </svg>
-                  </li>
-                </ul>
-                <div className="flex items-center justify-center bg">
-                  <div className="pr-3">
+                    </li>
+                    <li className="px-3 py-3 text-center items-center hover:bg-gray-200">
+                      <Link legacyBehavior href="/aboutus">
+                        <div>{nav_aboutus}</div>
+                      </Link>
+                    </li>
+                  </ul>
+                  <ul className="items-center hidden text-base font-semibold cursor-pointer justify-evenly xl:flex">
+                    <li className="px-3 py-3">
+                      <div className={classes.searchSection}>
+                        <form
+                          onSubmit={submitHandler}
+                          className={classes.searchForm}
+                        >
+                          <InputBase
+                            name="query"
+                            className={classes.searchInput}
+                            placeholder={nav_search}
+                            onChange={queryChangeHandler}
+                          />
+                          <IconButton
+                            type="submit"
+                            className={classes.iconButton}
+                            aria-label="search"
+                          >
+                            <SearchIcon />
+                          </IconButton>
+                        </form>
+                      </div>
+                    </li>
+                    <li className="px-2 py-4">
+                      <div>
+                        <Link legacyBehavior href="/cart">
+                          <div className="flex items-center justify-between">
+                            <a className="hover:text-red-700">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth="1.5"
+                                stroke="black"
+                                className="w-8 h-8 hover:fill-red-300"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+                                />
+                              </svg>
+                            </a>
+                            {cartItemsCount > 0 && (
+                              <Link legacyBehavior href="/cart">
+                                <span className="p-0.5 px-1 py-1 font-medium text-white bg-black rounded-full">
+                                  <p className="text-sm">{cartItemsCount}</p>
+                                </span>
+                              </Link>
+                            )}
+                          </div>
+                        </Link>
+                      </div>
+                    </li>
+                    <li className="pl-2">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth="1.5"
+                        stroke="black"
+                        className="w-8 h-8 hover:text-red-400 hover:fill-red-300"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+                        />
+                      </svg>
+                    </li>
+                  </ul>
+                </div>
+                <div className="flex items-center pr-2 justify-center">
+                  <div className="">
                     {status === 'loading' ? (
                       'Cargando...'
                     ) : session?.user ? (

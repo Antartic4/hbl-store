@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['res.cloudinary.com', 'i.ibb.co'],
+    domains: ['res.cloudinary.com', 'i.ibb.co', 'images.unsplash.com'],
   },
   i18n: {
     locales: ['en', 'es'],
