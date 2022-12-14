@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     margin: '0 auto',
   },
   navbarButton: {
-    color: '#000000',
+    color: '#FFFFFF',
     textTransform: 'initial',
   },
   transparentBackgroud: {
@@ -71,15 +71,13 @@ const useStyles = makeStyles((theme) => ({
   searchForm: {},
   searchInput: {
     paddingLeft: 2,
-    '& ::placeholder': {
-      color: '',
-    },
+    '& ::placeholder': {},
   },
   iconButton: {
     padding: 5,
     borderRadius: '0 5px 5px 0',
     '& span': {
-      color: '#000000',
+      color: '#ffffff',
     },
   },
   sort: {
