@@ -22,6 +22,7 @@
     "chart.js": "^3.9.1",
     "cloudinary": "^1.32.0",
     "country-flag-icons": "^1.5.5",
+    "deps": "^1.0.0",
     "js-cookie": "^3.0.1",
     "make-plural": "^7.1.0",
     "mongoose": "^6.7.0",

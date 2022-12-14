@@ -244,9 +244,9 @@ export default function Layout({ title, children }) {
                           </div>
                         ) : (
                           <div className="text-xl md:flex">
-                            <h4 className="text-left shrink">M A R I E L</h4>
-                            <h4 className="text-left shrink md:pl-5">
-                              F R I A S
+                            <h4 className="text-left shrink">HEART</h4>
+                            <h4 className="text-left shrink md:pl-2">
+                              BY LEON
                             </h4>
                           </div>
                         )}
@@ -433,7 +433,7 @@ export default function Layout({ title, children }) {
         </header>
         <main className="container px-4 m-auto mt-4">{children}</main>
         <footer className="items-center justify-center h-20 pt-3 text-center shadow-inner">
-          <p className="">Copyright © 2022 Mariel Frias - Store</p>
+          <p className="">Copyright © 2022 Heart by Leon - Store</p>
           <div className="flex justify-center">
             <div>
               <Link legacyBehavior href={router.asPath} locale="en">
