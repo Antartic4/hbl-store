@@ -9,37 +9,35 @@ import dynamic from 'next/dynamic';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-function CartScreen() {
+function WishScreen() {
   const router = useRouter();
   const { state, dispatch } = useContext(Store);
   const {
-    cart: { cartItems },
+    wish: { wishItems },
   } = state;
 
   const removeItemHandler = (item) => {
-    dispatch({ type: 'CART_REMOVE_ITEM', payload: item });
+    dispatch({ type: 'WISH_REMOVE_ITEM', payload: item });
   };
-  const updateCartHandler = async (item, qty) => {
+  const updateWishHandler = async (item, qty) => {
     const quantity = Number(qty);
     const { data } = await axios.get(`/api/products/${item._id}`);
-    if (data.countInStock < quantity) {
-      return toast.error('Disculpa. El producto se agotó.');
-    }
-    dispatch({ type: 'CART_ADD_ITEM', payload: { ...item, quantity } });
-    toast.success('Carrito actualizado!');
+
+    dispatch({ type: 'WISH_ADD_ITEM', payload: { ...item, quantity } });
+    toast.success('WishList actualizado!');
   };
   let cart_cart =
     router.locale === 'en'
-      ? 'Shopping Cart'
+      ? 'Wishlist'
       : router.locale === 'es'
-      ? 'Carrito de Compras'
+      ? 'Wishlist'
       : '';
 
   let cart_empty =
     router.locale === 'en'
-      ? 'The shopping cart is empty! '
+      ? 'The wishlist is empty! '
       : router.locale === 'es'
-      ? 'El carrito de compras esta vacio!'
+      ? 'El wishlist esta vacio!'
       : '';
   let cart_link =
     router.locale === 'en'
@@ -74,7 +72,7 @@ function CartScreen() {
   return (
     <Layout title={cart_cart}>
       <h1 className="mb-4 text-xl">{cart_cart}</h1>
-      {cartItems.length === 0 ? (
+      {wishItems.length === 0 ? (
         <div>
           {cart_empty}{' '}
           <Link legacyBehavior href="/">
@@ -94,7 +92,7 @@ function CartScreen() {
                 </tr>
               </thead>
               <tbody>
-                {cartItems.map((item) => (
+                {wishItems.map((item) => (
                   <tr key={item.slug} className="border-b">
                     <td>
                       <Link legacyBehavior href={`/product/${item.slug}`}>
@@ -114,7 +112,7 @@ function CartScreen() {
                       <select
                         value={item.quantity}
                         onChange={(e) =>
-                          updateCartHandler(item, e.target.value)
+                          updateWishHandler(item, e.target.value)
                         }
                       >
                         {[...Array(item.countInStock).keys()].map((x) => (
@@ -135,28 +133,10 @@ function CartScreen() {
               </tbody>
             </table>
           </div>
-          <div className="p-5 card">
-            <ul>
-              <li>
-                <div className="pb-3">
-                  Subtotal ({cartItems.reduce((a, c) => a + c.quantity, 0)}) : $
-                  {cartItems.reduce((a, c) => a + c.quantity * c.price, 0)}
-                </div>
-              </li>
-              <li>
-                <button
-                  onClick={() => router.push('login?redirect=/shipping')}
-                  className="w-full primary-button"
-                >
-                  {cart_button}
-                </button>
-              </li>
-            </ul>
-          </div>
         </div>
       )}
     </Layout>
   );
 }
 
-export default dynamic(() => Promise.resolve(CartScreen), { ssr: false });
+export default dynamic(() => Promise.resolve(WishScreen), { ssr: false });

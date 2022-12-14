@@ -10,7 +10,7 @@ import { useRouter } from 'next/router';
 
 export default function Home({ products }) {
   const { state, dispatch } = useContext(Store);
-  const { cart } = state;
+  const { cart, wish } = state;
 
   const router = useRouter();
 
@@ -35,6 +35,19 @@ export default function Home({ products }) {
     );
   };
 
+  const addToWishHandler = async (product) => {
+    const existItem = state.wish.wishItems.find((x) => x.slug === product.slug);
+    const quantity = existItem ? existItem.quantity + 1 : 1;
+
+    const { data } = await axios.get(`/api/products/${product._id}`);
+
+    dispatch({ type: 'WISH_ADD_ITEM', payload: { ...product, quantity } });
+
+    toast.success(
+      router.locale === 'en' ? 'Product Added!' : 'Producto agregado!'
+    );
+  };
+
   let titulo_variable =
     router.locale === 'en' ? 'Home Page' : 'Pagina de Inicio';
 
@@ -46,6 +59,7 @@ export default function Home({ products }) {
             product={product}
             key={product.slug}
             addToCartHandler={addToCartHandler}
+            addToWishHandler={addToWishHandler}
           ></ProductItem>
         ))}
       </div>
