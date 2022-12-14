@@ -78,11 +78,17 @@ export default function ProductScreen(props) {
       ? 'Agregar al carrito'
       : '';
 
+  const color_azul = product.image;
+
   let slug_price =
     router.locale === 'en' ? 'Price' : router.locale === 'es' ? 'Precio' : '';
 
   let slug_status =
     router.locale === 'en' ? 'Status' : router.locale === 'es' ? 'Estatus' : '';
+
+  //otras funciones
+
+  let defImage = product.image;
 
   return (
     <Layout title={product.name}>
@@ -112,15 +118,25 @@ export default function ProductScreen(props) {
           <div className="">
             <h1 className="mb-5 text-3xl text-center">{product.name}</h1>
             <figure className="relative object-cover max-w-sm mx-auto transition-all duration-300 cursor-pointer filter">
-              <a>
-                <Image
-                  className="pb-3 rounded-lg"
-                  src={product.image}
-                  alt="image description"
-                  width={300}
-                  height={400}
-                />
-              </a>
+              <div className="figure2">
+                <a>
+                  <Image
+                    id="picToChange"
+                    className="pb-3 rounded-lg object-cover image-main"
+                    src={defImage}
+                    alt="image description"
+                    width={300}
+                    height={400}
+                  />
+                  <Image
+                    className="pb-3 rounded-lg object-cover image-hover"
+                    src={product.image2}
+                    alt="image description"
+                    width={300}
+                    height={400}
+                  />
+                </a>
+              </div>
             </figure>
           </div>
         </div>
@@ -149,6 +165,22 @@ export default function ProductScreen(props) {
             <li className="flex justify-between mb-3">
               <h1 className="font-bold text-l">{slug_description}:</h1>
               {product.description}
+            </li>
+            <li className="flex justify-between mb-3">
+              <h1 className="font-bold text-l">Color:</h1>
+              <div className="flex space-x-2">
+                <button
+                  className="bg-white border rounded-md p-3"
+                  onClick={() => (defImage = product.color.white)}
+                ></button>
+                <button
+                  className="bg-black border rounded-md p-3"
+                  onClick={() => (defImage = product.color.black)}
+                ></button>
+                <button className="bg-red-500 border rounded-md p-3"></button>
+                <button className="bg-blue-600 border rounded-md p-3"></button>
+                <button className="bg-green-600 border rounded-md p-3"></button>
+              </div>
             </li>
           </ul>
         </div>

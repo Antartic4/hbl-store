@@ -7,6 +7,9 @@ const initialState = {
   cart: Cookies.get('cart')
     ? JSON.parse(Cookies.get('cart'))
     : { cartItems: [], shippingAddress: {}, paymentMethod: '' },
+  wish: Cookies.get('wish')
+    ? JSON.parse(Cookies.get('wish'))
+    : { wishItems: [] },
 };
 
 function reducer(state, action) {
@@ -24,12 +27,32 @@ function reducer(state, action) {
       Cookies.set('cart', JSON.stringify({ ...state.cart, cartItems }));
       return { ...state, cart: { ...state.cart, cartItems } };
     }
+    case 'WISH_ADD_ITEM': {
+      const newWishItem = action.payload;
+      const existWishItem = state.wish.wishItems.find(
+        (item) => item.slug === newWishItem.slug
+      );
+      const wishItems = existWishItem
+        ? state.wish.wishItems.map((item) =>
+            item.name === existWishItem.name ? newWishItem : item
+          )
+        : [...state.wish.wishItems, newWishItem];
+      Cookies.set('wish', JSON.stringify({ ...state.wish, wishItems }));
+      return { ...state, wish: { ...state.wish, wishItems } };
+    }
     case 'CART_REMOVE_ITEM': {
       const cartItems = state.cart.cartItems.filter(
         (item) => item.slug !== action.payload.slug
       );
       Cookies.set('cart', JSON.stringify({ ...state.cart, cartItems }));
       return { ...state, cart: { ...state.cart, cartItems } };
+    }
+    case 'WISH_REMOVE_ITEM': {
+      const wishItems = state.wish.wishItems.filter(
+        (item) => item.slug !== action.payload.slug
+      );
+      Cookies.set('wish', JSON.stringify({ ...state.wish, wishItems }));
+      return { ...state, wish: { ...state.wish, wishItems } };
     }
     case 'CART_RESET':
       return {
