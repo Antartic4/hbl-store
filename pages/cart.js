@@ -71,6 +71,31 @@ function CartScreen() {
       ? 'Check Out'
       : '';
 
+  if (cartItems.category === 'slug') {
+    return;
+  }
+
+  const colorShirts = (
+    <>
+      <select name="colorShirt">
+        <option value="white">White</option>
+        <option value="black">Black</option>
+        <option value="red">Red</option>
+        <option value="blue">Blue</option>
+        <option value="green">Green</option>
+      </select>
+    </>
+  );
+  const colorPants = (
+    <>
+      <select name="colorShirt">
+        <option value="esto">Esto</option>
+        <option value="aquello">Aquello</option>
+        <option value="no">No</option>
+      </select>
+    </>
+  );
+
   return (
     <Layout title={cart_cart}>
       <h1 className="mb-4 text-xl">{cart_cart}</h1>
@@ -88,6 +113,7 @@ function CartScreen() {
               <thead className="border-b">
                 <tr>
                   <th className="px-5 text-left">{cart_item}</th>
+                  <th className="px-5 text-left">Color</th>
                   <th className="p-5 text-right">{cart_cant}</th>
                   <th className="p-5 text-right">{cart_price}</th>
                   <th className="p-5">{cart_action}</th>
@@ -109,6 +135,9 @@ function CartScreen() {
                           {item.name}
                         </a>
                       </Link>
+                    </td>
+                    <td className="">
+                      {item.category === 'Shirts' ? colorShirts : colorPants}
                     </td>
                     <td className="p-5 text-right">
                       <select

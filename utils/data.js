@@ -21,7 +21,7 @@ const data = {
       category: 'Shirts',
       image: '/images/lsshirt1.png',
       image2: '/images/lsshirt1_2.png',
-      price: 70,
+      price: 35,
       color: [
         {
           colorName: 'white',

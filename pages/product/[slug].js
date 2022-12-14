@@ -12,6 +12,7 @@ import { toast } from 'react-toastify';
 
 export default function ProductScreen(props) {
   const { product } = props;
+  const [imagen, setImagen] = useState(product.image);
   const { state, dispatch } = useContext(Store);
   const router = useRouter();
   let slug_product_exist =
@@ -36,7 +37,10 @@ export default function ProductScreen(props) {
       return toast.error('Disculpa. El producto se agotó.');
     }
 
-    dispatch({ type: 'CART_ADD_ITEM', payload: { ...product, quantity } });
+    dispatch({
+      type: 'CART_ADD_ITEM',
+      payload: { ...product, quantity },
+    });
     router.push('/cart');
   };
 
@@ -87,14 +91,11 @@ export default function ProductScreen(props) {
     router.locale === 'en' ? 'Status' : router.locale === 'es' ? 'Estatus' : '';
 
   //otras funciones
-
-  let defImage = product.image;
-
   return (
     <Layout title={product.name}>
       <div className="py-2 mb-5">
         <NextLink legacyBehavior href="/">
-          <button className="text-black hover:bg-gray-200 font-montserrat flex items-center py-2 px-8 font-medium rounded-xl transition-all duration-300">
+          <button className="flex items-center px-8 py-2 font-medium text-black transition-all duration-300 hover:bg-gray-200 font-montserrat rounded-xl">
             <svg
               className="w-6 h-6"
               fill="none"
@@ -121,15 +122,14 @@ export default function ProductScreen(props) {
               <div className="figure2">
                 <a>
                   <Image
-                    id="picToChange"
-                    className="pb-3 rounded-lg object-cover image-main"
-                    src={defImage}
+                    className="object-cover pb-3 rounded-lg image-main"
+                    src={imagen}
                     alt="image description"
                     width={300}
                     height={400}
                   />
                   <Image
-                    className="pb-3 rounded-lg object-cover image-hover"
+                    className="object-cover pb-3 rounded-lg image-hover"
                     src={product.image2}
                     alt="image description"
                     width={300}
@@ -170,16 +170,25 @@ export default function ProductScreen(props) {
               <h1 className="font-bold text-l">Color:</h1>
               <div className="flex space-x-2">
                 <button
-                  className="bg-white border rounded-md p-3"
-                  onClick={() => (defImage = product.color.white)}
+                  className="p-3 bg-white border rounded-md"
+                  onClick={() => setImagen(product.color.white)}
                 ></button>
                 <button
-                  className="bg-black border rounded-md p-3"
-                  onClick={() => (defImage = product.color.black)}
+                  className="p-3 bg-black border rounded-md"
+                  onClick={() => setImagen(product.color.black)}
                 ></button>
-                <button className="bg-red-500 border rounded-md p-3"></button>
-                <button className="bg-blue-600 border rounded-md p-3"></button>
-                <button className="bg-green-600 border rounded-md p-3"></button>
+                <button
+                  className="p-3 bg-red-500 border rounded-md"
+                  onClick={() => setImagen(product.color.red)}
+                ></button>
+                <button
+                  className="p-3 bg-blue-600 border rounded-md"
+                  onClick={() => setImagen(product.color.blue)}
+                ></button>
+                <button
+                  className="p-3 bg-green-600 border rounded-md"
+                  onClick={() => setImagen(product.color.green)}
+                ></button>
               </div>
             </li>
           </ul>
