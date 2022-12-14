@@ -25,6 +25,7 @@ function reducer(state, action) {
           )
         : [...state.cart.cartItems, newItem];
       Cookies.set('cart', JSON.stringify({ ...state.cart, cartItems }));
+      console.log();
       return { ...state, cart: { ...state.cart, cartItems } };
     }
     case 'WISH_ADD_ITEM': {
