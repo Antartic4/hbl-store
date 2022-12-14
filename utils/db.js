@@ -33,13 +33,6 @@ async function disconnect() {
 
 function convertDocToObj(doc) {
   doc._id = doc._id.toString();
-  //doc.color = doc.color.forEach((doc) => {
-  //doc.color = doc.color.colorName.toString();
-  //});
-  doc.color = Object.assign(
-    {},
-    ...doc.color.map((item) => ({ [item.colorName]: item.colorLink }))
-  );
   doc.createdAt = doc.createdAt.toString();
   doc.updatedAt = doc.updatedAt.toString();
   return doc;

@@ -70,14 +70,12 @@ export default function Layout({ title, children }) {
   const { status, data: session } = useSession();
 
   const { state, dispatch } = useContext(Store);
-  const { cart, wish } = state;
+  const { cart } = state;
   const [cartItemsCount, setCartItemsCount] = useState(0);
-  const [wishItemsCount, setWishItemsCount] = useState(0);
 
   useEffect(() => {
     setCartItemsCount(cart.cartItems.reduce((a, c) => a + c.quantity, 0));
-    setWishItemsCount(wish.wishItems.reduce((a, c) => a + c.quantity, 0));
-  }, [cart.cartItems, wish.wishItems]);
+  }, [cart.cartItems]);
 
   const logoutClickHandler = () => {
     Cookies.remove('cart');
@@ -113,7 +111,7 @@ export default function Layout({ title, children }) {
   return (
     <>
       <Head>
-        <title>{title ? title + ' - Store' : 'HBL - Store'}</title>
+        <title>{title ? title + ' - Store' : 'MF - Store'}</title>
         <meta name="description" content="Ecommerce Website" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -123,7 +121,7 @@ export default function Layout({ title, children }) {
       <div className="flex flex-col justify-between min-h-screen">
         <header className="z-10">
           <div className="pt-28">
-            <nav className="fixed top-0 left-0 w-full bg-red-900 shadow">
+            <nav className="fixed top-0 left-0 w-full bg-white shadow">
               <div className="container flex items-center justify-between m-auto text-gray-700">
                 {/* SideBar Button + Menu */}
                 <div className="block px-4 py-3 mx-2 xl:hidden focus:outline-none">
@@ -133,10 +131,7 @@ export default function Layout({ title, children }) {
                       aria-label="open drawer"
                       onClick={sidebarOpenHandler}
                     >
-                      <MenuIcon
-                        className={classes.navbarButton}
-                        htmlColor="#ffffff"
-                      />
+                      <MenuIcon className={classes.navbarButton} />
                     </IconButton>
                   </Box>
                   <Drawer
@@ -169,10 +164,10 @@ export default function Layout({ title, children }) {
                       </ListItem>
                       <Divider light />
                       <Box>
-                        <div className="px-3 py-3 font-bold text-center hover:bg-gray-200">
+                        <div className="px-3 text-center py-3 font-bold hover:bg-gray-200">
                           <Link href="/">{nav_home}</Link>
                         </div>
-                        <div className="px-3 py-3 font-bold text-center hover:bg-gray-200">
+                        <div className="px-3 py-3 text-center font-bold hover:bg-gray-200">
                           <Link href="/">{nav_shop}</Link>
                         </div>
                         <div className="px-3 py-3 text-center hover:bg-gray-200">
@@ -184,17 +179,17 @@ export default function Layout({ title, children }) {
                             </div>
                           </Link>
                         </div>
-                        <div className="px-3 py-3 font-bold text-center hover:bg-gray-200">
+                        <div className="px-3 py-3 text-center font-bold hover:bg-gray-200">
                           <Link href="/aboutus">{nav_aboutus}</Link>
                         </div>
                         <Divider light />
-                        <div className="px-3 py-3 font-bold text-center hover:bg-gray-200">
+                        <div className="px-3 py-3 text-center font-bold hover:bg-gray-200">
                           <Link href="/profile">{nav_myprofile}</Link>
                         </div>
                         <Divider light />
-                        <div className="items-center px-3 py-3 font-bold text-center hover:bg-gray-200">
+                        <div className="px-3 py-3 text-center items-center font-bold hover:bg-gray-200">
                           <Link href="/search">
-                            <h1 className="flex items-center justify-center text-center">
+                            <h1 className="text-center items-center flex justify-center">
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -222,7 +217,7 @@ export default function Layout({ title, children }) {
                     <a className="px-4">
                       <Link legacyBehavior href="/">
                         <Image
-                          src="https://res.cloudinary.com/dcgz0kjxb/image/upload/v1670762219/hbl_white_wo_typo_transp_aaqhxv.png"
+                          src="https://i.ibb.co/nRPJC8J/improved-l-1.png"
                           className="flex shrink-0"
                           alt="improved-l-1"
                           border="0"
@@ -234,16 +229,16 @@ export default function Layout({ title, children }) {
                   </button>
                   <div className="">
                     <Link href="/">
-                      <buttton className="font-bold text-white shrink">
+                      <buttton className="font-bold shrink">
                         {router.locale === 'en' ? (
-                          <div className="text-2xl md:flex">
-                            <h4 className="text-left shrink">HEART</h4>
-                            <h4 className="text-left shrink md:pl-2">
-                              BY LEON
+                          <div className="md:flex text-2xl">
+                            <h4 className="text-left shrink">M A R I E L</h4>
+                            <h4 className="text-left shrink md:pl-5">
+                              F R I A S
                             </h4>
                           </div>
                         ) : (
-                          <div className="text-xl md:flex">
+                          <div className="md:flex text-xl">
                             <h4 className="text-left shrink">M A R I E L</h4>
                             <h4 className="text-left shrink md:pl-5">
                               F R I A S
@@ -256,20 +251,16 @@ export default function Layout({ title, children }) {
                 </div>
                 <div className="flex items-center">
                   <ul className="items-center hidden pr-10 text-base font-semibold cursor-pointer xl:flex">
-                    <li className="px-3 py-3 text-white hover:text-gray-200">
-                      {nav_home}
-                    </li>
-                    <li className="px-3 py-3 text-white hover:text-gray-200">
-                      {nav_shop}
-                    </li>
-                    <li className="px-3 py-3 text-white hover:text-gray-200">
+                    <li className="px-3 py-3 hover:bg-gray-200">{nav_home}</li>
+                    <li className="px-3 py-3 hover:bg-gray-200">{nav_shop}</li>
+                    <li className="px-3 py-3 hover:bg-gray-200">
                       <Link legacyBehavior href="/cart">
                         <div className="flex items-center justify-between">
                           {nav_cart}
                         </div>
                       </Link>
                     </li>
-                    <li className="items-center px-3 py-3 text-center text-white hover:text-gray-200">
+                    <li className="px-3 py-3 text-center items-center hover:bg-gray-200">
                       <Link legacyBehavior href="/aboutus">
                         <div>{nav_aboutus}</div>
                       </Link>
@@ -298,39 +289,6 @@ export default function Layout({ title, children }) {
                         </form>
                       </div>
                     </li>
-                    <li className="pl-2"></li>
-                    <li className="px-2 py-4">
-                      <div>
-                        {/* wish con number */}
-                        <Link legacyBehavior href="/wish">
-                          <div className="flex items-center justify-between">
-                            <a className="hover:text-red-700">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth="1.5"
-                                stroke="white"
-                                className="w-8 h-8 hover:text-red-400 hover:fill-red-300"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
-                                />
-                              </svg>
-                            </a>
-                            {wishItemsCount > 0 && (
-                              <Link legacyBehavior href="/wish">
-                                <span className="p-0.5 px-1 py-1 font-bold text-red-900 bg-white rounded-full">
-                                  <p className="text-sm">{wishItemsCount}</p>
-                                </span>
-                              </Link>
-                            )}
-                          </div>
-                        </Link>
-                      </div>
-                    </li>
                     <li className="px-2 py-4">
                       <div>
                         <Link legacyBehavior href="/cart">
@@ -341,7 +299,7 @@ export default function Layout({ title, children }) {
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 strokeWidth="1.5"
-                                stroke="white"
+                                stroke="black"
                                 className="w-8 h-8 hover:fill-red-300"
                               >
                                 <path
@@ -353,7 +311,7 @@ export default function Layout({ title, children }) {
                             </a>
                             {cartItemsCount > 0 && (
                               <Link legacyBehavior href="/cart">
-                                <span className="p-0.5 px-1 py-1 font-bold text-red-900 bg-white rounded-full">
+                                <span className="p-0.5 px-1 py-1 font-medium text-white bg-black rounded-full">
                                   <p className="text-sm">{cartItemsCount}</p>
                                 </span>
                               </Link>
@@ -362,25 +320,41 @@ export default function Layout({ title, children }) {
                         </Link>
                       </div>
                     </li>
+                    <li className="pl-2">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth="1.5"
+                        stroke="black"
+                        className="w-8 h-8 hover:text-red-400 hover:fill-red-300"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+                        />
+                      </svg>
+                    </li>
                   </ul>
                 </div>
-                <div className="flex items-center justify-center pr-2">
+                <div className="flex items-center pr-2 justify-center">
                   <div className="">
                     {status === 'loading' ? (
                       'Cargando...'
                     ) : session?.user ? (
-                      <div className="p-1.5 bg-white rounded-md">
+                      <div className="p-1.5 bg-black rounded-md">
                         <Menu
                           as="div"
                           className="relative inline-block text-m "
                         >
-                          <Menu.Button className="font-bold text-red-900">
+                          <Menu.Button className="text-white">
                             <h1 className="text-l">{session.user.name}</h1>
                           </Menu.Button>
                           <Menu.Items className="absolute right-0 z-10 w-56 pt-5 text-xl origin-top-right bg-white shadow-lg rounded-b-xl ">
                             <Menu.Item>
                               <DropdownLink
-                                className="text-red-900 dropdown-link"
+                                className="dropdown-link"
                                 href="/profile"
                               >
                                 {nav_profile}
@@ -388,7 +362,7 @@ export default function Layout({ title, children }) {
                             </Menu.Item>
                             <Menu.Item>
                               <DropdownLink
-                                className="text-red-900 dropdown-link "
+                                className="dropdown-link "
                                 href="/order-history"
                               >
                                 {nav_historyorders}
@@ -397,7 +371,7 @@ export default function Layout({ title, children }) {
                             {session.user.isAdmin && (
                               <Menu.Item>
                                 <DropdownLink
-                                  className="text-red-900 dropdown-link"
+                                  className="dropdown-link"
                                   href="/admin/dashboard"
                                 >
                                   {nav_adminportal}
@@ -406,7 +380,7 @@ export default function Layout({ title, children }) {
                             )}
                             <Menu.Item>
                               <a
-                                className="text-red-900 dropdown-link"
+                                className="dropdown-link"
                                 href="#"
                                 onClick={logoutClickHandler}
                               >
@@ -417,9 +391,9 @@ export default function Layout({ title, children }) {
                         </Menu>
                       </div>
                     ) : (
-                      <div className="p-1.5 bg-white rounded text-red-900 ">
+                      <div className="p-1.5 bg-black rounded">
                         <Link legacyBehavior href="/login">
-                          <a className="p-2 text-lg font-bold text-red-900">
+                          <a className="p-2 text-lg text-white hover:text-gray-200">
                             {nav_login}
                           </a>
                         </Link>
@@ -432,7 +406,7 @@ export default function Layout({ title, children }) {
           </div>
         </header>
         <main className="container px-4 m-auto mt-4">{children}</main>
-        <footer className="items-center justify-center h-20 pt-3 text-center shadow-inner">
+        <footer className="text-center pt-3 items-center justify-center h-20 shadow-inner">
           <p className="">Copyright © 2022 Mariel Frias - Store</p>
           <div className="flex justify-center">
             <div>

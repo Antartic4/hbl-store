@@ -74,25 +74,6 @@ textarea {
   opacity: 1;
 }
 
-.figure2 {
-  position: relative;
-  width: 300px; /* can be omitted for a regular non-lazy image */
-  max-width: 100%;
-}
-.figure2 img.image-hover {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  object-fit: contain;
-  opacity: 0;
-  transition: opacity 0.5s;
-}
-.figure2:hover img.image-hover {
-  opacity: 1;
-}
-
 .work-sans {
   font-family: 'Work Sans', sans-serif;
 }

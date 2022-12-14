@@ -3,11 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
-export default function ProductItem({
-  product,
-  addToCartHandler,
-  addToWishHandler,
-}) {
+export default function ProductItem({ product, addToCartHandler }) {
   return (
     <div className="rounded-lg ">
       <div className="flex object-cover">
@@ -16,12 +12,12 @@ export default function ProductItem({
             <a className="bg-red-300 ">
               <div className="figure">
                 <img
-                  className="object-cover image-main"
+                  className="image-main object-cover"
                   src={product.image}
                   alt=""
                 />
                 <img
-                  className="object-cover image-hover"
+                  className="image-hover object-cover"
                   src={product.image2}
                   alt=""
                 />
@@ -43,7 +39,7 @@ export default function ProductItem({
           <button
             className=""
             type="button"
-            onClick={() => addToWishHandler(product)}
+            onClick={() => addToCartHandler(product)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
