@@ -4,15 +4,19 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import Layout from '../../components/Layout';
 import Product from '../../models/Product';
+import Imagetable from '../../models/Imagetable';
+import Variations from '../../models/Variations';
 import db from '../../utils/db';
 import React, { useContext, useEffect, useState } from 'react';
 import NextLink from 'next/link';
 import { Store } from '../../utils/Store';
 import { toast } from 'react-toastify';
+import Cookies from 'js-cookie';
 
 export default function ProductScreen(props) {
-  const { product } = props;
+  const { product, variations, colors } = props;
   const [imagen, setImagen] = useState(product.image);
+  const [value, setValue] = useState('XL');
   const { state, dispatch } = useContext(Store);
   const router = useRouter();
   let slug_product_exist =
@@ -27,6 +31,10 @@ export default function ProductScreen(props) {
     );
   }
 
+  const setColor = (x) => {
+    setImagen(x);
+  };
+
   const addToCartHandler = async () => {
     const existItem = state.cart.cartItems.find((x) => x.slug === product.slug);
     const quantity = existItem ? existItem.quantity + 1 : 1;
@@ -37,9 +45,34 @@ export default function ProductScreen(props) {
       return toast.error('Disculpa. El producto se agotó.');
     }
 
+    let color = Cookies.get('color');
+    let size = Cookies.get('size');
+    if (color === undefined) {
+      alert(
+        router.locale === 'en'
+          ? 'Must select a color.'
+          : 'Debe seleccionar un color.'
+      );
+      return;
+    }
+
+    if (size === undefined) {
+      alert(
+        router.locale === 'en'
+          ? 'Must select a size.'
+          : 'Debe seleccionar un size.'
+      );
+      return;
+    }
+
+    console.log(color);
+
+    Cookies.remove('color');
+    Cookies.remove('size');
+
     dispatch({
       type: 'CART_ADD_ITEM',
-      payload: { ...product, quantity },
+      payload: { ...product, quantity, color, size },
     });
     router.push('/cart');
   };
@@ -89,6 +122,29 @@ export default function ProductScreen(props) {
 
   let slug_status =
     router.locale === 'en' ? 'Status' : router.locale === 'es' ? 'Estatus' : '';
+
+  //funciones inventando
+
+  const objvar = JSON.parse(variations);
+  const objcol = JSON.parse(colors);
+
+  var sizeArrayAll = Object.keys(objvar).map(function (k) {
+    return objvar[k].size;
+  });
+
+  let ArrColRes = [];
+
+  var colorArrayAll = Object.keys(objcol).map(function (k) {
+    return ArrColRes.push({ id: objcol[k].color, value: objcol[k].image3 });
+  });
+
+  var sizeArray = sizeArrayAll.filter((c, index) => {
+    return sizeArrayAll.indexOf(c) === index;
+  });
+
+  const sizeCaps = sizeArray.map((element) => {
+    return element.toUpperCase();
+  });
 
   //otras funciones
   return (
@@ -171,25 +227,68 @@ export default function ProductScreen(props) {
               <div className="flex space-x-2">
                 <button
                   className="p-3 bg-white border rounded-md"
-                  onClick={() => setImagen(product.color.white)}
+                  onClick={() => {
+                    setColor(ArrColRes[0].value);
+                    Cookies.remove('color');
+                    Cookies.set('color', 'white');
+                    console.log(Cookies.get('color'));
+                  }}
                 ></button>
                 <button
                   className="p-3 bg-black border rounded-md"
-                  onClick={() => setImagen(product.color.black)}
+                  onClick={() => {
+                    setColor(ArrColRes[1].value);
+                    Cookies.remove('color');
+                    Cookies.set('color', 'black');
+                    console.log(Cookies.get('color'));
+                  }}
                 ></button>
                 <button
                   className="p-3 bg-red-500 border rounded-md"
-                  onClick={() => setImagen(product.color.red)}
+                  onClick={() => {
+                    setColor(ArrColRes[2].value);
+                    Cookies.remove('color');
+                    Cookies.set('color', 'red');
+                    console.log(Cookies.get('color'));
+                  }}
                 ></button>
                 <button
                   className="p-3 bg-blue-600 border rounded-md"
-                  onClick={() => setImagen(product.color.blue)}
+                  onClick={() => {
+                    setColor(ArrColRes[3].value);
+                    Cookies.remove('color');
+                    Cookies.set('color', 'blue');
+                    console.log(Cookies.get('color'));
+                  }}
                 ></button>
                 <button
                   className="p-3 bg-green-600 border rounded-md"
-                  onClick={() => setImagen(product.color.green)}
+                  onClick={() => {
+                    setColor(ArrColRes[4].value);
+                    Cookies.remove('color');
+                    Cookies.set('color', 'green');
+                    console.log(Cookies.get('color'));
+                  }}
                 ></button>
               </div>
+            </li>
+            <li className="flex justify-between mb-3">
+              <h1 className="font-bold text-l">Size:</h1>
+              <select
+                onChange={(e) => {
+                  Cookies.remove('size');
+                  Cookies.set('size', e.target.value);
+                }}
+                name="size"
+                id="size-select"
+                className=""
+              >
+                {sizeCaps.map((option, index) => (
+                  <option key={option} value={option.value}>
+                    {option}
+                  </option>
+                ))}
+              </select>
             </li>
           </ul>
         </div>
@@ -205,17 +304,17 @@ export default function ProductScreen(props) {
                 {product.countInStock > 0 ? (
                   <div className="text-green-600">
                     {router.locale === 'en'
-                      ? 'Available'
+                      ? 'In Stock'
                       : router.locale === 'es'
-                      ? 'Disponible'
+                      ? 'En Inventario'
                       : ''}
                   </div>
                 ) : (
                   <div className="text-red-500">
                     {router.locale === 'en'
-                      ? 'Unavailable'
+                      ? 'Out of Stock'
                       : router.locale === 'es'
-                      ? 'No disponible'
+                      ? 'Fuera de Inventario'
                       : ''}
                   </div>
                 )}
@@ -240,10 +339,15 @@ export async function getServerSideProps(context) {
 
   await db.connect();
   const product = await Product.findOne({ slug }).lean();
+  const prodid = await Product.findOne({ idprod: product.idprod });
+  const variations = await Variations.find({ idprod: product.idprod });
+  const colors = await Imagetable.find({ idprod: product.idprod });
   await db.disconnect();
   return {
     props: {
       product: product ? db.convertDocToObj(product) : null,
+      variations: variations ? JSON.stringify(variations) : null,
+      colors: colors ? JSON.stringify(colors) : null,
     },
   };
 }

@@ -230,6 +230,8 @@ function OrderScreen() {
                     <th className="p-5 text-right">
                       {router.locale === 'en' ? 'Quantity' : 'Cantidad'}
                     </th>
+                    <th className="p-5 text-right">Color</th>
+                    <th className="p-5 text-right">Size</th>
                     <th className="p-5 text-right">
                       {router.locale === 'en' ? 'Price' : 'Precio'}
                     </th>
@@ -253,6 +255,10 @@ function OrderScreen() {
                           </a>
                         </Link>
                       </td>
+                      <td className="text-center">
+                        {item.color.toUpperCase()}
+                      </td>
+                      <td className="text-center">{item.size.toUpperCase()}</td>
                       <td className="p-5 text-right">{item.quantity}</td>
                       <td className="p-5 text-right">{item.price}</td>
                       <td className="p-5 text-right">

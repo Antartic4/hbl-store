@@ -236,9 +236,7 @@ const data = {
       image2: '/images/lsshirt1_2.png',
       brand: 'HeartByLeon',
       rating: 4.95,
-      price: 35,
       numReviews: 10,
-      countInStock: 100,
       description: 'Long Sleeves Shirt de Heart by Leon.',
     },
     {
@@ -251,9 +249,7 @@ const data = {
       brand: 'HeartByLeon',
       price: 70,
       rating: 4.95,
-      price: 35,
       numReviews: 10,
-      countInStock: 100,
       description: 'Long Sleeves Shirt de Heart by Leon.',
     },
     {
@@ -266,9 +262,7 @@ const data = {
       price: 70,
       brand: 'HeartByLeon',
       rating: 4.95,
-      price: 35,
       numReviews: 10,
-      countInStock: 100,
       description: 'Short Sleeves Shirt de Heart by Leon.',
     },
     {
@@ -282,7 +276,6 @@ const data = {
       brand: 'HeartByLeon',
       rating: 4.95,
       numReviews: 10,
-      countInStock: 100,
       description: 'Short Sleeves Shirt de Heart by Leon.',
     },
     {
@@ -296,7 +289,6 @@ const data = {
       brand: 'HeartByLeon',
       rating: 4.95,
       numReviews: 10,
-      countInStock: 100,
       description: 'Shorts Heart by Leon.',
     },
     {
@@ -310,7 +302,6 @@ const data = {
       brand: 'HeartByLeon',
       rating: 4.95,
       numReviews: 10,
-      countInStock: 100,
       description: 'Pants Heart by Leon.',
     },
     {
@@ -324,7 +315,6 @@ const data = {
       brand: 'HeartByLeon',
       rating: 4.95,
       numReviews: 10,
-      countInStock: 100,
       description: 'Pants Heart by Leon.',
     },
   ],

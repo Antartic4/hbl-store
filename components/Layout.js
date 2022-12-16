@@ -81,7 +81,9 @@ export default function Layout({ title, children }) {
 
   const logoutClickHandler = () => {
     Cookies.remove('cart');
+    Cookies.remove('wish');
     dispatch({ type: 'CART_RESET' });
+    dispatch({ type: 'WISH_RESET' });
     signOut({ callbackUrl: '/login' });
   };
 

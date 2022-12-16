@@ -19,13 +19,22 @@ function CartScreen() {
   const removeItemHandler = (item) => {
     dispatch({ type: 'CART_REMOVE_ITEM', payload: item });
   };
+
+  // por hacer agregar el color y size
+
   const updateCartHandler = async (item, qty) => {
     const quantity = Number(qty);
     const { data } = await axios.get(`/api/products/${item._id}`);
     if (data.countInStock < quantity) {
       return toast.error('Disculpa. El producto se agotó.');
     }
-    dispatch({ type: 'CART_ADD_ITEM', payload: { ...item, quantity } });
+
+    // por hacer agregar el color y size
+
+    dispatch({
+      type: 'CART_ADD_ITEM',
+      payload: { ...item, quantity, color, size },
+    });
     toast.success('Carrito actualizado!');
   };
   let cart_cart =
@@ -75,27 +84,6 @@ function CartScreen() {
     return;
   }
 
-  const colorShirts = (
-    <>
-      <select name="colorShirt">
-        <option value="white">White</option>
-        <option value="black">Black</option>
-        <option value="red">Red</option>
-        <option value="blue">Blue</option>
-        <option value="green">Green</option>
-      </select>
-    </>
-  );
-  const colorPants = (
-    <>
-      <select name="colorShirt">
-        <option value="esto">Esto</option>
-        <option value="aquello">Aquello</option>
-        <option value="no">No</option>
-      </select>
-    </>
-  );
-
   return (
     <Layout title={cart_cart}>
       <h1 className="mb-4 text-xl">{cart_cart}</h1>
@@ -114,6 +102,7 @@ function CartScreen() {
                 <tr>
                   <th className="px-5 text-left">{cart_item}</th>
                   <th className="px-5 text-left">Color</th>
+                  <th className="px-5 text-left">Size</th>
                   <th className="p-5 text-right">{cart_cant}</th>
                   <th className="p-5 text-right">{cart_price}</th>
                   <th className="p-5">{cart_action}</th>
@@ -136,9 +125,8 @@ function CartScreen() {
                         </a>
                       </Link>
                     </td>
-                    <td className="">
-                      {item.category === 'Shirts' ? colorShirts : colorPants}
-                    </td>
+                    <td className="text-center">{item.color.toUpperCase()}</td>
+                    <td className="text-center">{item.size.toUpperCase()}</td>
                     <td className="p-5 text-right">
                       <select
                         value={item.quantity}

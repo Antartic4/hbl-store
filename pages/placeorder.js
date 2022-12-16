@@ -124,6 +124,8 @@ export default function PlaceOrderScreen() {
                 <thead className="border-b">
                   <tr>
                     <th className="px-5 text-left">{po_item}</th>
+                    <th className="px-5 text-left">Color</th>
+                    <th className="px-5 text-left">Size</th>
                     <th className="p-5 text-right ">{po_quantity}</th>
                     <th className="p-5 text-right ">{po_price}</th>
                     <th className="p-5 text-right">Subtotal</th>
@@ -146,6 +148,10 @@ export default function PlaceOrderScreen() {
                           </a>
                         </Link>
                       </td>
+                      <td className="text-center">
+                        {item.color.toUpperCase()}
+                      </td>
+                      <td className="text-center">{item.size.toUpperCase()}</td>
                       <td className="p-5 text-right ">{item.quantity}</td>
                       <td className="p-5 text-right">${item.price}</td>
                       <td className="p-5 text-right">
