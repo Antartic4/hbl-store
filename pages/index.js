@@ -24,8 +24,7 @@ export default function index() {
         <MyMenu></MyMenu>
       </div>
       <header className="relative flex items-center justify-center h-screen mb-12 overflow-hidden px-auto pl-3">
-        <div className="relative z-30 p-5 mx-5 text-center text-2xl text-white bg-white bg-opacity-50">
-          Shop
+        <div className="relative z-30 p-5 mx-5 text-center text-xl text-white bg-white bg-opacity-50">
           <a className="px-4">
             <Link legacyBehavior href="/shop">
               <Image
