@@ -125,10 +125,10 @@ export default function Layout({ title, children }) {
       <div className="flex flex-col justify-between min-h-screen">
         <header className="z-10">
           <div className="pt-28">
-            <nav className="fixed top-0 left-0 w-full bg-red-900 shadow">
+            <nav className="fixed top-0 left-0 w-full bg-black shadow">
               <div className="container flex items-center justify-between m-auto text-gray-700">
                 {/* SideBar Button + Menu */}
-                <div className="block px-4 py-3 mx-2 xl:hidden focus:outline-none">
+                <div className="block pl-3 py-3 mx-2 xl:hidden focus:outline-none">
                   <Box display="flex" alignItems="center">
                     <IconButton
                       edge="start"
@@ -224,34 +224,20 @@ export default function Layout({ title, children }) {
                     <a className="px-4">
                       <Link legacyBehavior href="/">
                         <Image
-                          src="https://res.cloudinary.com/dcgz0kjxb/image/upload/v1670762219/hbl_white_wo_typo_transp_aaqhxv.png"
-                          className="flex shrink-0"
+                          src="https://res.cloudinary.com/dcgz0kjxb/image/upload/v1671569841/landing/HEARTBYLEON_logo_white_transp_sin_name_cy6arv.png"
+                          className=""
                           alt="improved-l-1"
-                          border="0"
-                          width={50}
-                          height={75}
+                          width="125"
+                          height="100"
+                          quality="100"
                         />
                       </Link>
                     </a>
                   </button>
-                  <div className="">
+                  <div className="items-center hidden pr-10 text-base font-semibold cursor-pointer xl:flex">
                     <Link href="/">
-                      <buttton className="font-bold text-white shrink">
-                        {router.locale === 'en' ? (
-                          <div className="text-2xl md:flex">
-                            <h4 className="text-left shrink">HEART</h4>
-                            <h4 className="text-left shrink md:pl-2">
-                              BY LEON
-                            </h4>
-                          </div>
-                        ) : (
-                          <div className="text-xl md:flex">
-                            <h4 className="text-left shrink">HEART</h4>
-                            <h4 className="text-left shrink md:pl-2">
-                              BY LEON
-                            </h4>
-                          </div>
-                        )}
+                      <buttton className="font-bold text-xl text-white shrink">
+                        HEARTBYLEON
                       </buttton>
                     </Link>
                   </div>
@@ -324,7 +310,7 @@ export default function Layout({ title, children }) {
                             </a>
                             {wishItemsCount > 0 && (
                               <Link legacyBehavior href="/wish">
-                                <span className="p-0.5 px-1 py-1 font-bold text-red-900 bg-white rounded-full">
+                                <span className="p-0.5 px-1 py-1 font-bold text-black bg-white rounded-full">
                                   <p className="text-sm">{wishItemsCount}</p>
                                 </span>
                               </Link>
@@ -355,7 +341,7 @@ export default function Layout({ title, children }) {
                             </a>
                             {cartItemsCount > 0 && (
                               <Link legacyBehavior href="/cart">
-                                <span className="p-0.5 px-1 py-1 font-bold text-red-900 bg-white rounded-full">
+                                <span className="p-0.5 px-1 py-1 font-bold text-black bg-white rounded-full">
                                   <p className="text-sm">{cartItemsCount}</p>
                                 </span>
                               </Link>
@@ -376,13 +362,13 @@ export default function Layout({ title, children }) {
                           as="div"
                           className="relative inline-block text-m "
                         >
-                          <Menu.Button className="font-bold text-red-900">
+                          <Menu.Button className="font-bold text-black">
                             <h1 className="text-l">{session.user.name}</h1>
                           </Menu.Button>
                           <Menu.Items className="absolute right-0 z-10 w-56 pt-5 text-xl origin-top-right bg-white shadow-lg rounded-b-xl ">
                             <Menu.Item>
                               <DropdownLink
-                                className="text-red-900 dropdown-link"
+                                className="text-black dropdown-link"
                                 href="/profile"
                               >
                                 {nav_profile}
@@ -390,7 +376,7 @@ export default function Layout({ title, children }) {
                             </Menu.Item>
                             <Menu.Item>
                               <DropdownLink
-                                className="text-red-900 dropdown-link "
+                                className="text-black dropdown-link "
                                 href="/order-history"
                               >
                                 {nav_historyorders}
@@ -399,7 +385,7 @@ export default function Layout({ title, children }) {
                             {session.user.isAdmin && (
                               <Menu.Item>
                                 <DropdownLink
-                                  className="text-red-900 dropdown-link"
+                                  className="text-black dropdown-link"
                                   href="/admin/dashboard"
                                 >
                                   {nav_adminportal}
@@ -408,7 +394,7 @@ export default function Layout({ title, children }) {
                             )}
                             <Menu.Item>
                               <a
-                                className="text-red-900 dropdown-link"
+                                className="text-black dropdown-link"
                                 href="#"
                                 onClick={logoutClickHandler}
                               >
@@ -419,9 +405,9 @@ export default function Layout({ title, children }) {
                         </Menu>
                       </div>
                     ) : (
-                      <div className="p-1.5 bg-white rounded text-red-900 ">
+                      <div className="p-1.5 bg-white rounded text-black ">
                         <Link legacyBehavior href="/login">
-                          <a className="p-2 text-lg font-bold text-red-900">
+                          <a className="p-2 text-lg font-bold text-black">
                             {nav_login}
                           </a>
                         </Link>
@@ -433,7 +419,10 @@ export default function Layout({ title, children }) {
             </nav>
           </div>
         </header>
-        <main className="container px-4 m-auto mt-4">{children}</main>
+        <main className="container px-4 m-auto mt-4">
+          <br />
+          {children}
+        </main>
         <footer className="items-center justify-center h-20 pt-3 text-center shadow-inner">
           <p className="">Copyright © 2022 Heart by Leon - Store</p>
           <div className="flex justify-center">

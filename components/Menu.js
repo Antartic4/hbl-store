@@ -98,7 +98,7 @@ const MyMenu = () => {
         >
           <div className="container px-4"></div>
           <br />
-          <button className="bg-white hover:bg-gray-200 text-black font-bold py-4 px-4">
+          <button className="bg-white hover:bg-gray-200 text-black font-bold pt-6 py-4 px-4">
             <Link legacyBehavior href="/shop">
               Shop
             </Link>

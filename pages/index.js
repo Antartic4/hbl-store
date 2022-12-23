@@ -1,114 +1,140 @@
+/* eslint-disable @next/next/no-img-element */
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 import MyMenu from '../components/Menu';
+import Navbar from '../components/Navbar';
+import HeroSection from '../components/HeroSection';
+import Head from 'next/head';
 
-export default function index() {
+import img1 from './../public/images/landing/4G5A9061.JPG';
+import img2 from './../public/images/landing/4G5A9143.JPG';
+import img3 from './../public/images/landing/green_NCU.JPG';
+import img4 from './../public/images/landing/4G5A9112.JPG';
+import img5 from './../public/images/landing/4G5A9125.JPG';
+import img6 from './../public/images/landing/4G5A9184.JPG';
+
+function Klk() {
+  const [isMenuShown, setIsMenuShown] = useState(false);
   return (
-    <>
-      <div className="bg-black flex justify-center items-center px-4">
-        <div className="container flex justify-center">
-          <a className="px-4">
-            <Link legacyBehavior href="/">
-              <Image
-                src="https://i.ibb.co/R0HGrKr/HEARTBYLEON-logo-white-transp.png"
-                className=""
-                alt="improved-l-1"
-                width="150"
-                height="50"
-                quality="100"
-              />
-            </Link>
-          </a>
-        </div>
-        <MyMenu></MyMenu>
-      </div>
-      <header className="relative flex items-center justify-center h-screen mb-12 overflow-hidden px-auto pl-3">
-        <div className="relative z-30 p-5 mx-5 text-center text-xl text-white bg-white bg-opacity-50">
-          <a className="px-4">
-            <Link legacyBehavior href="/shop">
-              <Image
-                src="https://res.cloudinary.com/dumdvqpid/image/upload/v1668311440/color3_scfvyw.jpg"
-                className=""
-                alt="improved-l-1"
-                width="300"
-                height="50"
-                quality="100"
-              />
-            </Link>
-          </a>
-        </div>
-        <div className="relative z-30 p-5 mx-5 text-2xl text-white bg-white bg-opacity-50">
-          <a className="px-4">
-            <Link legacyBehavior href="/shop">
-              <Image
-                src="https://res.cloudinary.com/dumdvqpid/image/upload/v1668311245/color1_uyltu3.jpg"
-                className=""
-                alt="improved-l-1"
-                width="300"
-                height="50"
-                quality="100"
-              />
-            </Link>
-          </a>
-        </div>
-        <div className="relative z-30 p-5 mx-5 text-2xl text-white bg-white bg-opacity-50">
-          <a className="px-4">
-            <Link legacyBehavior href="/shop">
-              <Image
-                src="https://res.cloudinary.com/dumdvqpid/image/upload/v1668309068/bee1_dfhyz4.jpg"
-                className=""
-                alt="improved-l-1"
-                width="300"
-                height="50"
-                quality="100"
-              />
-            </Link>
-          </a>
-        </div>
+    <div>
+      <Head>
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossOrigin="anonymous"
+        />
+      </Head>
+      <div>
+        <Navbar isMenuShown={isMenuShown} setIsMenuShown={setIsMenuShown} />
+        <br />
+        <br />
+        <HeroSection isMenuShown={isMenuShown} />
 
-        <video
-          autoPlay={true}
-          loop
-          muted
-          className="absolute z-10 w-auto min-w-full min-h-full max-w-none"
-        >
-          <source
-            src="https://assets.mixkit.co/videos/preview/mixkit-set-of-plateaus-seen-from-the-heights-in-a-sunset-26070-large.mp4"
-            type="video/mp4"
-          />
-          Your browser does not support the video tag.
-        </video>
-      </header>
-      <div className="max-w-lg m-auto">
-        <p className="mb-4">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-          placerat a magna non varius. Proin leo felis, euismod non porta eget,
-          varius sit amet sapien. Maecenas in nulla at leo convallis consectetur
-          id a sapien. Nulla nec pulvinar nisi. Vivamus non facilisis lacus, et
-          volutpat libero. Nulla ac odio aliquam, accumsan arcu ut, lacinia est.
-          Nulla eu sem elit. Fusce nec laoreet sem, semper molestie libero.
-        </p>
-        <p className="mb-4">
-          Ut sagittis lacus consequat accumsan venenatis. Sed sollicitudin,
-          lectus et fringilla ultrices, dolor nisi scelerisque tortor, vel
-          finibus magna massa non nunc. Phasellus massa quam, egestas a nisl
-          sed, porta volutpat metus. Nunc sed elit ac tellus tempor cursus.
-          Suspendisse potenti. Vestibulum varius rutrum nisl nec consequat.
-          Suspendisse semper dignissim sem viverra semper. Nulla porttitor,
-          purus nec accumsan pharetra, nisi dolor condimentum ipsum, id
-          consequat nulla nunc in ligula.
-        </p>
-        <p className="mb-12">
-          Nulla pharetra lacinia nisi, vitae mollis tellus euismod id. Mauris
-          porta dignissim hendrerit. Cras id velit varius, fermentum lectus
-          vitae, ultricies dolor. In bibendum rhoncus purus vel rutrum. Nam
-          vulputate imperdiet fringilla. Donec blandit libero massa. Suspendisse
-          dictum diam mauris, vitae fermentum dolor tincidunt in. Pellentesque
-          sollicitudin venenatis dolor, vitae scelerisque elit ultrices eu.
-          Donec eget sodales risus, quis dignissim neque.
-        </p>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4 pl-5 pr-5 bg-black">
+          <div className="rounded-lg ">
+            <div className="flex object-cover items-center justify-center">
+              <div className="rounded-lg ">
+                <br />
+                <div className="flex object-cover">
+                  <Image
+                    className="object-center justify-center"
+                    src={img1}
+                    alt="image slide 2"
+                    width="300"
+                    height="100"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="rounded-lg ">
+            <div className="flex object-cover items-center justify-center">
+              <div className="rounded-lg ">
+                <br />
+                <div className="flex object-cover">
+                  <Image
+                    className="object-center justify-center"
+                    src={img2}
+                    alt="image slide 2"
+                    width="300"
+                    height="100"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="rounded-lg ">
+            <div className="flex object-cover items-center justify-center">
+              <div className="rounded-lg ">
+                <br />
+                <div className="flex object-cover">
+                  <Image
+                    className="object-center justify-center"
+                    src={img3}
+                    alt="image slide 2"
+                    width="300"
+                    height="100"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="rounded-lg ">
+            <div className="flex object-cover items-center justify-center">
+              <div className="rounded-lg ">
+                <br />
+                <div className="flex object-cover">
+                  <Image
+                    className="object-center justify-center"
+                    src={img4}
+                    alt="image slide 2"
+                    width="300"
+                    height="100"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="rounded-lg ">
+            <div className="flex object-cover items-center justify-center">
+              <div className="rounded-lg ">
+                <br />
+                <div className="flex object-cover">
+                  <Image
+                    className="object-center justify-center"
+                    src={img5}
+                    alt="image slide 2"
+                    width="300"
+                    height="100"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="rounded-lg ">
+            <div className="flex object-cover items-center justify-center">
+              <div className="rounded-lg ">
+                <br />
+                <div className="flex object-cover">
+                  <Image
+                    className="object-center justify-center"
+                    src={img6}
+                    alt="image slide 2"
+                    width="300"
+                    height="100"
+                  />
+                </div>
+              </div>
+            </div>
+            <br />
+            <br />
+          </div>
+        </div>
       </div>
-    </>
+    </div>
   );
 }
+
+export default Klk;

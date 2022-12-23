@@ -63,6 +63,8 @@ const useStyles = makeStyles((theme) => ({
   // search
   searchSection: {
     display: 'none',
+    backgroundColor: 'white',
+    borderRadius: '15px',
     padding: '5px 5px 5px 5px',
     [theme.breakpoints.up('md')]: {
       display: 'flex',
