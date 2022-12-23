@@ -30,7 +30,7 @@ export default function AboutUsScreen() {
       <div className="grid md:grid-cols-2 md:gap-2 justify-items-stretch">
         <div className="md:col-span-1">
           <div className="">
-            <h1 className="mb-5 text-3xl text-center">Mariel Frias</h1>
+            <h1 className="mb-5 text-3xl text-center">Juan Miguel León</h1>
             <figure className="relative object-cover max-w-sm mx-auto transition-all duration-300 cursor-pointer filter">
               <a>
                 <Image
