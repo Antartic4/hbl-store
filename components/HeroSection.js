@@ -158,10 +158,10 @@ const HeroSection = ({ isMenuShown }) => {
           </Swiper>
         </div>
         <br />
-        <h1 className="text-5xl lg:text-7xl">HEARTBYLEON</h1>
+        {/* <h1 className="text-5xl lg:text-7xl">HEARTBYLEON</h1>
         <h1 className="text-5xl lg:text-7xl capitalize mb-12">
           the <span className="text-thBlue font-bold">future</span> is here
-        </h1>
+        </h1> */}
 
         <div className="flex flex-row justify-center items-center">
           <Link legacyBehavior href="/shop">

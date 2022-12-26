@@ -31,10 +31,14 @@ function Klk() {
         <HeroSection isMenuShown={isMenuShown} />
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4 pl-5 pr-5 bg-black">
+          <br />
+          <h1 className="text-5xl lg:text-7xl text-white">HEARTBYLEON</h1>
+          <h1 className="text-5xl lg:text-7xl capitalize mb-12 text-white">
+            the <span className="text-thBlue font-bold">future</span> is here
+          </h1>
           <div className="rounded-lg ">
             <div className="flex object-cover items-center justify-center">
               <div className="rounded-lg ">
-                <br />
                 <div className="flex object-cover">
                   <Image
                     className="object-center justify-center"
