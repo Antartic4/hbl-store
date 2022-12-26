@@ -28,8 +28,6 @@ function Klk() {
       </Head>
       <div>
         <Navbar isMenuShown={isMenuShown} setIsMenuShown={setIsMenuShown} />
-        <br />
-        <br />
         <HeroSection isMenuShown={isMenuShown} />
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4 pl-5 pr-5 bg-black">

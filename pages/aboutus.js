@@ -44,27 +44,7 @@ export default function AboutUsScreen() {
             </figure>
           </div>
         </div>
-        <div className="md:col-span-1 p-5 mr-5 bg-white ">
-          <ul>
-            <li>
-              <h1 className="mb-5 text-3xl text-center">
-                {router.locale === 'en' ? 'About Us' : 'Acerca de Nosotros'}
-              </h1>
-            </li>
-            <li className="flex justify-between mb-3">
-              <h1 className="indent-10">{au_p1}</h1>
-            </li>
-            <li className="flex justify-between mb-3">
-              <h1 className="indent-10">{au_p2}</h1>
-            </li>
-            <li className="flex justify-between mb-3">
-              <h1 className="indent-10">{au_p3}</h1>
-            </li>
-            <li className="flex justify-between mb-3">
-              <h1 className="indent-10">{au_p4}</h1>
-            </li>
-          </ul>
-        </div>
+        <div className="md:col-span-1 p-5 mr-5 bg-white "></div>
       </div>
     </Layout>
   );
