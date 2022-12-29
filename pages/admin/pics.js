@@ -18,19 +18,20 @@ function reducer(state, action) {
   }
 }
 
-export default function AdminOrderScreen() {
+export default function PicsScreen() {
   const [{ loading, error, orders }, dispatch] = useReducer(reducer, {
     loading: true,
     orders: [],
     error: '',
   });
+
   const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
-        const { data } = await axios.get(`/api/admin/orders`);
+        const { data } = await axios.get(`/api/admin/pics`);
         dispatch({ type: 'FETCH_SUCCESS', payload: data });
       } catch (err) {
         dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
@@ -51,7 +52,7 @@ export default function AdminOrderScreen() {
             </li>
             <li>
               <Link legacyBehavior href="/admin/orders">
-                <a className="font-bold text-xl">Ordenes</a>
+                <a className="text-blue-500 hover:text-blue-700">Ordenes</a>
               </Link>
             </li>
             <li>
@@ -59,14 +60,14 @@ export default function AdminOrderScreen() {
                 <a className="text-blue-500 hover:text-blue-700">Productos</a>
               </Link>
             </li>
-            <li>
+            <li className="">
               <Link legacyBehavior href="/admin/users">
                 <a className="text-blue-500 hover:text-blue-700">Usuarios</a>
               </Link>
             </li>
             <li className="pb-5">
               <Link legacyBehavior href="/admin/pics">
-                <a className="text-blue-500 hover:text-blue-700">
+                <a className="font-bold text-xl">
                   {router.locale === 'en' ? 'Pictures' : 'Fotos'}
                 </a>
               </Link>
@@ -84,40 +85,26 @@ export default function AdminOrderScreen() {
               <table className="min-w-full">
                 <thead className="border-b">
                   <tr>
-                    <th className="px-5 text-left">ID</th>
-                    <th className="p-5 text-left">USUARIO</th>
-                    <th className="p-5 text-left">FECHA</th>
-                    <th className="p-5 text-left">TOTAL</th>
-                    <th className="p-5 text-left">PAGO</th>
-                    <th className="p-5 text-left">ENTREGADO</th>
+                    <th className="px-5 text-left">ID NAT</th>
+                    <th className="px-5 text-left">ID IMG</th>
+                    <th className="p-5 text-left">ID PROD</th>
+                    <th className="p-5 text-left">COLOR</th>
+                    <th className="p-5 text-left">Link_TO_IMG3</th>
                     <th className="p-5 text-left">ACCION</th>
                   </tr>
                 </thead>
                 <tbody>
                   {orders.map((order) => (
-                    <tr key={order._id} className="border-b">
-                      <td className="p-5">{order._id.substring(20, 24)}</td>
-                      <td className="p-5">
-                        {order.user ? order.user.name : 'DELETED USER'}
-                      </td>
-                      <td className="p-5">
-                        {order.createdAt.substring(0, 10)}
-                      </td>
-                      <td className="p-5">${order.totalPrice}</td>
-                      <td className="p-5">
-                        {order.isPaid
-                          ? `${order.paidAt.substring(0, 10)}`
-                          : 'no pago'}
-                      </td>
-                      <td className="p-5">
-                        {order.isDelivered
-                          ? `${order.deliveredAt.substring(0, 10)}`
-                          : 'no entregado'}
-                      </td>
+                    <tr key={order.idimage} className="border-b">
+                      <td className="p-5">{order._id}</td>
+                      <td className="p-10">{order.idimage}</td>
+                      <td className="p-10">{order.idprod}</td>
+                      <td className="p-5">{order.color}</td>
+                      <td className="p-5">{order.image3}</td>
                       <td className="p-5">
                         <Link
                           legacyBehavior
-                          href={`/order/${order._id}`}
+                          href={`/admin/pic/${order._id}`}
                           passHref
                         >
                           <a>Detalles</a>
@@ -135,4 +122,4 @@ export default function AdminOrderScreen() {
   );
 }
 
-AdminOrderScreen.auth = { adminOnly: true };
+PicsScreen.auth = { adminOnly: true };

@@ -110,9 +110,16 @@ export default function AdminProductsScreen() {
                 <a className="font-bold text-xl">Productos</a>
               </Link>
             </li>
-            <li className="pb-5">
+            <li>
               <Link legacyBehavior href="/admin/users">
                 <a className="text-blue-500 hover:text-blue-700">Usuarios</a>
+              </Link>
+            </li>
+            <li className="pb-5">
+              <Link legacyBehavior href="/admin/pics">
+                <a className="text-blue-500 hover:text-blue-700">
+                  {router.locale === 'en' ? 'Pictures' : 'Fotos'}
+                </a>
               </Link>
             </li>
           </ul>

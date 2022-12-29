@@ -83,6 +83,7 @@ function AdminDashboardScreen() {
   let db_orders = router.locale === 'en' ? 'Orders' : 'Ordenes';
   let db_products = router.locale === 'en' ? 'Products' : 'Productos';
   let db_users = router.locale === 'en' ? 'Users' : 'Usuarios';
+  let db_pics = router.locale === 'en' ? 'Pictures' : 'Fotos';
   let db_title2 =
     router.locale === 'en' ? 'Administrative Portal' : 'Portal de Admin';
 
@@ -108,9 +109,14 @@ function AdminDashboardScreen() {
                 </a>
               </Link>
             </li>
-            <li className="pb-5">
+            <li>
               <Link legacyBehavior href="/admin/users">
                 <a className="text-blue-500 hover:text-blue-700">{db_users}</a>
+              </Link>
+            </li>
+            <li className="pb-5">
+              <Link legacyBehavior href="/admin/pics">
+                <a className="text-blue-500 hover:text-blue-700">{db_pics}</a>
               </Link>
             </li>
           </ul>

@@ -4,6 +4,7 @@ import React, { useEffect, useReducer } from 'react';
 import { toast } from 'react-toastify';
 import Layout from '../../components/Layout';
 import { getError } from '../../utils/error';
+import { useRouter } from 'next/router';
 
 function reducer(state, action) {
   switch (action.type) {
@@ -33,6 +34,7 @@ function AdminUsersScreen() {
       users: [],
       error: '',
     });
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -86,9 +88,16 @@ function AdminUsersScreen() {
                 <a className="text-blue-500 hover:text-blue-700">Productos</a>
               </Link>
             </li>
-            <li className="pb-5">
+            <li>
               <Link legacyBehavior href="/admin/users">
                 <a className="font-bold text-xl">Usuarios</a>
+              </Link>
+            </li>
+            <li className="pb-5">
+              <Link legacyBehavior href="/admin/pics">
+                <a className="text-blue-500 hover:text-blue-700">
+                  {router.locale === 'en' ? 'Pictures' : 'Fotos'}
+                </a>
               </Link>
             </li>
           </ul>

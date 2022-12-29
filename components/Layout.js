@@ -441,7 +441,7 @@ export default function Layout({ title, children }) {
               </Link>
             </div>
             <Link legacyBehavior href="https://www.instagram.com/heartbyleon/">
-              <div className="pl-2sap">
+              <div className="pl-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 448 512"

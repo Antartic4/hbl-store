@@ -8,8 +8,11 @@ import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import Imagetable from '../models/Imagetable';
+import db from '../utils/db';
+import Variations from '../models/Variations';
 
-function CartScreen() {
+function CartScreen({ images, variations }) {
   const router = useRouter();
   const { state, dispatch } = useContext(Store);
   const {
@@ -174,6 +177,18 @@ function CartScreen() {
       )}
     </Layout>
   );
+}
+
+export async function getServerSideProps() {
+  await db.connect();
+  const images = await Imagetable.find().lean();
+  const variations = await Variations.find().lean();
+  return {
+    props: {
+      images: images.map(db.convertDocToObj),
+      variations: variations.map(db.convertDocToObj),
+    },
+  };
 }
 
 export default dynamic(() => Promise.resolve(CartScreen), { ssr: false });

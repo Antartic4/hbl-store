@@ -42,6 +42,7 @@ const HeroSection = ({ isMenuShown }) => {
         autoPlay
         loop
         muted
+        playsInline
         className="object-cover h-full w-full absolute -z-10"
       />
       <div
@@ -162,7 +163,6 @@ const HeroSection = ({ isMenuShown }) => {
         <h1 className="text-5xl lg:text-7xl capitalize mb-12">
           the <span className="text-thBlue font-bold">future</span> is here
         </h1> */}
-
         <div className="flex flex-row justify-center items-center">
           <Link legacyBehavior href="/shop">
             <a>
